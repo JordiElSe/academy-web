@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import ThemeSwitch from "./ThemeSwitch";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 interface NavLink {
@@ -11,21 +10,25 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  { label: "About", href: "/about" },
+  { label: "Home", href: "/dashboard" },
   { label: "Roadmap", href: "/roadmap" },
   { label: "Materials", href: "/materials" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Community", href: "/community" },
   { label: "Contact", href: "/contact" },
 ];
 
-const Navbar: React.FC = () => {
+const Sidebar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const handleNav = () => {
     setMenuOpen(!menuOpen);
   };
+  const [isNarrow, setIsNarrow] = useState(false);
+  const toggleIsNarrow = () => {
+    setIsNarrow(!isNarrow);
+  };
 
   return (
-    <nav className="bg-slate-300 dark:bg-[#ffffff56] shadow-md h-24 w-full fixed">
+    <nav className="bg-slate-300 dark:bg-[#ffffff56] shadow-md w-24 h-full fixed">
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <div> Logo </div>
@@ -42,25 +45,7 @@ const Navbar: React.FC = () => {
             ))}
           </ul>
         </div>
-        <div>
-          <ul className="hidden sm:flex">
-            <li
-              key="Login"
-              className="ml-10 transform transition duration-350 hover:scale-115 text-xl"
-            >
-              <Link href="/login">Login</Link>
-            </li>
-            <li
-              key="Signup"
-              className="ml-10 transform transition duration-350 hover:scale-115 text-xl"
-            >
-              <Link href="/signup">Signup</Link>
-            </li>
-            <li className="ml-10 transform transition duration-350 hover:scale-115 text-xl">
-              <ThemeSwitch />
-            </li>
-          </ul>
-        </div>
+
         <div onClick={handleNav} className="sm:hidden cursor-pointer pl-24">
           <AiOutlineMenu size={25} />
         </div>
@@ -93,4 +78,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default Sidebar;
