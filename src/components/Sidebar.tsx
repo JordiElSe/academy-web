@@ -28,17 +28,17 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-slate-300 dark:bg-[#ffffff56] shadow-md w-24 h-full fixed">
-      <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
+    <nav className="bg-slate-300 dark:bg-[#ffffff56] shadow-md w-56 h-full sticky top-0 left-0">
+      <div className="flex flex-col items-center h-full w-full">
         <Link href="/">
           <div> Logo </div>
         </Link>
         <div>
-          <ul className="hidden sm:flex">
+          <ul className="mt-10 flex flex-col items-center h-full w-full">
             {navLinks.map((navLink) => (
               <li
                 key={navLink.label}
-                className="ml-10 text-xl transform transition duration-350 hover:scale-115"
+                className="text-xl transform transition duration-350 hover:scale-115"
               >
                 <Link href={navLink.href}>{navLink.label}</Link>
               </li>

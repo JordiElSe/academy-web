@@ -25,13 +25,19 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-slate-300 dark:bg-[#ffffff56] shadow-md h-24 w-full fixed">
+    <nav
+      className={` ${
+        menuOpen
+          ? "bg-[#cbd5e1] dark:bg-[#3b3b3b]"
+          : "bg-[#cbd5e1a1] dark:bg-[#3b3b3ba1]"
+      } shadow-md h-20 w-full sticky top-0 left-0`}
+    >
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <div> Logo </div>
         </Link>
         <div>
-          <ul className="hidden sm:flex">
+          <ul className="hidden lg:flex">
             {navLinks.map((navLink) => (
               <li
                 key={navLink.label}
@@ -43,7 +49,7 @@ const Navbar: React.FC = () => {
           </ul>
         </div>
         <div>
-          <ul className="hidden sm:flex">
+          <ul className="hidden lg:flex">
             <li
               key="Login"
               className="ml-10 transform transition duration-350 hover:scale-115 text-xl"
@@ -61,28 +67,32 @@ const Navbar: React.FC = () => {
             </li>
           </ul>
         </div>
-        <div onClick={handleNav} className="sm:hidden cursor-pointer pl-24">
-          <AiOutlineMenu size={25} />
-        </div>
+        {!menuOpen ? (
+          <div onClick={handleNav} className="lg:hidden cursor-pointer pl-24">
+            <AiOutlineMenu size={25} />
+          </div>
+        ) : (
+          <div onClick={handleNav} className="cursor-pointer">
+            <AiOutlineClose size={25} />
+          </div>
+        )}
+
         <div
-          className={`fixed top-0 w-[65%] sm:hidden h-screen bg-slate-300 dark:bg-slate-600 p-10 ease-in duration-500 ${
-            menuOpen ? "left-0" : "left-[-100%]"
+          className={`fixed top-20 left-0 w-full lg:hidden h-screen bg-slate-300 dark:bg-[#3b3b3b] flex flex-col justify-start items-center transition-all duration-500 ${
+            menuOpen ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="flex w-full items-center justify-end">
-            <div onClick={handleNav} className="cursor-pointer">
-              <AiOutlineClose size={25} />
-            </div>
-          </div>
-          <div className="flex-col py-4">
+          <div className="flex-col">
             <ul>
               {navLinks.map((navLink) => (
                 <li
                   onClick={handleNav}
                   key={navLink.label}
-                  className="p-3 w-[60%] hover:border-b cursor-pointer text-lg"
+                  className="p-5 cursor-pointer text-xl"
                 >
-                  <Link href={navLink.href}>{navLink.label}</Link>
+                  <Link className="hover:border-b" href={navLink.href}>
+                    {navLink.label}
+                  </Link>
                 </li>
               ))}
             </ul>
