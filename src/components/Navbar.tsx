@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import ThemeSwitch from "./ThemeSwitch";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import OutlineMenu from "../../public/icons/outline_menu.svg";
+import OutlineClose from "../../public/icons/outline_close.svg";
+import Image from "next/image";
 
 interface NavLink {
   label: string;
@@ -69,11 +71,16 @@ const Navbar: React.FC = () => {
         </div>
         {!menuOpen ? (
           <div onClick={handleNav} className="lg:hidden cursor-pointer pl-24">
-            <AiOutlineMenu size={25} />
+            <Image src={OutlineMenu} width={25} height={25} alt="OutlineMenu" />
           </div>
         ) : (
           <div onClick={handleNav} className="cursor-pointer">
-            <AiOutlineClose size={25} />
+            <Image
+              src={OutlineClose}
+              width={25}
+              height={25}
+              alt="OutlineClose"
+            />
           </div>
         )}
 

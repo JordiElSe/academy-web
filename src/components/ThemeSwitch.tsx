@@ -1,6 +1,7 @@
 "use client";
 
-import { FiSun, FiMoon } from "react-icons/fi";
+import darkModeIcon from "../../public/icons/dark_mode_icon.svg";
+import lightModeIcon from "../../public/icons/light_mode_icon.svg";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
@@ -25,10 +26,22 @@ export default function ThemeSwitch() {
     );
 
   if (resolvedTheme === "dark") {
-    return <FiSun onClick={() => setTheme("light")} />;
+    return (
+      <Image
+        src={lightModeIcon}
+        alt="Light Mode"
+        onClick={() => setTheme("light")}
+      />
+    );
   }
 
   if (resolvedTheme === "light") {
-    return <FiMoon onClick={() => setTheme("dark")} />;
+    return (
+      <Image
+        src={darkModeIcon}
+        alt="Dark Mode"
+        onClick={() => setTheme("dark")}
+      />
+    );
   }
 }
