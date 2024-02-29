@@ -8,85 +8,68 @@ import RoadmapIcon from "./icons/RoadmapIcon";
 import MaterialsIcon from "./icons/MaterialsIcon";
 import CommunityIcon from "./icons/CommunityIcon";
 import ContactIcon from "./icons/ContactIcon";
+import DoubleArrowLeftIcon from "./icons/DoubleArrowLeft";
 
 const Sidebar: React.FC = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  /*   const [menuOpen, setMenuOpen] = useState(false); */
   const { theme } = useTheme();
-  const handleNav = () => {
+  /*   const handleNav = () => {
     setMenuOpen(!menuOpen);
-  };
+  }; */
   const [isNarrow, setIsNarrow] = useState(false);
   const toggleIsNarrow = () => {
     setIsNarrow(!isNarrow);
   };
 
-  return (
-    <nav className="bg-slate-300 dark:bg-[#ffffffd2] shadow-md w-56 h-full sticky top-0 left-0">
-      <div className="flex flex-col items-center h-full w-full">
-        <Link href="/">
-          <div> Logo </div>
-        </Link>
-        <div>
-          <ul className="mt-10 flex flex-col items-start h-full w-full">
-            <li className="text-xl transform transition duration-350 hover:scale-115 mt-8">
-              <div className="flex items-center gap-4">
-                <DashboardIcon color={theme === "dark" ? "white" : "#818181"} />
-                <Link
-                  href="/dashboard"
-                  className="text-[#818181] dark:text-white"
-                >
-                  Home
-                </Link>
-              </div>
-            </li>
-            <li className="text-xl transform transition duration-350 hover:scale-115 mt-8">
-              <div className="flex items-center gap-4">
-                <RoadmapIcon color={theme === "dark" ? "white" : "#818181"} />
-                <Link
-                  href="/roadmap"
-                  className="text-[#818181] dark:text-white"
-                >
-                  Roadmap
-                </Link>
-              </div>
-            </li>
-            <li className="text-xl transform transition duration-350 hover:scale-115 mt-8">
-              <div className="flex items-center gap-4">
-                <MaterialsIcon color={theme === "dark" ? "white" : "#818181"} />
-                <Link
-                  href="/materials"
-                  className="text-[#818181] dark:text-white"
-                >
-                  Materials
-                </Link>
-              </div>
-            </li>
-            <li className="text-xl transform transition duration-350 hover:scale-115 mt-8">
-              <div className="flex items-center gap-4">
-                <CommunityIcon color={theme === "dark" ? "white" : "#818181"} />
-                <Link
-                  href="/community"
-                  className="text-[#818181] dark:text-white"
-                >
-                  Community
-                </Link>
-              </div>
-            </li>
-            <li className="text-xl transform transition duration-350 hover:scale-115 mt-8">
-              <div className="flex items-center gap-4">
-                <ContactIcon color={theme === "dark" ? "white" : "#818181"} />
-                <Link
-                  href="/contact"
-                  className="text-[#818181] dark:text-white"
-                >
-                  Contact
-                </Link>
-              </div>
-            </li>
-          </ul>
-        </div>
+  type NavItem = {
+    icon: React.FC<React.SVGProps<SVGSVGElement>>;
+    label: string;
+    href: string;
+  };
 
-        {/*         <div onClick={handleNav} className="sm:hidden cursor-pointer pl-24">
+  const navItems: NavItem[] = [
+    { icon: DashboardIcon, label: "Home", href: "/dashboard" },
+    { icon: RoadmapIcon, label: "Roadmap", href: "/roadmap" },
+    { icon: MaterialsIcon, label: "Materials", href: "/materials" },
+    { icon: CommunityIcon, label: "Community", href: "/community" },
+    { icon: ContactIcon, label: "Contact", href: "/contact" },
+  ];
+
+  return (
+    <div
+      className={`h-screen flex items-center sticky top-0 left-0 transition-all ease-in-out duration-300 ${
+        isNarrow ? "w-20" : "w-56"
+      }`}
+    >
+      <nav className="bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] relative shadow-md h-9/10 w-full rounded-tr-[10px] rounded-br-[10px]">
+        <div className="flex flex-col items-center w-full">
+          <Link className="mt-10" href="/">
+            <div> Logo </div>
+          </Link>
+          <div>
+            <ul className="mt-10 flex flex-col items-start h-full w-full">
+              {navItems.map((item) => (
+                <li
+                  className="text-xl transform transition duration-350 hover:scale-115 mt-8"
+                  key={item.label}
+                >
+                  <div className="flex items-center gap-4">
+                    <item.icon color={theme === "dark" ? "white" : "#818181"} />
+                    {!isNarrow && (
+                      <Link
+                        href={item.href}
+                        className="text-[#818181] dark:text-white"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/*         <div onClick={handleNav} className="sm:hidden cursor-pointer pl-24">
           <AiOutlineMenu size={25} />
         </div>
         <div
@@ -113,8 +96,20 @@ const Sidebar: React.FC = () => {
             </ul>
           </div> 
         </div>*/}
-      </div>
-    </nav>
+        </div>
+        <div
+          onClick={toggleIsNarrow}
+          className="absolute bottom-0 right-0 cursor-pointer mr-5 mb-5"
+        >
+          <DoubleArrowLeftIcon
+            className={`transition transform duration-300 ${
+              isNarrow ? "rotate-180" : ""
+            }`}
+            color={theme === "dark" ? "white" : "#818181"}
+          />
+        </div>
+      </nav>
+    </div>
   );
 };
 

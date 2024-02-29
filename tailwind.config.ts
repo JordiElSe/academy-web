@@ -17,6 +17,9 @@ const config: Config = {
       scale: {
         115: "1.15",
       },
+      height: {
+        "9/10": "90vh",
+      },
     },
   },
   plugins: [],
