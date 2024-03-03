@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import ThemeSwitch from "./ThemeSwitch";
-import OutlineMenu from "../../public/icons/outline_menu.svg";
-import OutlineClose from "../../public/icons/outline_close.svg";
-import Image from "next/image";
+import MenuOpenIcon from "./icons/MenuOpenIcon";
+import MenuCloseIcon from "./icons/MenuCloseIcon";
+import { useTheme } from "next-themes";
 
 interface NavLink {
   label: string;
@@ -22,6 +22,7 @@ const navLinks: NavLink[] = [
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme } = useTheme();
   const handleNav = () => {
     setMenuOpen(!menuOpen);
   };
@@ -71,16 +72,11 @@ const Navbar: React.FC = () => {
         </div>
         {!menuOpen ? (
           <div onClick={handleNav} className="lg:hidden cursor-pointer pl-24">
-            <Image src={OutlineMenu} width={25} height={25} alt="OutlineMenu" />
+            <MenuOpenIcon color={theme === "dark" ? "white" : "#818181"} />
           </div>
         ) : (
           <div onClick={handleNav} className="cursor-pointer">
-            <Image
-              src={OutlineClose}
-              width={25}
-              height={25}
-              alt="OutlineClose"
-            />
+            <MenuCloseIcon color={theme === "dark" ? "white" : "#818181"} />
           </div>
         )}
 

@@ -20,6 +20,20 @@ const config: Config = {
       height: {
         "9/10": "90vh",
       },
+      animation: {
+        expand: "expand 0.3s ease-in-out forwards",
+        shrink: "shrink 0.3s ease-in-out forwards",
+      },
+      keyframes: {
+        expand: {
+          "0%": { width: "5rem" },
+          "100%": { width: "14rem" },
+        },
+        shrink: {
+          "0%": { width: "14rem" },
+          "100%": { width: "5rem" },
+        },
+      },
     },
   },
   plugins: [],
