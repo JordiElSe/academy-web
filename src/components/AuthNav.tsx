@@ -16,8 +16,11 @@ interface Props {
   fullScreenMenu: boolean;
   onMenuButtonClick: () => void;
 }
+interface AuthNavProps {
+  className?: string;
+}
 
-const AuthNav: FC = () => {
+const AuthNav: FC<AuthNavProps> = ({ className }) => {
   const [fullScreenMenu, setfullScreenMenu] = useState(false);
 
   const handleClick = useCallback(() => {
@@ -25,7 +28,7 @@ const AuthNav: FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className={`flex flex-col h-screen w-full ${className}`}>
       <Navbar fullScreenMenu={fullScreenMenu} onMenuButtonClick={handleClick} />
       <Sidebar
         fullScreenMenu={fullScreenMenu}
