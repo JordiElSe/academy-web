@@ -11,16 +11,18 @@ import ContactIcon from "./icons/ContactIcon";
 import DoubleArrowLeftIcon from "./icons/DoubleArrowLeft";
 import MenuOpenIcon from "./icons/MenuOpenIcon";
 import MenuCloseIcon from "./icons/MenuCloseIcon";
+import UserIcon from "./icons/UserIcon";
+import ThemeSwitch from "./ThemeSwitch";
 
 interface Props {
   fullScreenMenu: boolean;
   onMenuButtonClick: () => void;
 }
-interface AuthNavProps {
+/* interface AuthNavProps {
   className?: string;
-}
+} */
 
-const AuthNav: FC<AuthNavProps> = ({ className }) => {
+const AuthNav: FC = () => {
   const [fullScreenMenu, setfullScreenMenu] = useState(false);
 
   const handleClick = useCallback(() => {
@@ -28,7 +30,7 @@ const AuthNav: FC<AuthNavProps> = ({ className }) => {
   }, []);
 
   return (
-    <div className={`flex flex-col h-screen w-full ${className}`}>
+    <div className="dark:bg-[#00040F]">
       <Navbar fullScreenMenu={fullScreenMenu} onMenuButtonClick={handleClick} />
       <Sidebar
         fullScreenMenu={fullScreenMenu}
@@ -41,14 +43,22 @@ const AuthNav: FC<AuthNavProps> = ({ className }) => {
 const Navbar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
   const { theme } = useTheme();
   return (
-    <nav className="shadow-md h-20 w-full sticky top-0 left-0">
+    <nav className="fixed h-20 w-full top-0 left-0 flex justify-between bg-white dark:bg-[#00040F]">
       <div
         onClick={onMenuButtonClick}
-        className={`md:hidden ${
-          fullScreenMenu ? "hidden" : ""
-        } cursor-pointer pl-24`}
+        className={`md:invisible ${
+          fullScreenMenu ? "invisible" : ""
+        } cursor-pointer pl-12 flex items-center`}
       >
         <MenuOpenIcon color={theme === "dark" ? "white" : "#818181"} />
+      </div>
+      <div className="flex items-center justify-between gap-4 h-full px-10">
+        <ThemeSwitch />
+        <UserIcon color={theme === "dark" ? "white" : "#818181"} />
+        <div className="flex flex-col items-start">
+          <span className="text-ml font-bold">John Doe</span>
+          <span className="text-ml">johndoe@gmail.com</span>
+        </div>
       </div>
     </nav>
   );
@@ -78,7 +88,7 @@ const Sidebar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
   return (
     <>
       <div
-        className={`hidden md:flex h-screen items-center sticky top-0 left-0 overflow-hidden ${
+        className={`hidden pt-20 md:flex h-screen sticky top-0 left-0 overflow-hidden ${
           isNarrow ? "animate-shrink" : "animate-expand"
         }`}
       >
