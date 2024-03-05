@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useState } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import DashboardIcon from "./icons/DashboardIcon";
@@ -9,62 +9,12 @@ import MaterialsIcon from "./icons/MaterialsIcon";
 import CommunityIcon from "./icons/CommunityIcon";
 import ContactIcon from "./icons/ContactIcon";
 import DoubleArrowLeftIcon from "./icons/DoubleArrowLeft";
-import MenuOpenIcon from "./icons/MenuOpenIcon";
-import MenuCloseIcon from "./icons/MenuCloseIcon";
-import UserIcon from "./icons/UserIcon";
-import ThemeSwitch from "./ThemeSwitch";
 
 interface Props {
-  fullScreenMenu: boolean;
-  onMenuButtonClick: () => void;
+  showSSsidebar: boolean;
 }
-/* interface AuthNavProps {
-  className?: string;
-} */
 
-const AuthNav: FC = () => {
-  const [fullScreenMenu, setfullScreenMenu] = useState(false);
-
-  const handleClick = useCallback(() => {
-    setfullScreenMenu((prevfullScreenMenu) => !prevfullScreenMenu);
-  }, []);
-
-  return (
-    <div className="dark:bg-[#00040F]">
-      <Navbar fullScreenMenu={fullScreenMenu} onMenuButtonClick={handleClick} />
-      <Sidebar
-        fullScreenMenu={fullScreenMenu}
-        onMenuButtonClick={handleClick}
-      />
-    </div>
-  );
-};
-
-const Navbar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
-  const { theme } = useTheme();
-  return (
-    <nav className="fixed h-20 w-full top-0 left-0 flex justify-between bg-white dark:bg-[#00040F]">
-      <div
-        onClick={onMenuButtonClick}
-        className={`md:invisible ${
-          fullScreenMenu ? "invisible" : ""
-        } cursor-pointer pl-12 flex items-center`}
-      >
-        <MenuOpenIcon color={theme === "dark" ? "white" : "#818181"} />
-      </div>
-      <div className="flex items-center justify-between gap-4 h-full px-10">
-        <ThemeSwitch />
-        <UserIcon color={theme === "dark" ? "white" : "#818181"} />
-        <div className="flex flex-col items-start">
-          <span className="text-ml font-bold">John Doe</span>
-          <span className="text-ml">johndoe@gmail.com</span>
-        </div>
-      </div>
-    </nav>
-  );
-};
-
-const Sidebar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
+const Sidebar: FC<Props> = ({ showSSsidebar }) => {
   const { theme } = useTheme();
   const [isNarrow, setIsNarrow] = useState(false);
   const toggleIsNarrow = () => {
@@ -88,7 +38,7 @@ const Sidebar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
   return (
     <>
       <div
-        className={`hidden pt-20 md:flex h-screen sticky top-0 left-0 overflow-hidden ${
+        className={`hidden md:flex h-full sticky top-20 overflow-hidden ${
           isNarrow ? "animate-shrink" : "animate-expand"
         }`}
       >
@@ -138,14 +88,9 @@ const Sidebar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
       <div>
         <div
           className={`fixed top-0 w-[65%] md:hidden h-screen bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] p-10 ease-in duration-500 ${
-            fullScreenMenu ? "left-0" : "left-[-100%]"
+            showSSsidebar ? "left-0" : "left-[-100%]"
           }`}
         >
-          <div className="flex w-full items-center justify-end">
-            <div onClick={onMenuButtonClick} className="cursor-pointer">
-              <MenuCloseIcon color={theme === "dark" ? "white" : "#818181"} />
-            </div>
-          </div>
           <div className="flex-col py-4">
             <ul>
               {navItems.map((item) => (
@@ -174,4 +119,4 @@ const Sidebar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
   );
 };
 
-export default AuthNav;
+export default Sidebar;
