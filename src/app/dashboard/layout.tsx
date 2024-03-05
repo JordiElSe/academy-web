@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="bg-[#FBFBFB] h-screen dark:bg-[#00040F]  flex flex-row items-start">
       <AuthNav />
-      <div className="mt-20">
+      <div className="absolute top-20 left-56">
         <Image src={Welcome} alt="Welcome" width={400} height={400} />
         {children}
       </div>

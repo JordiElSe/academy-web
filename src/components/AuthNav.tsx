@@ -46,9 +46,7 @@ const Navbar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
     <nav className="fixed h-20 w-full top-0 left-0 flex justify-between bg-white dark:bg-[#00040F]">
       <div
         onClick={onMenuButtonClick}
-        className={`md:invisible ${
-          fullScreenMenu ? "invisible" : ""
-        } cursor-pointer pl-12 flex items-center`}
+        className="cursor-pointer pl-12 flex items-center"
       >
         <MenuOpenIcon color={theme === "dark" ? "white" : "#818181"} />
       </div>
@@ -88,7 +86,7 @@ const Sidebar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
   return (
     <>
       <div
-        className={`hidden pt-20 md:flex h-screen sticky top-0 left-0 overflow-hidden ${
+        className={`hidden md:flex h-screen absolute top-20 left-0 overflow-hidden ${
           isNarrow ? "animate-shrink" : "animate-expand"
         }`}
       >
@@ -135,40 +133,47 @@ const Sidebar: FC<Props> = ({ fullScreenMenu, onMenuButtonClick }) => {
           </div>
         </nav>
       </div>
-      <div>
-        <div
-          className={`fixed top-0 w-[65%] md:hidden h-screen bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] p-10 ease-in duration-500 ${
-            fullScreenMenu ? "left-0" : "left-[-100%]"
-          }`}
-        >
-          <div className="flex w-full items-center justify-end">
+      <div
+        className={`fixed top-20 w-[14rem] md:hidden h-screen ease-in duration-500 ${
+          fullScreenMenu ? "left-0" : "left-[-100%]"
+        }`}
+      >
+        <nav className="bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] relative shadow-md h-9/10 w-full rounded-tr-[10px] rounded-br-[10px]">
+          {/* <div className="flex w-full items-center justify-end">
             <div onClick={onMenuButtonClick} className="cursor-pointer">
               <MenuCloseIcon color={theme === "dark" ? "white" : "#818181"} />
             </div>
+          </div> */}
+          <div className="flex flex-col items-center w-full">
+            <Link className="mt-10" href="/">
+              <div> Logo </div>
+            </Link>
+            <div>
+              <ul className="mt-10 flex flex-col items-start h-full w-full">
+                {navItems.map((item) => (
+                  <li
+                    className="text-xl transform transition duration-350 hover:scale-115 mt-8"
+                    key={item.label}
+                  >
+                    <div className="flex items-center gap-4">
+                      <item.icon
+                        color={theme === "dark" ? "white" : "#818181"}
+                      />
+                      {!isNarrow && (
+                        <Link
+                          href={item.href}
+                          className="text-[#818181] dark:text-white"
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div className="flex-col py-4">
-            <ul>
-              {navItems.map((item) => (
-                <li
-                  className="p-3 w-[60%] hover:border-b cursor-pointer text-xl"
-                  key={item.label}
-                >
-                  <div className="flex items-center gap-4">
-                    <item.icon color={theme === "dark" ? "white" : "#818181"} />
-                    {!isNarrow && (
-                      <Link
-                        href={item.href}
-                        className="text-[#818181] dark:text-white"
-                      >
-                        {item.label}
-                      </Link>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        </nav>
       </div>
     </>
   );
