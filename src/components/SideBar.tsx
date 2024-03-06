@@ -87,15 +87,15 @@ const Sidebar: FC<Props> = ({ showSSsidebar }) => {
       </div>
       <div>
         <div
-          className={`fixed top-0 w-[65%] md:hidden h-screen bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] p-10 ease-in duration-500 ${
+          className={`fixed top-20 w-full md:hidden h-full bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] p-10 ease-in duration-500 ${
             showSSsidebar ? "left-0" : "left-[-100%]"
           }`}
         >
-          <div className="flex-col py-4">
+          <div className="flex flex-col items-center">
             <ul>
               {navItems.map((item) => (
                 <li
-                  className="p-3 w-[60%] hover:border-b cursor-pointer text-xl"
+                  className="p-3 hover:border-b cursor-pointer text-xl"
                   key={item.label}
                 >
                   <div className="flex items-center gap-4">

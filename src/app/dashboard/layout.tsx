@@ -10,13 +10,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [showSSsidebar, setShowSSsidebar] = useState(false);
 
   const handleSSsidebar = useCallback(() => {
-    setShowSSsidebar(!showSSsidebar);
+    setShowSSsidebar((prevShowSSsidebar) => !prevShowSSsidebar);
   }, []);
 
   return (
-    <div className="bg-[#FBFBFB] h-screen dark:bg-[#00040F]  flex flex-col items-start">
+    <div className="bg-light-base-100 dark:bg-dark-base-100 h-screen flex flex-col items-start">
       <AuthNavBar onMenuButtonClick={handleSSsidebar} />
-      <div className="w-full h-full mt-20 bg-white dark:bg-[#00040F] flex flex-row">
+      <div className="w-full h-full flex flex-row">
         <Sidebar showSSsidebar={showSSsidebar} />
         <div>
           <Image src={Welcome} alt="Welcome" width={400} height={400} />

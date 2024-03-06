@@ -11,12 +11,12 @@ interface Props {
 const AuthNavbar: FC<Props> = ({ onMenuButtonClick }) => {
   const { theme } = useTheme();
   return (
-    <nav className="fixed h-20 w-full top-0 left-0 flex justify-between bg-white dark:bg-[#00040F]">
+    <nav className="sticky top-0 left-0 h-20 w-full flex justify-between">
       <div
         onClick={onMenuButtonClick}
         className="md:invisible cursor-pointer pl-12 flex items-center"
       >
-        <MenuOpenIcon color={theme === "dark" ? "white" : "#818181"} />
+        <MenuOpenIcon />
       </div>
       <div className="flex items-center justify-between gap-4 h-full px-10">
         <ThemeSwitch />
