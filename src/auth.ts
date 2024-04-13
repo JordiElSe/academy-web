@@ -29,21 +29,26 @@ export const {
       // Allow social login without email verification
       if (account?.provider !== "credentials") return true;
 
-      const existingUser = await getUserById(user.id);
+      try {
+        const existingUser = await getUserById(user.id);
 
-      // Prevent sign in without email verification
-      if (!existingUser?.emailVerified) return false;
+        // Prevent sign in without email verification
+        if (!existingUser?.emailVerified) return false;
 
-      if (existingUser.isTwoFactorEnabled) {
-        if (!existingUser.twoFactorConfirmation) return false;
+        if (existingUser.isTwoFactorEnabled) {
+          if (!existingUser.twoFactorConfirmation) return false;
 
-        // Set two factor confirmation to false for next sign in
-        await db.user.update({
-          where: { id: existingUser.id },
-          data: { twoFactorConfirmation: false },
-        });
+          // Set two factor confirmation to false for next sign in
+          await db.user.update({
+            where: { id: existingUser.id },
+            data: { twoFactorConfirmation: false },
+          });
+        }
+        return true;
+      } catch (error) {
+        console.error("Error in signIn callback", error);
+        return false;
       }
-      return true;
     },
     async session({ token, session }) {
       if (token.sub && session.user) {
