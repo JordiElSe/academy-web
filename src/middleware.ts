@@ -11,6 +11,11 @@ const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   const { nextUrl } = req;
+
+  if (nextUrl.pathname === "/") {
+    return Response.redirect(new URL("/home", nextUrl));
+  }
+
   const isLoggedIn = !!req.auth;
   const isNextAuthRoute = nextUrl.pathname.startsWith(nextAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
