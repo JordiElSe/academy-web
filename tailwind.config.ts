@@ -70,10 +70,20 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        expand: {
+          "0%": { width: "5rem" },
+          "100%": { width: "14rem" },
+        },
+        shrink: {
+          "0%": { width: "14rem" },
+          "100%": { width: "5rem" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        expand: "expand 0.3s ease-in-out forwards",
+        shrink: "shrink 0.3s ease-in-out forwards",
       },
     },
   },

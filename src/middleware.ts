@@ -13,7 +13,7 @@ export default auth((req) => {
   const { nextUrl } = req;
 
   if (nextUrl.pathname === "/") {
-    return Response.redirect(new URL("/home", nextUrl));
+    return Response.redirect(new URL("/landing", nextUrl));
   }
 
   const isLoggedIn = !!req.auth;

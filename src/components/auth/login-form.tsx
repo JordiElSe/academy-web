@@ -50,7 +50,6 @@ export const LoginForm = () => {
     startTransition(() => {
       login(values, callbackUrl)
         .then((data) => {
-          debugger;
           if (data?.error) {
             //form.reset();
             setError(data.error);

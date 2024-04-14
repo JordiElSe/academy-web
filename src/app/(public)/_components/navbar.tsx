@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import ThemeSwitch from "./theme-switch";
-import MenuOpenIcon from "./icons/menu-open-icon";
-import MenuCloseIcon from "./icons/menu-close-icon";
+import ThemeSwitch from "@components/theme-switch";
+import MenuOpenIcon from "@components/icons/menu-open-icon";
+import MenuCloseIcon from "@components/icons/menu-close-icon";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { LoginButton } from "@components/auth/login-button";
@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
     >
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Button asChild variant="navbar">
-          <Link href="/home">Logo</Link>
+          <Link href="/landing">Logo</Link>
         </Button>
         <div>
           <ul className="hidden lg:flex">

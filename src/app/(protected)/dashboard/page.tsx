@@ -62,8 +62,9 @@ const Dashboard = () => {
       });
     });
   };
+  return <div>Dashboard</div>;
 
-  return (
+  /* return (
     <Card className="w-[600px]">
       <CardHeader>
         <p className="text-2xl font-semibold text-center">📈 Dashboard</p>
@@ -208,7 +209,7 @@ const Dashboard = () => {
         </Form>
       </CardContent>
     </Card>
-  );
+  ); */
 };
 
 export default Dashboard;

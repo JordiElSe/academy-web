@@ -1,36 +1,33 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import React, { FC } from "react";
+import { useTheme } from "next-themes";
+import MenuOpenIcon from "@components/icons/menu-open-icon";
 import { UserButton } from "@components/auth/user-button";
+import ThemeSwitch from "@components/theme-switch";
 
-export const Navbar = () => {
-  const pathname = usePathname();
+interface Props {
+  onMenuButtonClick: () => void;
+}
 
+const Navbar: FC<Props> = ({ onMenuButtonClick }) => {
+  // const { theme } = useTheme();
   return (
-    <div className="flex justify-between items-center p-4 rounded-xl w-full shadow-sm bg-gray-600">
-      <div className="flex gap-x-2">
-        <Button
-          asChild
-          variant={pathname === "/server" ? "default" : "outline"}
-        >
-          <Link href="/server">Server</Link>
-        </Button>
-        <Button
-          asChild
-          variant={pathname === "/client" ? "default" : "outline"}
-        >
-          <Link href="/client">Client</Link>
-        </Button>
-        <Button
-          asChild
-          variant={pathname === "/dashboard" ? "default" : "outline"}
-        >
-          <Link href="/dashboard">Dashboard</Link>
-        </Button>
+    <nav className="sticky top-0 left-0 h-20 w-full flex justify-between">
+      <div
+        onClick={onMenuButtonClick}
+        className="md:invisible cursor-pointer pl-12 flex items-center"
+      >
+        <MenuOpenIcon />
       </div>
-      <UserButton />
-    </div>
+      <div className="flex items-center justify-between gap-4 h-full px-10">
+        <ThemeSwitch />
+        <UserButton />
+        <div className="flex flex-col items-start">
+          <span className="text-ml font-bold">John Doe</span>
+          <span className="text-ml">johndoe@gmail.com</span>
+        </div>
+      </div>
+    </nav>
   );
 };
+
+export default Navbar;
