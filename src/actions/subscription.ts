@@ -1,3 +1,5 @@
+"use server";
+
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
@@ -40,27 +42,37 @@ export const getUserSubscriptionPlan = async () => {
     throw new Error("User not found");
   }
 
+  const subscription = await db.subscription.findFirst({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  if (!subscription) return null;
+
   const isSubscribed =
-    dbUser.stripePriceId &&
-    dbUser.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
+    subscription.stripePriceId &&
+    subscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
 
   const plan = isSubscribed
-    ? subscriptionPlans.find((p) => p.stripePriceId === dbUser.stripePriceId)
+    ? subscriptionPlans.find(
+        (p) => p.stripePriceId === subscription.stripePriceId
+      )
     : null;
 
   let isCanceled = false;
-  if (isSubscribed && dbUser.stripeSubscriptionId) {
+  if (isSubscribed && subscription.stripeSubscriptionId) {
     const stripePlan = await stripe.subscriptions.retrieve(
-      dbUser.stripeSubscriptionId
+      subscription.stripeSubscriptionId
     );
     isCanceled = stripePlan.cancel_at_period_end;
   }
 
   return {
     ...plan,
-    stripeSubscriptionId: dbUser.stripeSubscriptionId,
-    stripeCurrentPeriodEnd: dbUser.stripeCurrentPeriodEnd,
-    stripeCustomerId: dbUser.stripeCustomerId,
+    stripeSubscriptionId: subscription.stripeSubscriptionId,
+    stripeCurrentPeriodEnd: subscription.stripeCurrentPeriodEnd,
+    stripeCustomerId: subscription.stripeCustomerId,
     isSubscribed,
     isCanceled,
   };

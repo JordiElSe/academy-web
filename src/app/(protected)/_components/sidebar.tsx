@@ -9,6 +9,8 @@ import MaterialsIcon from "@components/icons/materials-icon";
 import CommunityIcon from "@components/icons/community-icon";
 import ContactIcon from "@components/icons/contact-icon";
 import DoubleArrowLeftIcon from "@components/icons/double-arrow-left-icon";
+import ProfileIcon from "@components/icons/profile-icon";
+import FeedbackIcon from "@components/icons/feedback-icon";
 
 interface Props {
   showSSsidebar: boolean;
@@ -27,12 +29,17 @@ const Sidebar: FC<Props> = ({ showSSsidebar }) => {
     href: string;
   };
 
-  const navItems: NavItem[] = [
+  const navItemsTop: NavItem[] = [
     { icon: DashboardIcon, label: "Home", href: "/dashboard" },
     { icon: RoadmapIcon, label: "Roadmap", href: "/roadmap" },
     { icon: MaterialsIcon, label: "Materials", href: "/materials" },
     { icon: CommunityIcon, label: "Community", href: "/community" },
     { icon: ContactIcon, label: "Contact", href: "/contact" },
+  ];
+
+  const navItemsBottom: NavItem[] = [
+    { icon: ProfileIcon, label: "Profile", href: "/profile" },
+    { icon: FeedbackIcon, label: "Feedback", href: "/feedback" },
   ];
 
   return (
@@ -49,7 +56,31 @@ const Sidebar: FC<Props> = ({ showSSsidebar }) => {
             </Link>
             <div>
               <ul className="mt-10 flex flex-col items-start h-full w-full">
-                {navItems.map((item) => (
+                {navItemsTop.map((item) => (
+                  <li
+                    className="text-xl transform transition duration-350 hover:scale-115 mt-8"
+                    key={item.label}
+                  >
+                    <div className="flex items-center gap-4">
+                      <item.icon
+                        color={theme === "dark" ? "white" : "#818181"}
+                      />
+                      {!isNarrow && (
+                        <Link
+                          href={item.href}
+                          className="text-[#818181] dark:text-white"
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <ul className="mt-10 flex flex-col items-start h-full w-full">
+                {navItemsBottom.map((item) => (
                   <li
                     className="text-xl transform transition duration-350 hover:scale-115 mt-8"
                     key={item.label}
@@ -93,7 +124,7 @@ const Sidebar: FC<Props> = ({ showSSsidebar }) => {
         >
           <div className="flex flex-col items-center">
             <ul>
-              {navItems.map((item) => (
+              {navItemsBottom.map((item) => (
                 <li
                   className="p-3 hover:border-b cursor-pointer text-xl"
                   key={item.label}
