@@ -3,7 +3,7 @@ import { ExtendedUser } from "@/next-auth";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { getUserSubscriptionPlan } from "@/actions/subscription";
+import { getUserSubscriptionPlan } from "@/actions/fetch-subscription";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import PricingTable from "@components/pricing-table";
@@ -38,11 +38,9 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
   }, []);
 
   return (
-    <Card className="w-full shadow-md">
-      <CardHeader>
-        <p className="text-2xl font-semibold text-center">{label}</p>
-      </CardHeader>
-      <CardContent className="space-y-4">
+    <div className="w-full pl-5 pr-5 z-0">
+      <p className="text-2xl font-semibold text-center">{label}</p>
+      <div className="space-y-4">
         <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
           <p className="text-sm font-medium">ID</p>
           <p className="truncate text-xs max-w-[180px] font-mono p-1 bg-slate-100 rounded-md">
@@ -79,7 +77,7 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
           </div>
           <div>{showPricing && <PricingTable />}</div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };

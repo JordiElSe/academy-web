@@ -1,10 +1,13 @@
 "use client";
+
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { checkoutSubscription } from "@/actions/subscribe";
+import { subscriptionPlans } from "@/utils/subscriptions";
 
 interface PricingTierFrequency {
   id: string;
@@ -28,7 +31,6 @@ interface PricingTier {
 
 const frequencies: PricingTierFrequency[] = [
   { id: "1", value: "1", label: "Monthly", priceSuffix: "/month" },
-  { id: "2", value: "2", label: "Yearly", priceSuffix: "/month" },
 ];
 
 const tiers: PricingTier[] = [
@@ -85,6 +87,10 @@ const CheckIcon = ({ className }: { className?: string }) => {
 
 export default function PricingTable() {
   const [frequency, setFrequency] = useState(frequencies[0]);
+
+  const handleClick = () => {
+    checkoutSubscription();
+  };
 
   //   const bannerText = "";
 
@@ -239,6 +245,7 @@ export default function PricingTable() {
                   className={cn("flex mt-6 shadow-sm")}
                 >
                   <Button
+                    onClick={handleClick}
                     size="lg"
                     className={cn(
                       "w-full text-black dark:text-white",

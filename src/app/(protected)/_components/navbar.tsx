@@ -11,17 +11,11 @@ interface Props {
 const Navbar: FC<Props> = ({ onMenuButtonClick }) => {
   const user = useCurrentUser();
   return (
-    <nav className="sticky top-0 left-0 h-20 w-full flex justify-between">
-      <div
-        onClick={onMenuButtonClick}
-        className="md:invisible cursor-pointer pl-12 flex items-center"
-      >
-        <MenuOpenIcon />
-      </div>
+    <nav className="fixed top-0 z-40 h-12 w-full flex justify-end bg-white">
       <div className="flex items-center justify-between gap-4 h-full px-10">
         <ThemeSwitch />
         <UserButton />
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start text-xs">
           <span className="text-ml font-bold">{user?.name}</span>
           <span className="text-ml">{user?.email}</span>
         </div>

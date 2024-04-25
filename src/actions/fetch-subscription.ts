@@ -6,25 +6,6 @@ import { stripe } from "@/lib/stripe";
 
 const DAY_IN_MS = 86_400_000;
 
-export interface SubscriptionPlan {
-  id: string;
-  name: string;
-  stripePriceId: string;
-}
-
-const subscriptionPlans: SubscriptionPlan[] = [
-  {
-    id: "basic",
-    name: "Basic",
-    stripePriceId: process.env.STRIPE_BASIC_PLAN_PRICE_ID!,
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    stripePriceId: process.env.STRIPE_PRO_PLAN_PRICE_ID!,
-  },
-];
-
 export const getUserSubscriptionPlan = async () => {
   const user = await currentUser();
 

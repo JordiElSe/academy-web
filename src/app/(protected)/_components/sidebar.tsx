@@ -44,12 +44,12 @@ const Sidebar: FC<Props> = ({ showSSsidebar }) => {
 
   return (
     <>
-      <div
-        className={`hidden md:flex h-full sticky top-20 overflow-hidden ${
+      <aside
+        className={`hidden md:flex h-full sticky top-0 overflow-hidden z-50 ${
           isNarrow ? "animate-shrink" : "animate-expand"
         }`}
       >
-        <nav className="bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] relative shadow-md h-9/10 w-full rounded-tr-[10px] rounded-br-[10px]">
+        <nav className="bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] relative shadow-md h-full w-full rounded-tr-[10px] rounded-br-[10px]">
           <div className="flex flex-col items-center w-full">
             <Link className="mt-10" href="/">
               <div> Logo </div>
@@ -115,7 +115,7 @@ const Sidebar: FC<Props> = ({ showSSsidebar }) => {
             />
           </div>
         </nav>
-      </div>
+      </aside>
       <div>
         <div
           className={`fixed top-20 w-full md:hidden h-full bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] p-10 ease-in duration-500 ${
