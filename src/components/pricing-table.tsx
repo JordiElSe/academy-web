@@ -1,72 +1,9 @@
-"use client";
-
-import { useState } from "react";
 import { cn } from "@/lib/utils";
-
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { getSubscriptionPrice } from "@/actions/get-sub-price";
 import { checkoutSubscription } from "@/actions/subscribe";
-import { subscriptionPlans } from "@/utils/subscriptions";
-
-interface PricingTierFrequency {
-  id: string;
-  value: string;
-  label: string;
-  priceSuffix: string;
-}
-
-interface PricingTier {
-  name: string;
-  id: string;
-  href: string;
-  discountPrice: string | Record<string, string>;
-  price: string | Record<string, string>;
-  description: string | React.ReactNode;
-  features: string[];
-  featured?: boolean;
-  highlighted?: boolean;
-  cta: string;
-}
-
-const frequencies: PricingTierFrequency[] = [
-  { id: "1", value: "1", label: "Monthly", priceSuffix: "/month" },
-];
-
-const tiers: PricingTier[] = [
-  {
-    name: "Basic",
-    id: "0",
-    href: "/subscribe",
-    price: { "1": "$9.99" },
-    discountPrice: { "1": "" },
-    description: `Get all goodies for free, no credit card required.`,
-    features: [
-      `Multi-platform compatibility`,
-      `Real-time notification system`,
-      `Advanced user permissions`,
-    ],
-    featured: false,
-    highlighted: false,
-    cta: `Get started`,
-  },
-  {
-    name: "Pro",
-    id: "1",
-    href: "/subscribe",
-    price: { "1": "$14.99" },
-    discountPrice: { "1": "" },
-    description: `When you grow, need more power and flexibility.`,
-    features: [
-      `All in the free plan plus`,
-      `Customizable templates`,
-      `Integration with third-party apps`,
-    ],
-    featured: false,
-    highlighted: true,
-    cta: `Get started`,
-  },
-];
+import { subscriptionPlans } from "@/lib/subscription";
+import { getUserSubscriptionPlan } from "@actions/fetch-subscription";
 
 const CheckIcon = ({ className }: { className?: string }) => {
   return (
@@ -85,12 +22,8 @@ const CheckIcon = ({ className }: { className?: string }) => {
   );
 };
 
-export default function PricingTable() {
-  const [frequency, setFrequency] = useState(frequencies[0]);
-
-  const handleClick = () => {
-    checkoutSubscription();
-  };
+export default async function PricingTable() {
+  const currentUserSub = await getUserSubscriptionPlan();
 
   //   const bannerText = "";
 
@@ -99,7 +32,7 @@ export default function PricingTable() {
       <div className="w-full flex flex-col items-center">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col items-center">
           <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center">
-            <h1 className="text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-6xl !leading-tight">
+            <h1 className="text-black dark:text-white text-2xl font-semibold max-w-xs sm:max-w-none md:text-4xl !leading-tight">
               Choose Your Plan
             </h1>
             <p className="text-black dark:text-white mt-6 md:text-xl lg:text-center max-w-prose">
@@ -108,174 +41,108 @@ export default function PricingTable() {
             </p>
           </div>
 
-          {/* {bannerText ? (
-            <div className="w-full lg:w-auto flex justify-center my-4">
-              <p className="w-full px-4 py-3 text-xs bg-slate-100 text-black dark:bg-slate-300/30 dark:text-white/80 rounded-xl">
-                {bannerText}
-              </p>
-            </div>
-          ) : null} */}
-
-          {frequencies.length > 1 ? (
-            <div className="mt-16 flex justify-center">
-              <RadioGroup
-                defaultValue={frequency.value}
-                onValueChange={(value: string) => {
-                  setFrequency(frequencies.find((f) => f.value === value)!);
-                }}
-                className="grid gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 bg-white dark:bg-black ring-1 ring-inset ring-gray-200/30 dark:ring-gray-800"
-                style={{
-                  gridTemplateColumns: `repeat(${frequencies.length}, minmax(0, 1fr))`,
-                }}
-              >
-                <Label className="sr-only">Payment frequency</Label>
-                {frequencies.map((option) => (
-                  <Label
-                    className={cn(
-                      frequency.value === option.value
-                        ? "bg-slate-500/90 text-white dark:bg-slate-900/70 dark:text-white/70"
-                        : "bg-transparent text-gray-500 hover:bg-slate-500/10",
-                      "cursor-pointer rounded-full px-2.5 py-2 transition-all"
-                    )}
-                    key={option.value}
-                    htmlFor={option.value}
-                  >
-                    {option.label}
-
-                    <RadioGroupItem
-                      value={option.value}
-                      id={option.value}
-                      className="hidden"
-                    />
-                  </Label>
-                ))}
-              </RadioGroup>
-            </div>
-          ) : (
-            <div className="mt-12" aria-hidden="true"></div>
-          )}
+          <div className="mt-12" aria-hidden="true"></div>
 
           <div
             className={cn(
               "isolate mx-auto mt-4 mb-28 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none",
-              tiers.length === 2 ? "lg:grid-cols-2" : "",
-              tiers.length === 3 ? "lg:grid-cols-3" : ""
+              subscriptionPlans.length === 2 ? "lg:grid-cols-2" : "",
+              subscriptionPlans.length === 3 ? "lg:grid-cols-3" : ""
             )}
           >
-            {tiers.map((tier) => (
+            {subscriptionPlans.map((sub) => (
               <div
-                key={tier.id}
+                key={sub.id}
                 className={cn(
-                  tier.featured
+                  sub.featured
                     ? "!bg-gray-900 ring-gray-900 dark:!bg-gray-100 dark:ring-gray-100"
                     : "bg-white dark:bg-gray-900/80 ring-gray-300/70 dark:ring-gray-700",
                   "max-w-xs ring-1 rounded-3xl p-8 xl:p-10",
-                  tier.highlighted ? "" : ""
+                  sub.highlighted ? "" : ""
                 )}
               >
                 <h3
-                  id={tier.id}
+                  id={sub.id}
                   className={cn(
-                    tier.featured
+                    sub.featured
                       ? "text-white dark:text-black"
                       : "text-black dark:text-white",
                     "text-2xl font-bold tracking-tight"
                   )}
                 >
-                  {tier.name}
+                  {sub.name}
                 </h3>
                 <p
                   className={cn(
-                    tier.featured
+                    sub.featured
                       ? "text-gray-300 dark:text-gray-500"
                       : "text-gray-600 dark:text-gray-400",
                     "mt-4 text-sm leading-6"
                   )}
                 >
-                  {tier.description}
+                  {sub.description}
                 </p>
                 <p className="mt-6 flex items-baseline gap-x-1">
                   <span
                     className={cn(
-                      tier.featured
+                      sub.featured
                         ? "text-white dark:text-black"
                         : "text-black dark:text-white",
                       "text-4xl font-bold tracking-tight",
-                      tier.discountPrice &&
-                        tier.discountPrice[
-                          frequency.value as keyof typeof tier.discountPrice
-                        ]
-                        ? "line-through"
-                        : ""
+                      sub.discountPrice ? "line-through" : ""
                     )}
                   >
-                    {typeof tier.price === "string"
-                      ? tier.price
-                      : tier.price[frequency.value]}
+                    {sub.stripePriceId}
                   </span>
 
                   <span
                     className={cn(
-                      tier.featured
+                      sub.featured
                         ? "text-white dark:text-black"
                         : "text-black dark:text-white"
                     )}
                   >
-                    {typeof tier.discountPrice === "string"
-                      ? tier.discountPrice
-                      : tier.discountPrice[frequency.value]}
+                    {sub.discountPrice}
                   </span>
-
-                  {typeof tier.price !== "string" ? (
-                    <span
-                      className={cn(
-                        tier.featured
-                          ? "text-gray-300 dark:text-gray-500"
-                          : "dark:text-gray-400 text-gray-600",
-                        "text-sm font-semibold leading-6"
-                      )}
-                    >
-                      {frequency.priceSuffix}
-                    </span>
-                  ) : null}
                 </p>
                 <a
-                  href={tier.href}
-                  aria-describedby={tier.id}
+                  href={sub.href}
+                  aria-describedby={sub.id}
                   className={cn("flex mt-6 shadow-sm")}
                 >
                   <Button
-                    onClick={handleClick}
                     size="lg"
                     className={cn(
                       "w-full text-black dark:text-white",
-                      !tier.highlighted && !tier.featured
+                      !sub.highlighted && !sub.featured
                         ? "bg-gray-100 dark:bg-gray-600"
                         : "bg-slate-300 hover:bg-slate-400 dark:bg-slate-600 dark:hover:bg-slate-700",
-                      tier.featured
+                      sub.featured
                         ? "bg-white dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-black"
                         : "hover:opacity-80 transition-opacity"
                     )}
-                    variant={tier.highlighted ? "default" : "outline"}
+                    variant={sub.highlighted ? "default" : "outline"}
                   >
-                    {tier.cta}
+                    {sub.stripePriceId === currentUserSub?.stripePriceId
+                      ? "Your Plan"
+                      : sub.cta}
                   </Button>
                 </a>
 
                 <ul
                   className={cn(
-                    tier.featured
+                    sub.featured
                       ? "text-gray-300 dark:text-gray-500"
                       : "text-gray-700 dark:text-gray-400",
                     "mt-8 space-y-3 text-sm leading-6 xl:mt-10"
                   )}
                 >
-                  {tier.features.map((feature) => (
+                  {sub.features.map((feature) => (
                     <li key={feature} className="flex gap-x-3">
                       <CheckIcon
                         className={cn(
-                          tier.featured ? "text-white dark:text-black" : "",
-                          tier.highlighted ? "text-slate-500" : "text-gray-500",
+                          sub.featured ? "text-white dark:text-black" : "",
+                          sub.highlighted ? "text-slate-500" : "text-gray-500",
 
                           "h-6 w-5 flex-none"
                         )}

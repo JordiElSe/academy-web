@@ -1,11 +1,9 @@
 "use client";
 import { ExtendedUser } from "@/next-auth";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getUserSubscriptionPlan } from "@/actions/fetch-subscription";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import PricingTable from "@components/pricing-table";
 
 interface UserInfoProps {

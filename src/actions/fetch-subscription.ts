@@ -3,6 +3,7 @@
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
+import { subscriptionPlans } from "@/lib/subscription";
 
 const DAY_IN_MS = 86_400_000;
 
