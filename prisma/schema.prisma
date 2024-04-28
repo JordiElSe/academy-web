@@ -16,7 +16,7 @@ datasource db {
 model User {
   id                      String  @id @default(auto()) @map("_id") @db.ObjectId
   name                    String?
-  email                   String   @unique
+  email                   String?   @unique
   emailVerified           DateTime?
   image                   String?
   password                String?
@@ -27,12 +27,12 @@ model User {
 }
 
 model Subscription {
-  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId                  String   @db.ObjectId @unique
-  stripeCustomerId        String   @unique
-  stripeSubscriptionId    String   @unique
-  stripePriceId           String
-  stripeCurrentPeriodEnd  DateTime
+  id                      String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId                  String    @db.ObjectId @unique
+  stripeCustomerId        String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId    String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId           String?   @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd  DateTime? @map(name: "stripe_current_period_end")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

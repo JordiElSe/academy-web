@@ -1,10 +1,11 @@
 "use client";
+
 import { ExtendedUser } from "@/next-auth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { getUserSubscriptionPlan } from "@/actions/fetch-subscription";
 import { Button } from "@/components/ui/button";
-import PricingTable from "@components/pricing-table";
+import Link from "next/link";
+//import PricingTable from "@components/pricing-table";
 
 interface UserInfoProps {
   user?: ExtendedUser;
@@ -13,13 +14,13 @@ interface UserInfoProps {
 
 export const UserInfo = ({ user, label }: UserInfoProps) => {
   const [name, setName] = useState<string>("Free");
-  const [showPricing, setShowPricing] = useState(false);
+  //const [showPricing, setShowPricing] = useState(false);
 
-  const handleClick = () => {
+  /* const handleClick = () => {
     setShowPricing(!showPricing);
-  };
+  }; */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchPlan = async () => {
       try {
         const plan = await getUserSubscriptionPlan();
@@ -33,7 +34,7 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
     };
 
     fetchPlan();
-  }, []);
+  }, []); */
 
   return (
     <div className="w-full pl-5 pr-5 z-0">
@@ -69,11 +70,11 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
             <p className="truncate text-xs max-w-[180px] font-mono p-1 bg-slate-100 rounded-md">
               {name}
             </p>
-            <Button variant="outline" size="sm" onClick={handleClick}>
-              Manage Subscription
+            <Button variant="outline" size="sm">
+              <Link href="/profile/billing">Manage Billing</Link>
             </Button>
           </div>
-          <div>{showPricing && <PricingTable />}</div>
+          {/* <div>{showPricing && <PricingTable />}</div> */}
         </div>
       </div>
     </div>

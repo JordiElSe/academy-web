@@ -11,6 +11,7 @@ export const publicRoutes: string[] = [
   "/materials",
   "/pricing",
   "/contact",
+  "/api/webhooks/stripe",
 ];
 
 /**
@@ -24,12 +25,6 @@ export const authRoutes: string[] = [
   "/auth/error",
   "/auth/reset-password",
   "/auth/new-password",
-  "/api/account/login",
-  "/api/account/register",
-  "/api/account/social",
-  "/api/account/new-verification",
-  "/api/account/reset-password",
-  "/api/account/new-password",
 ];
 
 /**

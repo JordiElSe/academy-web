@@ -1,9 +1,9 @@
 import PricingTable from "@components/pricing-table";
 
-export default async function PricingPage() {
+export default async function BillingPage() {
   return (
-    <main>
+    <div className="w-full pt-20">
       <PricingTable />
-    </main>
+    </div>
   );
 }

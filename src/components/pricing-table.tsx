@@ -1,9 +1,10 @@
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { getSubscriptionPrice } from "@/actions/get-sub-price";
-import { checkoutSubscription } from "@/actions/subscribe";
-import { subscriptionPlans } from "@/lib/subscription";
-import { getUserSubscriptionPlan } from "@actions/fetch-subscription";
+import { ManageSubButton } from "@/components/manage-sub-button";
+import { currentUser } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { stripe } from "@/lib/stripe";
+import type Stripe from "stripe";
+import { ExtendedUser } from "@next-auth";
 
 const CheckIcon = ({ className }: { className?: string }) => {
   return (
@@ -23,7 +24,59 @@ const CheckIcon = ({ className }: { className?: string }) => {
 };
 
 export default async function PricingTable() {
-  const currentUserSub = await getUserSubscriptionPlan();
+  const user = await currentUser();
+  async function fetchPlans() {
+    "use server";
+    const products = await stripe.products.list({
+      limit: 2,
+      expand: ["data.default_price"],
+    });
+    return products.data.reverse();
+  }
+
+  async function getUserSubscriptionPlan(user: ExtendedUser | undefined) {
+    "use server";
+    // const user = await currentUser();
+
+    if (!user) {
+      return null;
+    }
+
+    const subscription = await db.subscription.findUnique({
+      where: {
+        userId: user.id,
+      },
+      select: {
+        stripeSubscriptionId: true,
+        stripePriceId: true,
+        stripeCurrentPeriodEnd: true,
+        stripeCustomerId: true,
+      },
+    });
+
+    if (!subscription) return null;
+
+    const isValid =
+      subscription.stripePriceId &&
+      subscription.stripeCurrentPeriodEnd?.getTime()! + 86_400_000 > Date.now();
+
+    if (!isValid) {
+      return null;
+    }
+
+    return {
+      ...subscription,
+    };
+  }
+
+  const plans = await fetchPlans();
+
+  let currentUserPlan = null;
+  currentUserPlan = await getUserSubscriptionPlan(user);
+
+  function stringToBool(str: string) {
+    return str === "true";
+  }
 
   //   const bannerText = "";
 
@@ -46,114 +99,127 @@ export default async function PricingTable() {
           <div
             className={cn(
               "isolate mx-auto mt-4 mb-28 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none",
-              subscriptionPlans.length === 2 ? "lg:grid-cols-2" : "",
-              subscriptionPlans.length === 3 ? "lg:grid-cols-3" : ""
+              plans.length === 2 ? "lg:grid-cols-2" : "",
+              plans.length === 3 ? "lg:grid-cols-3" : ""
             )}
           >
-            {subscriptionPlans.map((sub) => (
-              <div
-                key={sub.id}
-                className={cn(
-                  sub.featured
-                    ? "!bg-gray-900 ring-gray-900 dark:!bg-gray-100 dark:ring-gray-100"
-                    : "bg-white dark:bg-gray-900/80 ring-gray-300/70 dark:ring-gray-700",
-                  "max-w-xs ring-1 rounded-3xl p-8 xl:p-10",
-                  sub.highlighted ? "" : ""
-                )}
-              >
-                <h3
-                  id={sub.id}
+            {plans.map((plan) => {
+              const isFeatured = stringToBool(plan.metadata.featured);
+              const isHighlighted = stringToBool(plan.metadata.highlighted);
+              return (
+                <div
+                  key={plan.id}
                   className={cn(
-                    sub.featured
-                      ? "text-white dark:text-black"
-                      : "text-black dark:text-white",
-                    "text-2xl font-bold tracking-tight"
+                    isFeatured
+                      ? "!bg-gray-900 ring-gray-900 dark:!bg-gray-100 dark:ring-gray-100"
+                      : "bg-white dark:bg-gray-900/80 ring-gray-300/70 dark:ring-gray-700",
+                    "max-w-xs ring-1 rounded-3xl p-8 xl:p-10",
+                    isHighlighted ? "" : ""
                   )}
                 >
-                  {sub.name}
-                </h3>
-                <p
-                  className={cn(
-                    sub.featured
-                      ? "text-gray-300 dark:text-gray-500"
-                      : "text-gray-600 dark:text-gray-400",
-                    "mt-4 text-sm leading-6"
-                  )}
-                >
-                  {sub.description}
-                </p>
-                <p className="mt-6 flex items-baseline gap-x-1">
-                  <span
+                  <h3
+                    id={plan.id}
                     className={cn(
-                      sub.featured
+                      isFeatured
                         ? "text-white dark:text-black"
                         : "text-black dark:text-white",
-                      "text-4xl font-bold tracking-tight",
-                      sub.discountPrice ? "line-through" : ""
+                      "text-2xl font-bold tracking-tight"
                     )}
                   >
-                    {sub.stripePriceId}
-                  </span>
-
-                  <span
+                    {plan.name}
+                  </h3>
+                  <p
                     className={cn(
-                      sub.featured
-                        ? "text-white dark:text-black"
-                        : "text-black dark:text-white"
+                      isFeatured
+                        ? "text-gray-300 dark:text-gray-500"
+                        : "text-gray-600 dark:text-gray-400",
+                      "mt-4 text-sm leading-6"
                     )}
                   >
-                    {sub.discountPrice}
-                  </span>
-                </p>
-                <a
-                  href={sub.href}
-                  aria-describedby={sub.id}
+                    {plan.description}
+                  </p>
+                  <p className="mt-6 flex items-baseline gap-x-1">
+                    <span
+                      className={cn(
+                        isFeatured
+                          ? "text-white dark:text-black"
+                          : "text-black dark:text-white",
+                        "text-4xl font-bold tracking-tight"
+                        // plan.discountPrice ? "line-through" : ""
+                      )}
+                    >
+                      {(plan.default_price as Stripe.Price)?.unit_amount
+                        ? (plan.default_price as Stripe.Price).unit_amount! /
+                          100
+                        : ""}
+                    </span>
+
+                    <span
+                      className={cn(
+                        isFeatured
+                          ? "text-white dark:text-black"
+                          : "text-black dark:text-white"
+                      )}
+                    >
+                      {/* {plan.discountPrice} */}
+                    </span>
+                  </p>
+                  <ManageSubButton
+                    isFeatured={isFeatured}
+                    isHighlighted={isHighlighted}
+                    text={
+                      (plan.default_price as Stripe.Price)?.id ===
+                      currentUserPlan?.stripePriceId
+                        ? "Manage Your Plan"
+                        : "Choose Plan"
+                    }
+                    stripePriceId={
+                      (plan.default_price as Stripe.Price)?.id
+                        ? (plan.default_price as Stripe.Price).id
+                        : ""
+                    }
+                  />
+
+                  {/* <a
+                  href={plan.url ?? "/pricing"}
+                  aria-describedby={plan.id}
                   className={cn("flex mt-6 shadow-sm")}
                 >
-                  <Button
-                    size="lg"
+                  
+                </a> */}
+
+                  <ul
                     className={cn(
-                      "w-full text-black dark:text-white",
-                      !sub.highlighted && !sub.featured
-                        ? "bg-gray-100 dark:bg-gray-600"
-                        : "bg-slate-300 hover:bg-slate-400 dark:bg-slate-600 dark:hover:bg-slate-700",
-                      sub.featured
-                        ? "bg-white dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-black"
-                        : "hover:opacity-80 transition-opacity"
+                      isFeatured
+                        ? "text-gray-300 dark:text-gray-500"
+                        : "text-gray-700 dark:text-gray-400",
+                      "mt-8 space-y-3 text-sm leading-6 xl:mt-10"
                     )}
-                    variant={sub.highlighted ? "default" : "outline"}
                   >
-                    {sub.stripePriceId === currentUserSub?.stripePriceId
-                      ? "Your Plan"
-                      : sub.cta}
-                  </Button>
-                </a>
-
-                <ul
-                  className={cn(
-                    sub.featured
-                      ? "text-gray-300 dark:text-gray-500"
-                      : "text-gray-700 dark:text-gray-400",
-                    "mt-8 space-y-3 text-sm leading-6 xl:mt-10"
-                  )}
-                >
-                  {sub.features.map((feature) => (
-                    <li key={feature} className="flex gap-x-3">
-                      <CheckIcon
-                        className={cn(
-                          sub.featured ? "text-white dark:text-black" : "",
-                          sub.highlighted ? "text-slate-500" : "text-gray-500",
-
-                          "h-6 w-5 flex-none"
-                        )}
-                        aria-hidden="true"
-                      />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+                    {Object.entries(plan.metadata).map(([key, value]) => {
+                      if (key.startsWith("features")) {
+                        return (
+                          <li key={key} className="flex gap-x-3">
+                            <CheckIcon
+                              className={cn(
+                                isFeatured ? "text-white dark:text-black" : "",
+                                isHighlighted
+                                  ? "text-slate-500"
+                                  : "text-gray-500",
+                                "h-6 w-5 flex-none"
+                              )}
+                              aria-hidden="true"
+                            />
+                            {value}
+                          </li>
+                        );
+                      }
+                      return null;
+                    })}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
