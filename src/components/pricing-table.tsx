@@ -29,8 +29,9 @@ export default async function PricingTable() {
     "use server";
     const products = await stripe.products.list({
       limit: 2,
-      expand: ["data.default_price"],
+      expand: ["data.default_price", "data.default_price.currency_options"],
     });
+    console.log(products.data);
     return products.data.reverse();
   }
 
@@ -118,7 +119,6 @@ export default async function PricingTable() {
                   )}
                 >
                   <h3
-                    id={plan.id}
                     className={cn(
                       isFeatured
                         ? "text-white dark:text-black"
@@ -153,7 +153,16 @@ export default async function PricingTable() {
                           100
                         : ""}
                     </span>
-
+                    <span
+                      className={cn(
+                        isFeatured
+                          ? "text-gray-300 dark:text-gray-500"
+                          : "dark:text-gray-400 text-gray-600",
+                        "text-sm font-semibold leading-6"
+                      )}
+                    >
+                      €/month
+                    </span>
                     <span
                       className={cn(
                         isFeatured
