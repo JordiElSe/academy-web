@@ -3,7 +3,16 @@
  * These routes do not require authentication
  * @type {string[]}
  */
-export const publicRoutes: string[] = ["/home", "/auth/new-verification"];
+export const publicRoutes: string[] = [
+  "/landing",
+  "/auth/new-verification",
+  "/about",
+  "/roadmap",
+  "/materials",
+  "/pricing",
+  "/contact",
+  "/api/webhooks/stripe",
+];
 
 /**
  * An array of routes that are used for authentication
@@ -16,12 +25,6 @@ export const authRoutes: string[] = [
   "/auth/error",
   "/auth/reset-password",
   "/auth/new-password",
-  "/api/account/login",
-  "/api/account/register",
-  "/api/account/social",
-  "/api/account/new-verification",
-  "/api/account/reset-password",
-  "/api/account/new-password",
 ];
 
 /**

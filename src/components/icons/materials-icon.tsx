@@ -15,14 +15,14 @@ const MaterialsIcon: React.FC<MaterialsIconProps> = ({ color = "#818181" }) => (
     <path
       d="M1 5.88889L9.55556 1L23 5.88889M1 5.88889V12L14.4444 16.8889L23 12V5.88889M1 5.88889L14.4444 10.7778L23 5.88889"
       stroke={color}
-      stroke-width="1.75"
-      stroke-linejoin="round"
+      strokeWidth="1.75"
+      strokeLinejoin="round"
     />
     <path
       d="M1 12V18.1111L14.4444 23L23 18.1111V12"
       stroke={color}
-      stroke-width="1.75"
-      stroke-linejoin="round"
+      strokeWidth="1.75"
+      strokeLinejoin="round"
     />
   </svg>
 );

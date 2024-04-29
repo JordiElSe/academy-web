@@ -1,29 +1,23 @@
 import React, { FC } from "react";
-import { useTheme } from "next-themes";
 import MenuOpenIcon from "@components/icons/menu-open-icon";
 import { UserButton } from "@components/auth/user-button";
 import ThemeSwitch from "@components/theme-switch";
+import { useCurrentUser } from "@hooks/use-current-user";
 
 interface Props {
   onMenuButtonClick: () => void;
 }
 
 const Navbar: FC<Props> = ({ onMenuButtonClick }) => {
-  // const { theme } = useTheme();
+  const user = useCurrentUser();
   return (
-    <nav className="sticky top-0 left-0 h-20 w-full flex justify-between">
-      <div
-        onClick={onMenuButtonClick}
-        className="md:invisible cursor-pointer pl-12 flex items-center"
-      >
-        <MenuOpenIcon />
-      </div>
+    <nav className="fixed top-0 z-40 h-12 w-full flex justify-end bg-white">
       <div className="flex items-center justify-between gap-4 h-full px-10">
         <ThemeSwitch />
         <UserButton />
-        <div className="flex flex-col items-start">
-          <span className="text-ml font-bold">John Doe</span>
-          <span className="text-ml">johndoe@gmail.com</span>
+        <div className="flex flex-col items-start text-xs">
+          <span className="text-ml font-bold">{user?.name}</span>
+          <span className="text-ml">{user?.email}</span>
         </div>
       </div>
     </nav>
