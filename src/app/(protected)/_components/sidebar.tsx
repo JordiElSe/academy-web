@@ -47,8 +47,8 @@ const Sidebar: FC<Props> = ({ handleSidebar, isNarrow }) => {
   return (
     <>
       <aside
-        className={`hidden md:flex h-full fixed top-0 overflow-hidden z-50 w-[17.5%] ${
-          isNarrow ? "animate-shrink" : "animate-expand"
+        className={`hidden md:flex h-full fixed top-0 overflow-hidden z-50 ${
+          isNarrow ? "w-[5rem]" : "w-[14rem]"
         }`}
       >
         <nav className="bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] relative shadow-md h-full w-full">

@@ -11,7 +11,7 @@ interface Props {
 const Navbar: FC<Props> = ({ onMenuButtonClick }) => {
   const user = useCurrentUser();
   return (
-    <nav className="fixed top-0 left-[14rem] h-12 w-full flex justify-end bg-white">
+    <nav className="fixed top-0 left-0 h-12 w-full flex justify-end bg-white">
       <div className="flex items-center justify-between gap-4 h-full px-10">
         <ThemeSwitch />
         <UserButton />
