@@ -9,17 +9,21 @@ interface ProtectedLayoutProps {
 }
 
 const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
-  const [showSSsidebar, setShowSSsidebar] = useState(false);
+  const [narrow, setNarrow] = useState(false);
 
-  const handleSSsidebar = useCallback(() => {
-    setShowSSsidebar((prevShowSSsidebar) => !prevShowSSsidebar);
+  const handleSidebar = useCallback(() => {
+    setNarrow((prevShowSSsidebar) => !prevShowSSsidebar);
   }, []);
 
   return (
-    <div className="bg-light-base-100 dark:bg-dark-base-100 h-screen flex flex-col items-start">
-      <Navbar onMenuButtonClick={handleSSsidebar} />
-      <div className="w-full h-full flex flex-row">
-        <Sidebar showSSsidebar={showSSsidebar} />
+    <div className="bg-light-base-100 dark:bg-dark-base-100 h-screen flex flex-row items-start">
+      <Sidebar handleSidebar={handleSidebar} isNarrow={narrow} />
+      <div
+        className={`${
+          narrow ? "ml-[5rem]" : "ml-[14rem]"
+        } w-full h-full flex flex-col`}
+      >
+        <Navbar onMenuButtonClick={handleSidebar} />
         {children}
       </div>
     </div>

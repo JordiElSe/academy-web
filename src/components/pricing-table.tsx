@@ -31,7 +31,6 @@ export default async function PricingTable() {
       limit: 2,
       expand: ["data.default_price", "data.default_price.currency_options"],
     });
-    console.log(products.data);
     return products.data.reverse();
   }
 
