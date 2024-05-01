@@ -47,7 +47,7 @@ const Sidebar: FC<Props> = ({ handleSidebar, isNarrow }) => {
   return (
     <>
       <aside
-        className={`hidden md:flex h-full fixed top-0 overflow-hidden z-50 ${
+        className={`hidden sm:flex h-full fixed top-0 overflow-hidden z-50 ${
           isNarrow ? "w-[5rem]" : "w-[14rem]"
         }`}
       >

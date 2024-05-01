@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from "react";
 import Navbar from "./_components/navbar";
 import Sidebar from "./_components/sidebar";
+import MobileNav from "./_components/mobile-nav";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
@@ -16,17 +17,23 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
   }, []);
 
   return (
-    <div className="bg-light-base-100 dark:bg-dark-base-100 h-screen flex flex-row items-start">
-      <Sidebar handleSidebar={handleSidebar} isNarrow={narrow} />
-      <div
-        className={`${
-          narrow ? "ml-[5rem]" : "ml-[14rem]"
-        } w-full h-full flex flex-col`}
-      >
-        <Navbar onMenuButtonClick={handleSidebar} />
+    <>
+      <div className="hidden bg-light-base-100 dark:bg-dark-base-100 h-screen sm:flex flex-row items-start">
+        <Sidebar handleSidebar={handleSidebar} isNarrow={narrow} />
+        <div
+          className={`${
+            narrow ? "sm:ml-[5rem]" : "sm:ml-[14rem]"
+          } w-full h-full flex flex-col`}
+        >
+          <Navbar onMenuButtonClick={handleSidebar} />
+          {children}
+        </div>
+      </div>
+      <div className="sm:hidden flex flex-col items-center justify-center h-screen w-screen">
+        <MobileNav />
         {children}
       </div>
-    </div>
+    </>
   );
 };
 
