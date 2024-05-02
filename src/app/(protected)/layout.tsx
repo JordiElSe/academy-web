@@ -22,15 +22,16 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
         <Sidebar handleSidebar={handleSidebar} isNarrow={narrow} />
         <div
           className={`${
-            narrow ? "sm:ml-[5rem]" : "sm:ml-[14rem]"
+            narrow ? "animate-ml-shrink" : "animate-ml-expand"
+            /* narrow ? "ml-[5rem]" : "ml-[14rem]" */
           } w-full h-full flex flex-col`}
         >
-          <Navbar onMenuButtonClick={handleSidebar} />
+          <Navbar />
           {children}
         </div>
       </div>
       <div className="sm:hidden flex flex-col items-center justify-center h-screen w-screen">
-        <MobileNav />
+        {/* <MobileNav /> */}
         {children}
       </div>
     </>
