@@ -31,7 +31,7 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
         </div>
       </div>
       <div className="sm:hidden flex flex-col items-center justify-center h-screen w-screen">
-        {/* <MobileNav /> */}
+        <MobileNav />
         {children}
       </div>
     </>

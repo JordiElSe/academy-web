@@ -2,5 +2,5 @@
 import React from "react";
 
 export default function LandingPage() {
-  return <p>Landin Page</p>;
+  return <p className="text-white">Landin Page</p>;
 }

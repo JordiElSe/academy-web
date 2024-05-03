@@ -2,42 +2,34 @@
 
 import React, { ReactNode, useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 import { UserButton } from "@components/auth/user-button";
 import ThemeSwitch from "@components/theme-switch";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 
-import DashboardIcon from "@components/icons/dashboard-icon";
-import RoadmapIcon from "@components/icons/roadmap-icon";
-import MaterialsIcon from "@components/icons/materials-icon";
-import CommunityIcon from "@components/icons/community-icon";
-import ContactIcon from "@components/icons/contact-icon";
-import ProfileIcon from "@components/icons/profile-icon";
-import FeedbackIcon from "@components/icons/feedback-icon";
-
 import { motion, useCycle } from "framer-motion";
 
-type NavItem = {
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+interface NavLink {
   label: string;
   href: string;
-};
+}
 
-const navItemsTop: NavItem[] = [
-  { icon: DashboardIcon, label: "Dashboard", href: "/dashboard" },
-  { icon: RoadmapIcon, label: "Roadmap", href: "/roadmap" },
-  { icon: MaterialsIcon, label: "Materials", href: "/materials" },
-  { icon: CommunityIcon, label: "Community", href: "/community" },
-  { icon: ContactIcon, label: "Contact", href: "/contact" },
+const navItemsTop: NavLink[] = [
+  { label: "About", href: "/about" },
+  { label: "Roadmap", href: "/roadmap" },
+  { label: "Materials", href: "/materials" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Contact", href: "/contact" },
 ];
 
-const navItemsBottom: NavItem[] = [
-  { icon: ProfileIcon, label: "Profile", href: "/profile" },
-  { icon: FeedbackIcon, label: "Feedback", href: "/feedback" },
+const navItemsBottom: NavLink[] = [
+  { label: "Log In", href: "/login" },
+  { label: "Sign Up", href: "/signup" },
 ];
 
-const sidebar = {
+const navbar = {
   open: (height = 1000) => ({
     clipPath: `circle(${height * 2 + 200}px at 100% 0)`,
     transition: {
@@ -98,36 +90,73 @@ const MobileNav = () => {
     >
       <motion.div
         className="absolute inset-0 right-0 w-full bg-white"
-        variants={sidebar}
+        variants={navbar}
       />
-      <motion.ul
+      <motion.div
         variants={variants}
-        className="absolute grid w-full gap-3 px-10 py-16 max-h-screen overflow-y-auto"
+        className="absolute flex flex-col justify-between w-full px-10 py-16 h-screen overflow-y-auto"
       >
-        {navItemsTop.map((item, idx) => {
-          const isLastItem = idx === navItemsTop.length - 1; // Check if it's the last item
+        <motion.ul variants={variants} className="grid gap-3">
+          <MenuItem className="mx-auto">
+            <Link href={"/landing"} onClick={() => toggleOpen()}>
+              <img
+                src="/path-to-your-logo.svg"
+                alt="Logo"
+                className="h-12 w-auto"
+              />
+            </Link>
+          </MenuItem>
 
-          return (
-            <div key={idx}>
-              <MenuItem>
-                <Link
-                  href={item.href}
-                  onClick={() => toggleOpen()}
-                  className={`flex w-full text-2xl ${
-                    item.href === pathname ? "font-bold" : ""
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </MenuItem>
+          {navItemsTop.map((item, idx) => {
+            const isLastItem = idx === navItemsTop.length - 1; // Check if it's the last item
 
-              {!isLastItem && (
-                <MenuItem className="my-3 h-px w-full bg-gray-300" />
-              )}
-            </div>
-          );
-        })}
-      </motion.ul>
+            return (
+              <div key={idx}>
+                <MenuItem>
+                  <Link
+                    href={item.href}
+                    onClick={() => toggleOpen()}
+                    className={`flex justify-center w-full text-2xl ${
+                      item.href === pathname ? "font-bold" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </MenuItem>
+
+                {!isLastItem && (
+                  <MenuItem className="my-3 h-px w-full bg-gray-300" />
+                )}
+              </div>
+            );
+          })}
+        </motion.ul>
+        <motion.ul variants={variants} className="grid gap-3">
+          {navItemsBottom.map((item, idx) => {
+            const isLastItem = idx === navItemsBottom.length - 1; // Check if it's the last item
+
+            return (
+              <div key={idx}>
+                <MenuItem>
+                  <Link
+                    href={item.href}
+                    onClick={() => toggleOpen()}
+                    className={`flex justify-center w-full text-2xl ${
+                      item.href === pathname ? "font-bold" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </MenuItem>
+
+                {!isLastItem && (
+                  <MenuItem className="my-3 h-px w-full bg-gray-300" />
+                )}
+              </div>
+            );
+          })}
+        </motion.ul>
+      </motion.div>
       <MenuToggle toggle={toggleOpen} />
     </motion.nav>
   );
