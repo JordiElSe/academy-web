@@ -16,7 +16,7 @@ import ContactIcon from "@components/icons/contact-icon";
 import ProfileIcon from "@components/icons/profile-icon";
 import FeedbackIcon from "@components/icons/feedback-icon";
 
-import { motion, useCycle } from "framer-motion";
+import { delay, motion, useCycle } from "framer-motion";
 
 type NavItem = {
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -38,30 +38,31 @@ const navItemsBottom: NavItem[] = [
 ];
 
 const sidebar = {
-  open: (height = 1000) => ({
-    clipPath: `circle(${height * 2 + 200}px at 100% 0)`,
+  open: {
+    x: "0%",
     transition: {
       type: "spring",
-      stiffness: 20,
+      stiffness: 50,
       restDelta: 2,
     },
-  }),
+  },
   closed: {
-    clipPath: "circle(0px at 100% 0)",
+    x: "-100%",
     transition: {
       type: "spring",
-      stiffness: 400,
-      damping: 40,
+      stiffness: 50,
+      restDelta: 2,
+      delay: 0.35,
     },
   },
 };
 
 const variants = {
   open: {
-    transition: { staggerChildren: 0.02, delayChildren: 0.15 },
+    transition: { staggerChildren: 0.02, delayChildren: 0.35 },
   },
   closed: {
-    transition: { staggerChildren: 0.01, staggerDirection: -1 },
+    transition: { staggerChildren: 0.02, staggerDirection: -1 },
   },
 };
 
@@ -135,10 +136,10 @@ const MobileNav = () => {
 
 export default MobileNav;
 
-const MenuToggle = ({ toggle }: { toggle: any }) => (
+const MenuToggle = ({ toggle }: any) => (
   <button
     onClick={toggle}
-    className="pointer-events-auto absolute right-4 top-[14px] z-30"
+    className="pointer-events-auto absolute left-4 top-[14px] z-30"
   >
     <svg width="23" height="23" viewBox="0 0 23 23">
       <Path
@@ -181,19 +182,21 @@ const MenuItem = ({
 
 const MenuItemVariants = {
   open: {
-    y: 0,
+    scale: 1,
     opacity: 1,
     transition: {
       y: { stiffness: 1000, velocity: -100 },
     },
+    transformOrigin: "left",
   },
   closed: {
-    y: 50,
+    scale: 0.5,
     opacity: 0,
     transition: {
       y: { stiffness: 1000 },
-      duration: 0.02,
+      duration: 0.1,
     },
+    transformOrigin: "left",
   },
 };
 

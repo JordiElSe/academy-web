@@ -164,7 +164,7 @@ const MobileNav = () => {
 
 export default MobileNav;
 
-const MenuToggle = ({ toggle }: { toggle: any }) => (
+const MenuToggle = ({ toggle }: any) => (
   <button
     onClick={toggle}
     className="pointer-events-auto absolute right-4 top-[14px] z-30"
