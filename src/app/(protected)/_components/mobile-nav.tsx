@@ -66,20 +66,6 @@ const variants = {
   },
 };
 
-/* const MobileNav = () => {
-  return (
-    <nav className="fixed top-0 left-0 h-12 w-full flex justify-end bg-white z-40">
-      <div className="flex items-center justify-between gap-4 h-full px-10">
-        <ThemeSwitch />
-        <UserButton />
-        <MenuOpenIcon />
-      </div>
-    </nav>
-  );
-};
-
-export default MobileNav; */
-
 const MobileNav = () => {
   const { theme } = useTheme();
   const pathname = usePathname();
@@ -101,35 +87,74 @@ const MobileNav = () => {
         className="absolute inset-0 right-0 w-full bg-white"
         variants={sidebar}
       />
-      <motion.ul
+      <motion.div
         variants={variants}
-        className="absolute grid w-full gap-3 px-10 py-16 max-h-screen overflow-y-auto"
+        className="absolute flex flex-col justify-between w-full px-10 py-16 h-screen overflow-y-auto"
       >
-        {navItemsTop.map((item, idx) => {
-          const isLastItem = idx === navItemsTop.length - 1; // Check if it's the last item
+        <motion.ul variants={variants} className="grid gap-8 justify-center">
+          <MenuItem className="mx-auto">
+            <Link href={"/landing"} onClick={() => toggleOpen()}>
+              <img
+                src="/path-to-your-logo.svg"
+                alt="Logo"
+                className="h-12 w-auto"
+              />
+            </Link>
+          </MenuItem>
 
-          return (
-            <div key={idx}>
-              <MenuItem>
-                <Link
-                  href={item.href}
-                  onClick={() => toggleOpen()}
-                  className={`flex w-full text-2xl ${
-                    item.href === pathname ? "font-bold" : ""
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </MenuItem>
+          {navItemsTop.map((item, idx) => {
+            const isLastItem = idx === navItemsTop.length - 1; // Check if it's the last item
 
-              {!isLastItem && (
+            return (
+              <div key={idx}>
+                <MenuItem className="flex gap-3 items-center">
+                  <item.icon color={theme === "dark" ? "white" : "#434343"} />
+                  <Link
+                    href={item.href}
+                    onClick={() => toggleOpen()}
+                    className={`flex w-full text-2xl ${
+                      item.href === pathname ? "font-bold" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </MenuItem>
+
+                {/* {!isLastItem && (
                 <MenuItem className="my-3 h-px w-full bg-gray-300" />
-              )}
-            </div>
-          );
-        })}
-      </motion.ul>
+              )} */}
+              </div>
+            );
+          })}
+        </motion.ul>
+        <motion.ul variants={variants} className="grid gap-8 justify-center">
+          {navItemsBottom.map((item, idx) => {
+            const isLastItem = idx === navItemsBottom.length - 1; // Check if it's the last item
+
+            return (
+              <div key={idx}>
+                <MenuItem className="flex gap-3 items-center">
+                  <item.icon color={theme === "dark" ? "white" : "#434343"} />
+                  <Link
+                    href={item.href}
+                    onClick={() => toggleOpen()}
+                    className={`flex w-full text-2xl ${
+                      item.href === pathname ? "font-bold" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </MenuItem>
+              </div>
+            );
+          })}
+        </motion.ul>
+      </motion.div>
       <MenuToggle toggle={toggleOpen} />
+      <div className="flex flex-row gap-2 pointer-events-auto absolute right-4 top-[12px] z-30">
+        <ThemeSwitch />
+        <UserButton />
+      </div>
     </motion.nav>
   );
 };
