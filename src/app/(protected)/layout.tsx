@@ -3,26 +3,38 @@
 import React, { useState, useCallback } from "react";
 import Navbar from "./_components/navbar";
 import Sidebar from "./_components/sidebar";
+import MobileNav from "./_components/mobile-nav";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
 }
 
 const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
-  const [showSSsidebar, setShowSSsidebar] = useState(false);
+  const [narrow, setNarrow] = useState(false);
 
-  const handleSSsidebar = useCallback(() => {
-    setShowSSsidebar((prevShowSSsidebar) => !prevShowSSsidebar);
+  const handleSidebar = useCallback(() => {
+    setNarrow((prevShowSSsidebar) => !prevShowSSsidebar);
   }, []);
 
   return (
-    <div className="bg-light-base-100 dark:bg-dark-base-100 h-screen flex flex-col items-start">
-      <Navbar onMenuButtonClick={handleSSsidebar} />
-      <div className="w-full h-full flex flex-row">
-        <Sidebar showSSsidebar={showSSsidebar} />
+    <>
+      <div className="hidden bg-light-base-100 dark:bg-dark-base-100 h-screen sm:flex flex-row items-start">
+        <Sidebar handleSidebar={handleSidebar} isNarrow={narrow} />
+        <div
+          className={`${
+            narrow ? "animate-ml-shrink" : "animate-ml-expand"
+            /* narrow ? "ml-[5rem]" : "ml-[14rem]" */
+          } w-full h-full flex flex-col`}
+        >
+          <Navbar />
+          {children}
+        </div>
+      </div>
+      <div className="sm:hidden flex flex-col items-center justify-center h-screen w-screen">
+        <MobileNav />
         {children}
       </div>
-    </div>
+    </>
   );
 };
 

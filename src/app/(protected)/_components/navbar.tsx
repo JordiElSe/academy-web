@@ -1,17 +1,13 @@
-import React, { FC } from "react";
-import MenuOpenIcon from "@components/icons/menu-open-icon";
+import React from "react";
+
 import { UserButton } from "@components/auth/user-button";
 import ThemeSwitch from "@components/theme-switch";
 import { useCurrentUser } from "@hooks/use-current-user";
 
-interface Props {
-  onMenuButtonClick: () => void;
-}
-
-const Navbar: FC<Props> = ({ onMenuButtonClick }) => {
+const Navbar = () => {
   const user = useCurrentUser();
   return (
-    <nav className="fixed top-0 z-40 h-12 w-full flex justify-end bg-white">
+    <nav className="fixed top-0 left-0 h-12 w-full flex justify-end bg-white z-40">
       <div className="flex items-center justify-between gap-4 h-full px-10">
         <ThemeSwitch />
         <UserButton />
