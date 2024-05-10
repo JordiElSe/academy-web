@@ -71,8 +71,7 @@ export default async function PricingTable() {
 
   const plans = await fetchPlans();
 
-  let currentUserPlan = null;
-  currentUserPlan = await getUserSubscriptionPlan(user);
+  const currentUserPlan = await getUserSubscriptionPlan(user);
 
   function stringToBool(str: string) {
     return str === "true";

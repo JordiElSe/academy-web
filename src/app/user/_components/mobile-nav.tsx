@@ -16,7 +16,7 @@ import ContactIcon from "@components/icons/contact-icon";
 import ProfileIcon from "@components/icons/profile-icon";
 import FeedbackIcon from "@components/icons/feedback-icon";
 
-import { delay, motion, useCycle } from "framer-motion";
+import { motion, useCycle } from "framer-motion";
 
 type NavItem = {
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -59,7 +59,7 @@ const sidebar = {
 
 const variants = {
   open: {
-    transition: { staggerChildren: 0.02, delayChildren: 0.35 },
+    transition: { staggerChildren: 0.02, delayChildren: 0.25 },
   },
   closed: {
     transition: { staggerChildren: 0.02, staggerDirection: -1 },

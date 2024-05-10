@@ -1,6 +1,7 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Separator } from "@/components/ui/separator";
@@ -20,10 +21,7 @@ interface Props {
 
 const Sidebar: FC<Props> = ({ handleSidebar, isNarrow }) => {
   const { theme } = useTheme();
-  /* const [isNarrow, setIsNarrow] = useState(false);
-  const toggleIsNarrow = () => {
-    setIsNarrow(!isNarrow);
-  }; */
+  const pathname = usePathname();
 
   type NavItem = {
     icon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -32,16 +30,16 @@ const Sidebar: FC<Props> = ({ handleSidebar, isNarrow }) => {
   };
 
   const navItemsTop: NavItem[] = [
-    { icon: DashboardIcon, label: "Dashboard", href: "/dashboard" },
-    { icon: RoadmapIcon, label: "Roadmap", href: "/roadmap" },
-    { icon: MaterialsIcon, label: "Materials", href: "/materials" },
-    { icon: CommunityIcon, label: "Community", href: "/community" },
-    { icon: ContactIcon, label: "Contact", href: "/contact" },
+    { icon: DashboardIcon, label: "Dashboard", href: "/user/dashboard" },
+    { icon: RoadmapIcon, label: "Roadmap", href: "/user/roadmap" },
+    { icon: MaterialsIcon, label: "Materials", href: "/user/materials" },
+    { icon: CommunityIcon, label: "Community", href: "/user/community" },
+    { icon: ContactIcon, label: "Contact", href: "/user/contact" },
   ];
 
   const navItemsBottom: NavItem[] = [
-    { icon: ProfileIcon, label: "Profile", href: "/profile" },
-    { icon: FeedbackIcon, label: "Feedback", href: "/feedback" },
+    { icon: ProfileIcon, label: "Profile", href: "/user/profile" },
+    { icon: FeedbackIcon, label: "Feedback", href: "/user/feedback" },
   ];
 
   return (
@@ -52,16 +50,20 @@ const Sidebar: FC<Props> = ({ handleSidebar, isNarrow }) => {
         }`}
       >
         <nav className="bg-slate-300 dark:bg-[rgb(31,55,98,0.93)] relative shadow-md h-full w-full">
-          <div className="flex flex-col items-center w-full">
+          <div className="flex flex-col w-full">
             <Link className="mt-10" href="/">
               <div> Logo </div>
             </Link>
             <Separator className="h-1" />
             <div>
-              <ul className="mt-10 flex flex-col items-start h-full w-full">
+              <ul className="mt-10 flex flex-col h-full w-full">
                 {navItemsTop.map((item) => (
                   <li
-                    className="text-base transform transition duration-350 hover:scale-115 mt-8"
+                    className={`pl-8 text-base transform transition duration-350 hover:scale-115 mt-8 ${
+                      pathname === item.href
+                        ? "bg-gradient-to-r from-purple-500 to-white"
+                        : ""
+                    }`}
                     key={item.label}
                   >
                     <div className="flex items-center gap-4">
@@ -82,7 +84,7 @@ const Sidebar: FC<Props> = ({ handleSidebar, isNarrow }) => {
               </ul>
             </div>
             <div>
-              <ul className="mt-10 flex flex-col items-start h-full w-full">
+              <ul className="mt-10 flex flex-col h-full w-full">
                 {navItemsBottom.map((item) => (
                   <li
                     className="text-base transform transition duration-350 hover:scale-115 mt-8"

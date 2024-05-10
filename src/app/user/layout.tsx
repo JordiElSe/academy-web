@@ -23,7 +23,6 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
         <div
           className={`${
             narrow ? "animate-ml-shrink" : "animate-ml-expand"
-            /* narrow ? "ml-[5rem]" : "ml-[14rem]" */
           } w-full h-full flex flex-col`}
         >
           <Navbar />
