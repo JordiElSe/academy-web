@@ -18,7 +18,7 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
 
   return (
     <>
-      <div className="hidden bg-light-base-100 dark:bg-dark-base-100 h-screen sm:flex flex-row items-start">
+      <div className="hidden bg-light-base-100 dark:bg-dark-base-100 h-screen sm:block items-start">
         <Sidebar handleSidebar={handleSidebar} isNarrow={narrow} />
         <div
           className={`${
@@ -26,10 +26,10 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
           } w-full h-full flex flex-col`}
         >
           <Navbar />
-          {children}
+          <div className="mt-12">{children}</div>
         </div>
       </div>
-      <div className="sm:hidden flex flex-col items-center justify-center h-screen w-screen">
+      <div className="sm:hidden h-screen w-screen">
         <MobileNav />
         {children}
       </div>

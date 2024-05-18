@@ -78,20 +78,20 @@ const MobileNav = () => {
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
-      className={`fixed inset-0 z-50 w-full md:hidden ${
+      className={`fixed inset-0 z-50 w-full ${
         isOpen ? "" : "pointer-events-none"
       }`}
       ref={containerRef}
     >
       <motion.div
-        className="absolute inset-0 right-0 w-full bg-white"
+        className="absolute inset-0 w-full bg-white"
         variants={sidebar}
       />
       <motion.div
         variants={variants}
-        className="absolute flex flex-col justify-between w-full px-10 py-16 h-screen overflow-y-auto"
+        className="relative flex flex-col justify-between w-full px-10 py-16 h-screen overflow-y-auto"
       >
-        <motion.ul variants={variants} className="grid gap-8 justify-center">
+        {/* <motion.ul variants={variants} className="grid gap-8 justify-center">
           <MenuItem className="mx-auto">
             <Link href={"/landing"} onClick={() => toggleOpen()}>
               <img
@@ -100,7 +100,7 @@ const MobileNav = () => {
                 className="h-12 w-auto"
               />
             </Link>
-          </MenuItem>
+          </MenuItem> 
 
           {navItemsTop.map((item, idx) => {
             const isLastItem = idx === navItemsTop.length - 1; // Check if it's the last item
@@ -119,10 +119,6 @@ const MobileNav = () => {
                     {item.label}
                   </Link>
                 </MenuItem>
-
-                {/* {!isLastItem && (
-                <MenuItem className="my-3 h-px w-full bg-gray-300" />
-              )} */}
               </div>
             );
           })}
@@ -148,7 +144,7 @@ const MobileNav = () => {
               </div>
             );
           })}
-        </motion.ul>
+        </motion.ul> */}
       </motion.div>
       <MenuToggle toggle={toggleOpen} />
       <div className="flex flex-row gap-2 pointer-events-auto absolute right-4 top-[12px] z-30">

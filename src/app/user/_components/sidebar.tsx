@@ -54,7 +54,7 @@ const Sidebar: FC<Props> = ({ handleSidebar, isNarrow }) => {
             <Link className="mt-10" href="/">
               <div> Logo </div>
             </Link>
-            <Separator className="h-1" />
+            <Separator className="h-1 bg-gradient-to-r from-slate-400 to-slate-300 dark:from-slate-500 dark:to-slate-400" />
             <div>
               <ul className="mt-10 flex flex-col h-full w-full gap-4">
                 {navItemsTop.map((item, index) => (
