@@ -1,8 +1,8 @@
 "use client";
 
-import React, { ReactNode, useState, useRef, useEffect } from "react";
+import React, { ReactNode, useRef, useEffect } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 import { UserButton } from "@components/auth/user-button";
 import ThemeSwitch from "@components/theme-switch";
@@ -99,7 +99,7 @@ const MobileNav = () => {
         <motion.ul variants={variants} className="grid gap-3">
           <MenuItem className="mx-auto">
             <Link href={"/landing"} onClick={() => toggleOpen()}>
-              <img
+              <Image
                 src="/path-to-your-logo.svg"
                 alt="Logo"
                 className="h-12 w-auto"
