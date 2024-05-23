@@ -103,6 +103,8 @@ const MobileNav = () => {
                 src="/path-to-your-logo.svg"
                 alt="Logo"
                 className="h-12 w-auto"
+                width={200}
+                height={50}
               />
             </Link>
           </MenuItem>
