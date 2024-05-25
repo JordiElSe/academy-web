@@ -62,6 +62,10 @@ const config = {
         115: "1.15",
       },
       keyframes: {
+        "fade-in-out": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -94,6 +98,7 @@ const config = {
         "w-shrink": "w-shrink 0.3s ease-in-out forwards",
         "ml-expand": "ml-expand 0.3s ease-in-out forwards",
         "ml-shrink": "ml-shrink 0.3s ease-in-out forwards",
+        "fade-in-out": "fade-in-out 6s infinite",
       },
     },
   },
