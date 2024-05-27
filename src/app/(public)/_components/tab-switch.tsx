@@ -2,34 +2,35 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Path from "./path";
 
 const tabs = [
-  { icon: "🍅", label: "Roadmap A1-A2" },
-  { icon: "🥬", label: "Roadmap A2-B1" },
-  { icon: "🧀", label: "Roadmap B1-B2" },
-  { icon: "🥕", label: "Roadmap B2-C1" },
-  { icon: "🍌", label: "Roadmap C1-C2" },
+  { label: "Roadmap A1-A2" },
+  { label: "Roadmap A2-B1" },
+  { label: "Roadmap B1-B2" },
+  { label: "Roadmap B2-C1" },
+  { label: "Roadmap C1-C2" },
 ];
 
 export default function TabSwitch() {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
   return (
-    <div className="w-[90%] h-80 mt-10 rounded-[5px] flex flex-col shadow overflow-hidden">
-      <nav className="bg-gray-50 pt-1.5 px-1.5 rounded-[5px] border-b border-gray-200 h-11">
-        <ul className="flex w-full">
+    <div className="w-[90%] h-full rounded-2xl flex flex-col shadow overflow-auto">
+      <nav className="bg-gray-50 rounded-2xl border-b-[2px] border-gray-300 h-14">
+        <ul className="flex w-full h-full items-center">
           {tabs.map((item) => (
             <li
               key={item.label}
               className={`${
                 item === selectedTab ? "bg-[#eee]" : ""
-              } rounded-[5px] w-full bg-white cursor-pointer h-6 flex justify-center items-center min-w-0 relative select-none`}
+              } w-full h-full bg-gray-50 cursor-pointer flex justify-center items-center min-w-0 relative select-none`}
               onClick={() => setSelectedTab(item)}
             >
-              {`${item.icon} ${item.label}`}
+              {`${item.label}`}
               {item === selectedTab ? (
                 <motion.div
-                  className="absolute bottom-[-1px] left-0 right-0 h-px bg-[#8855ff]"
+                  className="absolute bottom-[-2px] left-0 right-0 h-[2px] bg-[#8855ff]"
                   layoutId="underline"
                 />
               ) : null}
@@ -37,16 +38,17 @@ export default function TabSwitch() {
           ))}
         </ul>
       </nav>
-      <main className="flex justify-center items-center user-flex-grow select-none">
+      <main className="flex justify-center w-full h-full items-center select-none bg-gray-50 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
+            className="w-full px-32 py-8"
             key={selectedTab ? selectedTab.label : "empty"}
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            Roadmap
+            <Path />
           </motion.div>
         </AnimatePresence>
       </main>
