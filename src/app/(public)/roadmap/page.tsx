@@ -8,7 +8,7 @@ export default function RoadmapPage() {
     <div className="flex flex-col items-center justify-start w-full pt-10">
       <TabSwitch />
 
-      <Stop />
+      {/* <Stop /> */}
     </div>
   );
 }
