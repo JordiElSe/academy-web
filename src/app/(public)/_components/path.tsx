@@ -3,15 +3,35 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, useTransform, useScroll, useSpring } from "framer-motion";
 
 const Path = () => {
+  const { scrollYProgress } = useScroll();
+  const [gradientStops, setGradientStops] = useState("0%, 100%");
   const pathRef = useRef<SVGPathElement>(null);
   const [pathLength, setPathLength] = useState(0);
-  console.log("pathLength", pathLength);
 
   useEffect(() => {
     if (pathRef.current) {
       setPathLength(pathRef.current.getTotalLength());
     }
   }, []);
+
+  useEffect(() => {
+    const updateGradientStops = () => {
+      if (pathRef.current) {
+        const progress =
+          (scrollYProgress.get() * pathRef.current.getTotalLength()) /
+          pathRef.current.getTotalLength();
+        const highlightStart = Math.max(0, progress - 0.05);
+        setGradientStops(`${highlightStart * 100}%, ${progress * 100}%`);
+      }
+    };
+
+    const unsubscribe = scrollYProgress.onChange(updateGradientStops);
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
+  useEffect(() => {
+    console.log("gradientStops", gradientStops);
+  }, [gradientStops]);
 
   let svgWidth = 1458.5;
   let svgHeight = 1000;
@@ -34,77 +54,61 @@ const Path = () => {
       endPoint2[1] + yOffset
     } ${endPoint2[0]} ${endPoint2[1] + yOffset}`;
   }
-  const { scrollYProgress } = useScroll();
 
-  const y2 = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, svgHeight * repetitions]),
-    {
-      stiffness: 500,
-      damping: 90,
-    }
-  );
+  const y2 = useSpring(useTransform(scrollYProgress, [0, 1], [0, pathLength]), {
+    stiffness: 500,
+    damping: 90,
+  });
 
   return (
-    <motion.svg
+    <svg
       /* width="1602"
       height="8002" */
       preserveAspectRatio="xMidYMid meet"
-      style={{ width: "100%", height: "auto", overflow: "visible" }}
+      style={{ width: "100%", height: "fit", overflow: "visible" }}
       viewBox={`0 0 ${svgWidth} ${svgHeight * repetitions}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <motion.path
+      <defs>
+        <linearGradient
+          id="roadmapGradient"
+          gradientUnits="userSpaceOnUse"
+          x1={startPoint[0]}
+          x2={startPoint[0]}
+          y1="0"
+          y2={svgHeight * repetitions}
+        >
+          <stop offset="0%" stopColor="#264DFF" />
+          <stop
+            offset={gradientStops.split(",")[0]}
+            stopColor="#002EFF"
+            stopOpacity="0.2"
+          />
+          <stop offset={gradientStops.split(",")[1]} stopColor="#002EFF" />
+          <stop
+            offset={gradientStops.split(",")[1]}
+            stopColor="green"
+            stopOpacity="0"
+          />
+        </linearGradient>
+      </defs>
+      <path
         ref={pathRef}
         d={d}
-        fill="none"
-        strokeOpacity="0.16"
-        transition={{
-          duration: 10,
-        }}
-        stroke="black"
+        stroke="url(#roadmapGradient)"
         strokeWidth="10"
-      />
-
-      <motion.path
         fill="none"
-        stroke="url(#gradient)"
-        className="motion-reduce:hidden"
-        transition={{
-          duration: 10,
-        }}
-        /* initial={{ pathLength: 1 }}
-        style={{ pathLength: scrollYProgress }}
-        animate={{ pathLength: 1 }}
-        transition={{
-          duration: 3,
-          ease: "linear",
-          repeat: Infinity,
-            repeatType: "loop",
-            repeatDelay: 1, 
-        }} */
+      />
+      <path
+        ref={pathRef}
         d={d}
-        /* style={{
-          strokeDasharray: pathLength,
-          strokeDashoffset: dashOffset,
-        }} */
+        stroke="grey"
+        opacity={0.2}
         strokeWidth="10"
+        fill="none"
       />
-      <defs>
-        <motion.linearGradient
-          id="gradient"
-          gradientUnits="userSpaceOnUse"
-          x1="0"
-          x2="0"
-          y1="0"
-          y2={y2}
-        >
-          <stop stopColor="#5876FE" stopOpacity="1"></stop>
-          <stop offset="0.96" stopColor="#5876FE"></stop>
-          <stop offset="1" stopColor="#5876FE" stopOpacity="0"></stop>
-        </motion.linearGradient>
-      </defs>
-    </motion.svg>
+    </svg>
   );
 };
 

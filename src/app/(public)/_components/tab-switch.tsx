@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Path from "./path";
-import { TracingBeam } from "@components/ui/tracing-bream";
 
 const tabs = [
   { label: "Roadmap A1-A2" },
