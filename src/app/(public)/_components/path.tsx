@@ -6,6 +6,7 @@ const Path = () => {
   const { scrollYProgress } = useScroll();
   const [gradientStops, setGradientStops] = useState("0%, 100%");
   const pathRef = useRef<SVGPathElement>(null);
+  const pathLengthRef = useRef(0);
   const [pathLength, setPathLength] = useState(0);
 
   useEffect(() => {
@@ -15,11 +16,14 @@ const Path = () => {
   }, []);
 
   useEffect(() => {
+    if (pathRef.current) {
+      pathLengthRef.current = pathRef.current.getTotalLength();
+    }
     const updateGradientStops = () => {
-      if (pathRef.current) {
+      if (pathLengthRef.current) {
         const progress =
-          (scrollYProgress.get() * pathRef.current.getTotalLength()) /
-          pathRef.current.getTotalLength();
+          (scrollYProgress.get() * pathLengthRef.current) /
+          pathLengthRef.current;
         const highlightStart = Math.max(0, progress - 0.05);
         setGradientStops(`${highlightStart * 100}%, ${progress * 100}%`);
       }
@@ -27,7 +31,7 @@ const Path = () => {
 
     const unsubscribe = scrollYProgress.onChange(updateGradientStops);
     return () => unsubscribe();
-  }, [scrollYProgress]);
+  }, []);
 
   useEffect(() => {
     console.log("gradientStops", gradientStops);
@@ -55,15 +59,13 @@ const Path = () => {
     } ${endPoint2[0]} ${endPoint2[1] + yOffset}`;
   }
 
-  const y2 = useSpring(useTransform(scrollYProgress, [0, 1], [0, pathLength]), {
+  /*   const y2 = useSpring(useTransform(scrollYProgress, [0, 1], [0, pathLength]), {
     stiffness: 500,
     damping: 90,
-  });
+  }); */
 
   return (
     <svg
-      /* width="1602"
-      height="8002" */
       preserveAspectRatio="xMidYMid meet"
       style={{ width: "100%", height: "fit", overflow: "visible" }}
       viewBox={`0 0 ${svgWidth} ${svgHeight * repetitions}`}
@@ -79,7 +81,7 @@ const Path = () => {
           y1="0"
           y2={svgHeight * repetitions}
         >
-          <stop offset="0%" stopColor="#264DFF" />
+          <stop offset="0%" stopColor="#264DFF" stopOpacity="0" />
           <stop
             offset={gradientStops.split(",")[0]}
             stopColor="#002EFF"
@@ -97,7 +99,7 @@ const Path = () => {
         ref={pathRef}
         d={d}
         stroke="url(#roadmapGradient)"
-        strokeWidth="10"
+        strokeWidth="3"
         fill="none"
       />
       <path
@@ -105,7 +107,7 @@ const Path = () => {
         d={d}
         stroke="grey"
         opacity={0.2}
-        strokeWidth="10"
+        strokeWidth="3"
         fill="none"
       />
     </svg>

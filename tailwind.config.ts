@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      transitionDelay: {
+        "600": "600ms",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -62,6 +65,11 @@ const config = {
         115: "1.15",
       },
       keyframes: {
+        pingWithDelay: {
+          "0%": { transform: "scale(1)", opacity: "1" },
+          "50%": { transform: "scale(2.5)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "0" },
+        },
         "fade-in-out": {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
@@ -99,6 +107,9 @@ const config = {
         "ml-expand": "ml-expand 0.3s ease-in-out forwards",
         "ml-shrink": "ml-shrink 0.3s ease-in-out forwards",
         "fade-in-out": "fade-in-out 6s infinite",
+        pingWithDelay: "pingWithDelay 3s ease-in-out infinite" /* 
+        pingWithDelay2: "pingWithDelay 3s ease-in-out infinite 0.45s",
+        pingWithDelay3: "pingWithDelay 3s ease-in-out infinite 0.9s", */,
       },
     },
   },
