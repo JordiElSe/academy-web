@@ -42,7 +42,7 @@ export default function TabSwitch() {
       <main className="flex justify-center w-full h-full items-center select-none bg-gray-50 dark:bg-slate-600 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
-            className="relative w-full px-32 py-8"
+            className="relative w-full px-32 py-6"
             key={selectedTab ? selectedTab.label : "empty"}
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
