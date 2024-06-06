@@ -1,19 +1,21 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Stop from "../_components/stop";
 import TabSwitch from "../_components/tab-switch";
+import { motion } from "framer-motion";
 
 export default function RoadmapPage() {
-  // const { scrollYProgress } = useScroll();
-  const baseHeight = 70;
-  const baseWidth = 300;
-  const baseDepth = 80;
-  const buttonHeight = baseHeight;
-  const buttonWidth = baseWidth / 2;
+  const baseHeight = 25;
+  const baseWidth = 125;
+  const baseDepth = 40;
+  const buttonHeight = baseHeight * 0.9;
+  const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
+  const buttonWidth = baseWidth * 0.58;
   const buttonDepth = baseDepth / 2;
-  const svgHeight = baseHeight + buttonHeight + baseDepth / 2 + buttonDepth / 2;
+  const svgHeight = baseHeight + buttonHeight + baseDepth / 2 + buttonDepth;
 
   const centerBaseEllipse = [baseWidth / 2, buttonHeight + buttonDepth / 2];
-  const centerButtonEllipse = [baseWidth / 2, buttonDepth];
+  const centerButtonEllipse = [baseWidth / 2, buttonDepth / 2];
   const buttonTopLeft = [
     centerButtonEllipse[0] - buttonWidth / 2,
     centerButtonEllipse[1],
@@ -32,17 +34,23 @@ export default function RoadmapPage() {
   const baseBottomRight = [baseTopRight[0], centerBaseEllipse[1] + baseHeight];
   const baseBottomLeft = [baseTopLeft[0], baseBottomRight[1]];
 
+  const handleClick = () => {
+    setButtonClickedHeight((prev) => (prev === 0 ? buttonHeight * 0.7 : 0));
+  };
+
   return (
     <div className="flex flex-col items-center justify-start w-full pt-10">
       <TabSwitch />
 
       {/* <Stop /> */}
       <svg
+        className="cursor-pointer"
         width={baseWidth}
         height={svgHeight}
         viewBox={`0 0 ${baseWidth} ${svgHeight}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        onClick={handleClick}
       >
         <path
           d={`M${baseTopLeft[0]} ${baseTopLeft[1]} L${baseBottomLeft[0]} ${
@@ -50,12 +58,6 @@ export default function RoadmapPage() {
           } A ${baseWidth / 2} ${baseDepth / 2} 0 1 0 ${baseBottomRight[0]} ${
             baseBottomRight[1]
           } L${baseTopRight[0]} ${baseTopRight[1]}`}
-          /* d={`M0 ${centerBaseEllipse} L0 ${centerBaseEllipse + baseHeight} A ${
-            baseWidth / 2
-          } ${centerBaseEllipse} 0 1 0 ${baseWidth} ${
-            baseHeight + centerBaseEllipse
-          } L${baseWidth} ${centerBaseEllipse}`} */
-          // d="M0 100 L0 300 A 425 100 0 1 0 850 300 L850 100"
           fill="purple"
           stroke="black"
         />
@@ -67,7 +69,7 @@ export default function RoadmapPage() {
           fill="green"
           stroke="black"
         />
-        <path
+        <motion.path
           d={`M${buttonTopLeft[0]} ${buttonTopLeft[1]} L${
             buttonBottomLeft[0]
           } ${buttonBottomLeft[1]} A ${buttonWidth / 2} ${
@@ -75,14 +77,36 @@ export default function RoadmapPage() {
           } 0 1 0 ${buttonBottomRight[0]} ${buttonBottomRight[1]} L${
             buttonTopRight[0]
           } ${buttonTopRight[1]}`}
+          animate={{
+            d: `M${buttonTopLeft[0]} ${
+              buttonTopLeft[1] + buttonClickedHeight
+            } L${buttonBottomLeft[0]} ${buttonBottomLeft[1]} A ${
+              buttonWidth / 2
+            } ${buttonDepth / 2} 0 1 0 ${buttonBottomRight[0]} ${
+              buttonBottomRight[1]
+            } L${buttonTopRight[0]} ${buttonTopRight[1] + buttonClickedHeight}`,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 15,
+          }}
           fill="blue"
           stroke="black"
         />
-        <ellipse
+        <motion.ellipse
           cx={centerButtonEllipse[0]}
           cy={centerButtonEllipse[1]}
           rx={buttonWidth / 2}
           ry={buttonDepth / 2}
+          animate={{
+            cy: centerButtonEllipse[1] + buttonClickedHeight,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 15,
+          }}
           fill="yellow"
           stroke="black"
         />
