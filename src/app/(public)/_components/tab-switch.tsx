@@ -50,7 +50,7 @@ export default function TabSwitch() {
             transition={{ duration: 0.2 }}
           >
             <Path />
-            <Stop className="absolute top-[17.4rem] left-[19.5rem]" />
+            {/* <Stop className="absolute top-[17.4rem] left-[19.5rem]" /> */}
           </motion.div>
         </AnimatePresence>
       </main>

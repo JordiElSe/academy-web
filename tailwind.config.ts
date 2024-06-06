@@ -18,6 +18,12 @@ const config = {
       },
     },
     extend: {
+      perspective: {
+        "1000": "1000px",
+      },
+      transformStyle: {
+        "3d": "preserve-3d",
+      },
       transitionDelay: {
         "600": "600ms",
       },
