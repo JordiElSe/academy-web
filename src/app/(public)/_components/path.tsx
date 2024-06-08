@@ -24,7 +24,7 @@ const Path = () => {
     }
   });
 
-  let strokeWidth = 3;
+  let strokeWidth = 15;
   let svgWidth = 1458.5;
   let svgHeight = 1000;
   let repetitions = 2;

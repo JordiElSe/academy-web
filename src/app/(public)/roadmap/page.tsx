@@ -5,10 +5,10 @@ import TabSwitch from "../_components/tab-switch";
 import { motion } from "framer-motion";
 
 export default function RoadmapPage() {
-  const baseHeight = 25;
-  const baseWidth = 125;
-  const baseDepth = 40;
-  const buttonHeight = baseHeight * 0.9;
+  const baseHeight = 13;
+  const baseWidth = 100;
+  const baseDepth = 35;
+  const buttonHeight = baseHeight;
   const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
   const buttonWidth = baseWidth * 0.58;
   const buttonDepth = baseDepth / 2;
@@ -45,20 +45,76 @@ export default function RoadmapPage() {
       {/* <Stop /> */}
       <svg
         className="cursor-pointer"
-        width={baseWidth}
-        height={svgHeight}
-        viewBox={`0 0 ${baseWidth} ${svgHeight}`}
+        width={baseWidth + 100}
+        height={svgHeight + 100}
+        viewBox={`0 0 ${baseWidth + 100} ${svgHeight + 100}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         onClick={handleClick}
       >
+        <motion.ellipse
+          cx={centerBaseEllipse[0]}
+          cy={centerBaseEllipse[1] + baseHeight}
+          rx={baseWidth / 2}
+          ry={baseDepth / 2}
+          fill="grey"
+          animate={{
+            scale: [1, 2.5, 1],
+            opacity: [1, 0, 0],
+          }}
+          transition={{
+            duration: 2,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "loop",
+            times: [0, 1.1, 2],
+          }}
+        />
+        <motion.ellipse
+          cx={centerBaseEllipse[0]}
+          cy={centerBaseEllipse[1] + baseHeight}
+          rx={baseWidth / 2}
+          ry={baseDepth / 2}
+          fill="grey"
+          animate={{
+            scale: [1, 2.5, 1],
+            opacity: [1, 0, 0],
+          }}
+          transition={{
+            duration: 2,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "loop",
+            delay: 0.25,
+            times: [0, 1.1, 2],
+          }}
+        />
+        <motion.ellipse
+          cx={centerBaseEllipse[0]}
+          cy={centerBaseEllipse[1] + baseHeight}
+          rx={baseWidth / 2}
+          ry={baseDepth / 2}
+          fill="grey"
+          animate={{
+            scale: [1, 2.5, 1],
+            opacity: [1, 0, 0],
+          }}
+          transition={{
+            duration: 2,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "loop",
+            delay: 0.5,
+            times: [0, 1.1, 2],
+          }}
+        />
         <path
           d={`M${baseTopLeft[0]} ${baseTopLeft[1]} L${baseBottomLeft[0]} ${
             baseBottomLeft[1]
           } A ${baseWidth / 2} ${baseDepth / 2} 0 1 0 ${baseBottomRight[0]} ${
             baseBottomRight[1]
           } L${baseTopRight[0]} ${baseTopRight[1]}`}
-          fill="purple"
+          fill="#4F4F4F"
           stroke="black"
         />
         <ellipse
@@ -66,9 +122,10 @@ export default function RoadmapPage() {
           cy={centerBaseEllipse[1]}
           rx={baseWidth / 2}
           ry={baseDepth / 2}
-          fill="green"
+          fill="#838383"
           stroke="black"
         />
+
         <motion.path
           d={`M${buttonTopLeft[0]} ${buttonTopLeft[1]} L${
             buttonBottomLeft[0]
@@ -88,10 +145,10 @@ export default function RoadmapPage() {
           }}
           transition={{
             type: "spring",
-            stiffness: 400,
+            stiffness: 500,
             damping: 15,
           }}
-          fill="blue"
+          fill="#4F4F4F"
           stroke="black"
         />
         <motion.ellipse
@@ -104,10 +161,10 @@ export default function RoadmapPage() {
           }}
           transition={{
             type: "spring",
-            stiffness: 400,
-            damping: 15,
+            stiffness: 500,
+            damping: 20,
           }}
-          fill="yellow"
+          fill="#838383"
           stroke="black"
         />
       </svg>
