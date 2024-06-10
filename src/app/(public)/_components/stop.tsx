@@ -3,31 +3,33 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 interface StopProps {
-  initialVpX: number;
-  initialVpY: number;
+  x: number;
+  y: number;
   baseHeight: number;
   baseWidth: number;
   baseDepth: number;
 }
 
 export default function Stop({
-  initialVpX,
-  initialVpY,
+  x,
+  y,
   baseHeight,
   baseWidth,
   baseDepth,
 }: StopProps) {
-  /*   const baseHeight = 13;
-  const baseWidth = 100;
-  const baseDepth = 35; */
-  const buttonHeight = baseHeight;
   const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
+  const buttonHeight = baseHeight;
   const buttonWidth = baseWidth * 0.58;
   const buttonDepth = baseDepth / 2;
-  const svgHeight = baseHeight + buttonHeight + baseDepth / 2 + buttonDepth;
 
-  const centerBaseEllipse = [baseWidth / 2, buttonHeight + buttonDepth / 2];
-  const centerButtonEllipse = [baseWidth / 2, buttonDepth / 2];
+  const centerBaseEllipse = [
+    (baseWidth * 2.5) / 2,
+    (baseDepth * 2.5) / 2 - baseHeight,
+  ];
+  const centerButtonEllipse = [
+    (baseWidth * 2.5) / 2,
+    (baseDepth * 2.5) / 2 - buttonHeight - baseHeight,
+  ];
   const buttonTopLeft = [
     centerButtonEllipse[0] - buttonWidth / 2,
     centerButtonEllipse[1],
@@ -41,8 +43,14 @@ export default function Stop({
     centerButtonEllipse[1] + buttonHeight,
   ];
   const buttonBottomLeft = [buttonTopLeft[0], buttonBottomRight[1]];
-  const baseTopLeft = [0, centerBaseEllipse[1]];
-  const baseTopRight = [baseWidth, centerBaseEllipse[1]];
+  const baseTopLeft = [
+    centerBaseEllipse[0] - baseWidth / 2,
+    centerBaseEllipse[1],
+  ];
+  const baseTopRight = [
+    centerBaseEllipse[0] + baseWidth / 2,
+    centerBaseEllipse[1],
+  ];
   const baseBottomRight = [baseTopRight[0], centerBaseEllipse[1] + baseHeight];
   const baseBottomLeft = [baseTopLeft[0], baseBottomRight[1]];
 
@@ -53,11 +61,11 @@ export default function Stop({
   return (
     <svg
       className="cursor-pointer"
-      width={baseWidth}
-      height={svgHeight}
-      viewBox={`${initialVpX} ${initialVpY} ${baseWidth} ${svgHeight}`}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      x={x}
+      y={y}
+      width={baseWidth * 2.5}
+      height={baseDepth * 2.5}
+      viewBox={`0 0 ${baseWidth * 2.5} ${baseDepth * 2.5}`}
       onClick={handleClick}
     >
       <motion.ellipse
@@ -68,14 +76,15 @@ export default function Stop({
         fill="grey"
         animate={{
           scale: [1, 2.5, 1],
-          opacity: [1, 0, 0],
+          opacity: [0.8, 0, 0],
         }}
         transition={{
           duration: 2,
-          ease: "easeInOut" /* 
-            repeat: Infinity,
-            repeatType: "loop", */,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatType: "loop",
           times: [0, 1.1, 2],
+          repeatDelay: 1,
         }}
       />
       <motion.ellipse
@@ -86,15 +95,16 @@ export default function Stop({
         fill="grey"
         animate={{
           scale: [1, 2.5, 1],
-          opacity: [1, 0, 0],
+          opacity: [0.8, 0, 0],
         }}
         transition={{
           duration: 2,
-          ease: "easeInOut" /* 
-            repeat: Infinity,
-            repeatType: "loop", */,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatType: "loop",
           delay: 0.25,
           times: [0, 1.1, 2],
+          repeatDelay: 1,
         }}
       />
       <motion.ellipse
@@ -105,15 +115,16 @@ export default function Stop({
         fill="grey"
         animate={{
           scale: [1, 2.5, 1],
-          opacity: [1, 0, 0],
+          opacity: [0.8, 0, 0],
         }}
         transition={{
           duration: 2,
-          ease: "easeInOut" /* 
-            repeat: Infinity,
-            repeatType: "loop", */,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatType: "loop",
           delay: 0.5,
           times: [0, 1.1, 2],
+          repeatDelay: 1,
         }}
       />
       <path
