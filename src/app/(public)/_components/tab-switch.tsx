@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Path from "./path";
-import { TracingBeam } from "@components/ui/tracing-bream";
+import Stop from "./stop";
 
 const tabs = [
   { label: "Roadmap A1-A2" },
@@ -25,7 +25,7 @@ export default function TabSwitch() {
               key={item.label}
               className={`${
                 item === selectedTab ? "bg-[#eee]" : ""
-              } w-full h-full bg-gray-50 cursor-pointer flex justify-center items-center min-w-0 relative select-none`}
+              } w-full h-full bg-gray-50 dark:bg-slate-600 cursor-pointer flex justify-center items-center min-w-0 relative select-none`}
               onClick={() => setSelectedTab(item)}
             >
               {`${item.label}`}
@@ -39,10 +39,10 @@ export default function TabSwitch() {
           ))}
         </ul>
       </nav>
-      <main className="flex justify-center w-full h-full items-center select-none bg-gray-50 overflow-hidden">
+      <main className="flex justify-center w-full h-full items-center select-none bg-gray-50 dark:bg-slate-600 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
-            className="w-full px-32 py-8"
+            className="relative w-full px-32 py-6"
             key={selectedTab ? selectedTab.label : "empty"}
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -50,6 +50,7 @@ export default function TabSwitch() {
             transition={{ duration: 0.2 }}
           >
             <Path />
+            {/* <Stop className="absolute top-[17.4rem] left-[19.5rem]" /> */}
           </motion.div>
         </AnimatePresence>
       </main>
