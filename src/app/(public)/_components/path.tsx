@@ -8,22 +8,10 @@ const Path = () => {
   const { theme } = useTheme();
   const { scrollYProgress } = useScroll();
   const [gradientStops, setGradientStops] = useState("0%, 0%");
+  const [stops, setStops] = useState<React.ReactNode[]>([]);
   const pathRef = useRef<SVGPathElement>(null);
   const pathLengthRef = useRef(0);
 
-  useEffect(() => {
-    if (pathRef.current) {
-      pathLengthRef.current = pathRef.current.getTotalLength();
-    }
-  }, []);
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (pathLengthRef.current) {
-      const progress = (latest * pathLengthRef.current) / pathLengthRef.current;
-      const highlightStart = Math.max(0, progress - 0.03);
-      setGradientStops(`${highlightStart * 100}%, ${progress * 100}%`);
-    }
-  });
   //Path + stops dimensions
   const strokeWidth = 5;
   const svgWidth = 1458.5;
@@ -54,8 +42,6 @@ const Path = () => {
 
   let d = "";
 
-  const stops: React.ReactNode[] = [];
-
   for (let i = 0; i < repetitions; i++) {
     let yOffset = i * svgHeight;
     d += `M${startPoint[0]} ${startPoint[1] + yOffset}C${controlPoint1[0]} ${
@@ -65,35 +51,73 @@ const Path = () => {
     }C${controlPoint3[0]} ${controlPoint3[1] + yOffset} ${controlPoint4[0]} ${
       controlPoint4[1] + yOffset
     } ${endPoint2[0]} ${endPoint2[1] + yOffset}`;
-
-    // Calculate positions for stops
-    const stopPositions = [
-      { x: startPoint[0] - (baseWidth * 2.5) / 2, y: yOffset },
-      {
-        x: 0,
-        y: startPoint[1] + yOffset + svgHeight / 4 - (baseDepth * 2.5) / 2,
-      },
-      {
-        x: startPoint[0] - (baseWidth * 2.5) / 2,
-        y: startPoint[1] + svgHeight / 2 + yOffset,
-      },
-      { x: svgWidth - baseWidth * 2.5, y: (svgHeight * 3) / 4 + yOffset },
-    ];
-
-    // Push Stop components to the stops array
-    stopPositions.forEach((pos, index) => {
-      stops.push(
-        <Stop
-          key={`stop-${i}-${index}`}
-          x={pos.x}
-          y={pos.y}
-          baseDepth={baseDepth}
-          baseHeight={baseHeight}
-          baseWidth={baseWidth}
-        />
-      );
-    });
   }
+
+  useEffect(() => {
+    if (pathRef.current) {
+      pathLengthRef.current = pathRef.current.getTotalLength();
+
+      const temp: React.ReactNode[] = [];
+
+      for (let i = 0; i < repetitions; i++) {
+        let yOffset = i * svgHeight;
+
+        // Calculate positions for stops
+        const stopPositions = [
+          {
+            x: svgWidth / 2 - (baseWidth * 2.5) / 2,
+            y: yOffset,
+          },
+
+          {
+            x:
+              pathRef.current.getPointAtLength(
+                (i * pathLengthRef.current) / repetitions +
+                  pathLengthRef.current / repetitions / 4
+              ).x -
+              (baseWidth * 2.5) / 2,
+            y: svgHeight / 4 + yOffset,
+          },
+          {
+            x: svgWidth / 2 - (baseWidth * 2.5) / 2,
+            y: startPoint[1] + svgHeight / 2 + yOffset - (baseDepth * 2.5) / 2,
+          },
+          {
+            x:
+              pathRef.current.getPointAtLength(
+                (i * pathLengthRef.current) / repetitions +
+                  (pathLengthRef.current / repetitions / 4) * 3
+              ).x -
+              (baseWidth * 2.5) / 2,
+            y: (svgHeight * 3) / 4 + yOffset,
+          },
+        ];
+
+        // Push Stop components to the stops array
+        stopPositions.forEach((pos, index) => {
+          temp.push(
+            <Stop
+              key={`stop-${i}-${index}`}
+              x={pos.x}
+              y={pos.y}
+              baseDepth={baseDepth}
+              baseHeight={baseHeight}
+              baseWidth={baseWidth}
+            />
+          );
+        });
+      }
+      setStops(temp);
+    }
+  }, []);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (pathLengthRef.current) {
+      const progress = (latest * pathLengthRef.current) / pathLengthRef.current;
+      const highlightStart = Math.max(0, progress - 0.03);
+      setGradientStops(`${highlightStart * 100}%, ${progress * 100}%`);
+    }
+  });
 
   return (
     <svg
@@ -147,13 +171,6 @@ const Path = () => {
         strokeWidth={strokeWidth}
         fill="none"
       />
-      {/*  <Stop
-        x={startPoint[0] - (baseWidth * 2.5) / 2}
-        y={0}
-        baseDepth={baseDepth}
-        baseHeight={baseHeight}
-        baseWidth={baseWidth}
-      /> */}
       {stops}
     </svg>
   );
