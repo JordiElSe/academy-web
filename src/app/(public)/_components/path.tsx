@@ -4,7 +4,7 @@ import { useScroll, useMotionValueEvent } from "framer-motion";
 import { useTheme } from "next-themes";
 import Stop from "./stop";
 
-const Path = () => {
+const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
   const { theme } = useTheme();
   const { scrollYProgress } = useScroll();
   const [gradientStops, setGradientStops] = useState("0%, 0%");
@@ -14,13 +14,13 @@ const Path = () => {
 
   //Path + stops dimensions
   const strokeWidth = 5;
-  const svgWidth = 1458.5;
-  const svgHeight = 1000;
-  const repetitions = 2;
+  // const svgWidth = 1458.5;
+  const svgHeight = svgWidth * 0.68; //1000;
+  const repetitions = 5;
   // Stops dimensions
-  const baseHeight = 13;
-  const baseWidth = 100;
-  const baseDepth = 35;
+  const baseHeight = svgHeight * 0.013; //13;
+  const baseWidth = svgWidth * 0.07; //100
+  const baseDepth = baseHeight * 3;
   const buttonDepth = baseDepth / 2;
 
   let startPoint = [
@@ -127,7 +127,9 @@ const Path = () => {
         height: "auto",
       }}
       viewBox={`0 0 ${svgWidth + strokeWidth} ${
-        (svgHeight + strokeWidth / 2) * repetitions + strokeWidth / 2
+        (svgHeight + strokeWidth / 2) * repetitions +
+        strokeWidth / 2 +
+        baseHeight * 2.5
       }`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

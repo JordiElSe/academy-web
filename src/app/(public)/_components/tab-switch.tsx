@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Path from "./path";
-import Stop from "./stop";
 
 const tabs = [
   { label: "Roadmap A1-A2" },
@@ -15,6 +14,14 @@ const tabs = [
 
 export default function TabSwitch() {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [pathWidth, setPathWidth] = useState(0);
+  const pathRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (pathRef.current) {
+      setPathWidth(pathRef.current.offsetWidth);
+    }
+  }, [pathRef.current]);
 
   return (
     <div className="w-[90%] h-full rounded-2xl flex flex-col shadow overflow-auto">
@@ -42,15 +49,15 @@ export default function TabSwitch() {
       <main className="flex justify-center w-full h-full items-center select-none bg-gray-50 dark:bg-slate-600 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
-            className="relative w-full px-32 py-6"
+            ref={pathRef}
+            className="relative w-full h-full px-4 py-4 xl:px-24 xl:py-6"
             key={selectedTab ? selectedTab.label : "empty"}
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <Path />
-            {/* <Stop className="absolute top-[17.4rem] left-[19.5rem]" /> */}
+            {pathWidth > 0 && <Path svgWidth={pathWidth} />}
           </motion.div>
         </AnimatePresence>
       </main>
