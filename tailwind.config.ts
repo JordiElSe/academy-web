@@ -113,9 +113,7 @@ const config = {
         "ml-expand": "ml-expand 0.3s ease-in-out forwards",
         "ml-shrink": "ml-shrink 0.3s ease-in-out forwards",
         "fade-in-out": "fade-in-out 6s infinite",
-        pingWithDelay: "pingWithDelay 3s ease-in-out infinite" /* 
-        pingWithDelay2: "pingWithDelay 3s ease-in-out infinite 0.45s",
-        pingWithDelay3: "pingWithDelay 3s ease-in-out infinite 0.9s", */,
+        pingWithDelay: "pingWithDelay 3s ease-in-out infinite",
       },
     },
   },

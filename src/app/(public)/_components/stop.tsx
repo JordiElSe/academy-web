@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import StopContent from "./stop-content";
 
 interface StopProps {
   x: number;
@@ -8,6 +9,7 @@ interface StopProps {
   baseHeight: number;
   baseWidth: number;
   baseDepth: number;
+  onStopClick: () => void;
 }
 
 export default function Stop({
@@ -16,8 +18,9 @@ export default function Stop({
   baseHeight,
   baseWidth,
   baseDepth,
+  onStopClick,
 }: StopProps) {
-  const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
+  const [buttonClicked, setButtonClicked] = useState(0);
   const buttonHeight = baseHeight;
   const buttonWidth = baseWidth * 0.58;
   const buttonDepth = baseDepth / 2;
@@ -55,7 +58,8 @@ export default function Stop({
   const baseBottomLeft = [baseTopLeft[0], baseBottomRight[1]];
 
   const handleClick = () => {
-    setButtonClickedHeight((prev) => (prev === 0 ? buttonHeight * 0.7 : 0));
+    setButtonClicked((prev) => (prev === 0 ? buttonHeight * 0.7 : 0));
+    onStopClick();
   };
 
   return (
@@ -152,13 +156,13 @@ export default function Stop({
           buttonBottomRight[0]
         } ${buttonBottomRight[1]} L${buttonTopRight[0]} ${buttonTopRight[1]}`}
         animate={{
-          d: `M${buttonTopLeft[0]} ${buttonTopLeft[1] + buttonClickedHeight} L${
+          d: `M${buttonTopLeft[0]} ${buttonTopLeft[1] + buttonClicked} L${
             buttonBottomLeft[0]
           } ${buttonBottomLeft[1]} A ${buttonWidth / 2} ${
             buttonDepth / 2
           } 0 1 0 ${buttonBottomRight[0]} ${buttonBottomRight[1]} L${
             buttonTopRight[0]
-          } ${buttonTopRight[1] + buttonClickedHeight}`,
+          } ${buttonTopRight[1] + buttonClicked}`,
         }}
         transition={{
           type: "spring",
@@ -174,7 +178,7 @@ export default function Stop({
         rx={buttonWidth / 2}
         ry={buttonDepth / 2}
         animate={{
-          cy: centerButtonEllipse[1] + buttonClickedHeight,
+          cy: centerButtonEllipse[1] + buttonClicked,
         }}
         transition={{
           type: "spring",

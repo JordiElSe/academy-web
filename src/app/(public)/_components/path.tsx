@@ -1,16 +1,22 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { useTheme } from "next-themes";
 import Stop from "./stop";
+import StopContent from "./stop-content";
 
 const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
   const { theme } = useTheme();
   const { scrollYProgress } = useScroll();
   const [gradientStops, setGradientStops] = useState("0%, 0%");
+  const [isStopClicked, setIsStopClicked] = useState(false);
   const [stops, setStops] = useState<React.ReactNode[]>([]);
   const pathRef = useRef<SVGPathElement>(null);
   const pathLengthRef = useRef(0);
+
+  const toggleIsStopClicked = useCallback(() => {
+    setIsStopClicked((prevState) => !prevState);
+  }, []);
 
   //Path + stops dimensions
   const strokeWidth = 5;
@@ -103,6 +109,7 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
               baseDepth={baseDepth}
               baseHeight={baseHeight}
               baseWidth={baseWidth}
+              onStopClick={toggleIsStopClicked}
             />
           );
         });
@@ -141,7 +148,11 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
           x1="0"
           x2="0"
           y1="0"
-          y2={(svgHeight + strokeWidth / 2) * repetitions + strokeWidth / 2}
+          y2={
+            (svgHeight + strokeWidth / 2) * repetitions +
+            strokeWidth / 2 +
+            baseHeight * 2.5
+          }
         >
           <stop offset="0%" stopColor="#264DFF" stopOpacity="0" />
           <stop
@@ -174,6 +185,7 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
         fill="none"
       />
       {stops}
+      <StopContent x={svgWidth / 2 - 100} y={580} showCard={isStopClicked} />
     </svg>
   );
 };

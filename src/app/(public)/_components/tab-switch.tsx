@@ -19,9 +19,10 @@ export default function TabSwitch() {
 
   useEffect(() => {
     if (pathRef.current) {
+      console.log(pathRef.current.offsetWidth);
       setPathWidth(pathRef.current.offsetWidth);
     }
-  }, [pathRef.current]);
+  }, []);
 
   return (
     <div className="w-[90%] h-full rounded-2xl flex flex-col shadow overflow-auto">
