@@ -3,12 +3,19 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import StopContent from "./stop-content";
 
+enum Positions {
+  Left,
+  Right,
+  Bottom,
+}
+
 interface StopProps {
   x: number;
   y: number;
   baseHeight: number;
   baseWidth: number;
   baseDepth: number;
+  position: Positions;
   onStopClick: () => void;
 }
 
@@ -19,11 +26,32 @@ export default function Stop({
   baseWidth,
   baseDepth,
   onStopClick,
+  position,
 }: StopProps) {
-  const [buttonClicked, setButtonClicked] = useState(0);
+  const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
   const buttonHeight = baseHeight;
   const buttonWidth = baseWidth * 0.58;
   const buttonDepth = baseDepth / 2;
+  const lineLength =
+    position === Positions.Bottom
+      ? baseDepth * 2.5 * 1.25
+      : baseWidth * 2.5 * 1.25;
+  const cardWidth =
+    position === Positions.Bottom ? lineLength * 2.5 : lineLength;
+  const cardHeight =
+    position === Positions.Bottom ? lineLength * 1.75 : lineLength;
+  const svgWidth =
+    position === Positions.Bottom
+      ? cardWidth
+      : (baseWidth * 2.5) / 2 + lineLength + cardWidth;
+  const svgHeight =
+    position === Positions.Bottom
+      ? (baseDepth * 2.5) / 2 -
+        baseHeight -
+        buttonHeight * 0.3 +
+        lineLength +
+        cardHeight
+      : cardHeight;
 
   const centerBaseEllipse = [
     (baseWidth * 2.5) / 2,
@@ -58,19 +86,17 @@ export default function Stop({
   const baseBottomLeft = [baseTopLeft[0], baseBottomRight[1]];
 
   const handleClick = () => {
-    setButtonClicked((prev) => (prev === 0 ? buttonHeight * 0.7 : 0));
+    setButtonClickedHeight((prev) => (prev === 0 ? buttonHeight * 0.7 : 0));
     onStopClick();
   };
 
   return (
     <svg
-      className="cursor-pointer"
       x={x}
       y={y}
-      width={baseWidth * 2.5}
-      height={baseDepth * 2.5}
-      viewBox={`0 0 ${baseWidth * 2.5} ${baseDepth * 2.5}`}
-      onClick={handleClick}
+      width={svgWidth}
+      height={svgHeight}
+      viewBox={`0 0 ${svgWidth} ${svgHeight}`}
     >
       <motion.ellipse
         cx={centerBaseEllipse[0]}
@@ -139,6 +165,8 @@ export default function Stop({
         } L${baseTopRight[0]} ${baseTopRight[1]}`}
         fill="#4F4F4F"
         stroke="black"
+        onClick={handleClick}
+        className="cursor-pointer"
       />
       <ellipse
         cx={centerBaseEllipse[0]}
@@ -147,8 +175,9 @@ export default function Stop({
         ry={baseDepth / 2}
         fill="#838383"
         stroke="black"
+        onClick={handleClick}
+        className="cursor-pointer"
       />
-
       <motion.path
         d={`M${buttonTopLeft[0]} ${buttonTopLeft[1]} L${buttonBottomLeft[0]} ${
           buttonBottomLeft[1]
@@ -156,13 +185,13 @@ export default function Stop({
           buttonBottomRight[0]
         } ${buttonBottomRight[1]} L${buttonTopRight[0]} ${buttonTopRight[1]}`}
         animate={{
-          d: `M${buttonTopLeft[0]} ${buttonTopLeft[1] + buttonClicked} L${
+          d: `M${buttonTopLeft[0]} ${buttonTopLeft[1] + buttonClickedHeight} L${
             buttonBottomLeft[0]
           } ${buttonBottomLeft[1]} A ${buttonWidth / 2} ${
             buttonDepth / 2
           } 0 1 0 ${buttonBottomRight[0]} ${buttonBottomRight[1]} L${
             buttonTopRight[0]
-          } ${buttonTopRight[1] + buttonClicked}`,
+          } ${buttonTopRight[1] + buttonClickedHeight}`,
         }}
         transition={{
           type: "spring",
@@ -171,6 +200,8 @@ export default function Stop({
         }}
         fill="#4F4F4F"
         stroke="black"
+        onClick={handleClick}
+        className="cursor-pointer"
       />
       <motion.ellipse
         cx={centerButtonEllipse[0]}
@@ -178,7 +209,7 @@ export default function Stop({
         rx={buttonWidth / 2}
         ry={buttonDepth / 2}
         animate={{
-          cy: centerButtonEllipse[1] + buttonClicked,
+          cy: centerButtonEllipse[1] + buttonClickedHeight,
         }}
         transition={{
           type: "spring",
@@ -187,7 +218,19 @@ export default function Stop({
         }}
         fill="#838383"
         stroke="black"
+        onClick={handleClick}
+        className="cursor-pointer"
       />
+      {buttonClickedHeight ? (
+        <StopContent
+          x={centerButtonEllipse[0]}
+          y={centerButtonEllipse[1] + buttonClickedHeight}
+          pos={position}
+          lineLength={lineLength}
+          cardWidth={cardWidth}
+          cardHeight={cardHeight}
+        />
+      ) : null}
     </svg>
   );
 }

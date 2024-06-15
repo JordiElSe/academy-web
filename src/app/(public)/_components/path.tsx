@@ -5,6 +5,12 @@ import { useTheme } from "next-themes";
 import Stop from "./stop";
 import StopContent from "./stop-content";
 
+enum Positions {
+  Left,
+  Right,
+  Bottom,
+}
+
 const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
   const { theme } = useTheme();
   const { scrollYProgress } = useScroll();
@@ -73,6 +79,7 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
           {
             x: svgWidth / 2 - (baseWidth * 2.5) / 2,
             y: yOffset,
+            pos: Positions.Bottom,
           },
 
           {
@@ -83,10 +90,12 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
               ).x -
               (baseWidth * 2.5) / 2,
             y: svgHeight / 4 + yOffset,
+            pos: Positions.Right,
           },
           {
             x: svgWidth / 2 - (baseWidth * 2.5) / 2,
             y: startPoint[1] + svgHeight / 2 + yOffset - (baseDepth * 2.5) / 2,
+            pos: Positions.Bottom,
           },
           {
             x:
@@ -96,6 +105,7 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
               ).x -
               (baseWidth * 2.5) / 2,
             y: (svgHeight * 3) / 4 + yOffset,
+            pos: Positions.Left,
           },
         ];
 
@@ -109,6 +119,7 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
               baseDepth={baseDepth}
               baseHeight={baseHeight}
               baseWidth={baseWidth}
+              position={pos.pos}
               onStopClick={toggleIsStopClicked}
             />
           );
@@ -185,7 +196,6 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
         fill="none"
       />
       {stops}
-      <StopContent x={svgWidth / 2 - 100} y={580} showCard={isStopClicked} />
     </svg>
   );
 };
