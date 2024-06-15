@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Path from "./path";
+import StopContent from "./stop-content";
 
 const tabs = [
   { label: "Roadmap A1-A2" },
@@ -58,7 +59,8 @@ export default function TabSwitch() {
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {pathWidth > 0 && <Path svgWidth={pathWidth} />}
+            <StopContent />
+            {/* {pathWidth > 0 && <Path svgWidth={pathWidth} />} */}
           </motion.div>
         </AnimatePresence>
       </main>

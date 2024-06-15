@@ -16,28 +16,10 @@ interface StopContentProps {
   cardHeight: number;
 }
 
-export default function StopContent({
-  x,
-  y,
-  pos,
-  lineLength,
-  cardWidth,
-  cardHeight,
-}: StopContentProps) {
-  const radius = 5;
-  const svgWidth =
-    pos === Positions.Bottom ? cardWidth : lineLength + cardWidth + radius;
-  const svgHeight =
-    pos === Positions.Bottom ? lineLength + cardHeight + radius : cardHeight;
+export default function StopContent() {
   return (
-    <svg
-      x="0"
-      y="0"
-      width="100%"
-      height="100%"
-      viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-    >
-      <motion.circle
+    <svg width="300" height="300" viewBox={`0 0 100 100`}>
+      {/*  <motion.circle
         cx={x}
         cy={y}
         r={radius}
@@ -46,25 +28,25 @@ export default function StopContent({
           opacity: [0, 1],
         }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-      />
+      /> */}
       <motion.line
-        x1={x}
-        y1={y}
-        x2={
-          pos === Positions.Left
-            ? x - lineLength
-            : pos === Positions.Right
-            ? x + lineLength
-            : x
-        }
-        y2={
-          pos === Positions.Left || pos === Positions.Right ? y : y + lineLength
-        }
-        className={"stroke-black stroke-2 fill-none"}
-        animate={{ strokeDasharray: [`0 ${lineLength}`, `${lineLength} 0`] }}
-        transition={{ duration: 0.5, ease: "easeInOut", delay: 0.5 }}
+        x1="50"
+        y1="25"
+        x2="51"
+        y2="75"
+        stroke="black"
+        strokeWidth="1.5"
+        animate={{ rotateX: [90, 0] }}
+        transition={{
+          duration: 0.25,
+          repeatDelay: 1,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop",
+        }}
+        style={{ originX: 1.0, originY: 1.0 }}
       />
-      <motion.rect
+      {/* <motion.rect
         x={
           pos === Positions.Bottom
             ? x - cardWidth / 2
@@ -90,10 +72,8 @@ export default function StopContent({
           fillOpacity: { duration: 0.5, ease: "easeInOut", delay: 1.5 },
         }}
       >
-        {/* <text  x="155" y="50"  className={"text-sm fill-black opacity-0"}>
-          Possessive pronouns
-        </text> */}
-      </motion.rect>
+      
+      </motion.rect> */}
     </svg>
   );
 }
