@@ -26,36 +26,30 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
 
   //Path + stops dimensions
   const strokeWidth = 5;
+  const buttonTopMargin = 80;
   // const svgWidth = 1458.5;
-  const svgHeight = svgWidth * 0.68; //1000;
-  const repetitions = 5;
+  /*   const pathHeight = 900;
+  const stopEffectDepth = 100;
+  const svgHeight = svgWidth * 0.68; //1000; */
+  const repetitions = 3;
   // Stops dimensions
-  const baseHeight = svgHeight * 0.013; //13;
+  /*   const baseHeight = svgHeight * 0.013; //13;
   const baseWidth = svgWidth * 0.07; //100
   const baseDepth = baseHeight * 3;
-  const buttonDepth = baseDepth / 2;
+  const buttonDepth = baseDepth / 2; */
 
-  let startPoint = [
-    (svgWidth + strokeWidth) / 2,
-    strokeWidth / 2 + (baseDepth * 2.5) / 2 - buttonDepth / 2,
-  ];
-  let endPoint1 = [startPoint[0], startPoint[1] + svgHeight / 2];
-  let endPoint2 = [startPoint[0], startPoint[1] + svgHeight];
-  let controlPoint1 = [startPoint[0] - svgWidth / 2, startPoint[1]];
-  let controlPoint2 = [
-    startPoint[0] - svgWidth / 2,
-    startPoint[1] + svgHeight / 2,
-  ];
-  let controlPoint3 = [
-    startPoint[0] + svgWidth / 2,
-    startPoint[1] + svgHeight / 2,
-  ];
-  let controlPoint4 = [startPoint[0] + svgWidth / 2, startPoint[1] + svgHeight];
+  let startPoint = [750, buttonTopMargin];
+  let endPoint1 = [750, 1000 / 2 + buttonTopMargin / 2];
+  let endPoint2 = [750, 1000];
+  let controlPoint1 = [0, buttonTopMargin];
+  let controlPoint2 = [0, 1000 / 2 + buttonTopMargin / 2];
+  let controlPoint3 = [1500, 1000 / 2 + buttonTopMargin / 2];
+  let controlPoint4 = [1500, 1000];
 
   let d = "";
 
   for (let i = 0; i < repetitions; i++) {
-    let yOffset = i * svgHeight;
+    let yOffset = i * (1000 - buttonTopMargin);
     d += `M${startPoint[0]} ${startPoint[1] + yOffset}C${controlPoint1[0]} ${
       controlPoint1[1] + yOffset
     } ${controlPoint2[0]} ${controlPoint2[1] + yOffset} ${endPoint1[0]} ${
@@ -72,32 +66,27 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
       const temp: React.ReactNode[] = [];
 
       for (let i = 0; i < repetitions; i++) {
-        let yOffset = i * svgHeight;
+        let yOffset = i * (1000 - buttonTopMargin);
 
         // Calculate positions for stops
         const stopPositions = [
           {
-            x: svgWidth / 2 - (baseWidth * 2.5) / 2,
-            y: yOffset,
+            x: 550,
+            y: 0 + yOffset,
             pos: Positions.Bottom,
           },
 
+          /* {
+            x: 187.5 - 100,
+            y: 0,
+            pos: Positions.Left,
+          }, */
           {
-            x:
-              pathRef.current.getPointAtLength(
-                (i * pathLengthRef.current) / repetitions +
-                  pathLengthRef.current / repetitions / 4
-              ).x -
-              (baseWidth * 2.5) / 2,
-            y: svgHeight / 4 + yOffset,
-            pos: Positions.Right,
-          },
-          {
-            x: svgWidth / 2 - (baseWidth * 2.5) / 2,
-            y: startPoint[1] + svgHeight / 2 + yOffset - (baseDepth * 2.5) / 2,
+            x: 550,
+            y: 1000 / 2 - buttonTopMargin / 2 + yOffset,
             pos: Positions.Bottom,
           },
-          {
+          /* {
             x:
               pathRef.current.getPointAtLength(
                 (i * pathLengthRef.current) / repetitions +
@@ -105,8 +94,8 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
               ).x -
               (baseWidth * 2.5) / 2,
             y: (svgHeight * 3) / 4 + yOffset,
-            pos: Positions.Left,
-          },
+            pos: Positions.Right,
+          }, */
         ];
 
         // Push Stop components to the stops array
@@ -116,9 +105,7 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
               key={`stop-${i}-${index}`}
               x={pos.x}
               y={pos.y}
-              baseDepth={baseDepth}
-              baseHeight={baseHeight}
-              baseWidth={baseWidth}
+              baseBottomY={buttonTopMargin}
               position={pos.pos}
               onStopClick={toggleIsStopClicked}
             />
@@ -143,12 +130,9 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
       style={{
         width: "100%",
         height: "auto",
+        padding: "40 0 80 0",
       }}
-      viewBox={`0 0 ${svgWidth + strokeWidth} ${
-        (svgHeight + strokeWidth / 2) * repetitions +
-        strokeWidth / 2 +
-        baseHeight * 2.5
-      }`}
+      viewBox={`0 0 1500 ${100 + 900 * repetitions + strokeWidth}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -159,11 +143,7 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
           x1="0"
           x2="0"
           y1="0"
-          y2={
-            (svgHeight + strokeWidth / 2) * repetitions +
-            strokeWidth / 2 +
-            baseHeight * 2.5
-          }
+          y2={1000 * repetitions + strokeWidth}
         >
           <stop offset="0%" stopColor="#264DFF" stopOpacity="0" />
           <stop
@@ -196,6 +176,9 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
         fill="none"
       />
       {stops}
+      {/* <svg x={187.5 - 100} y={325 - 125} width={700} height={250}>
+        <rect x={0} y={0} width={700} height={250} fill="red" />
+      </svg> */}
     </svg>
   );
 };

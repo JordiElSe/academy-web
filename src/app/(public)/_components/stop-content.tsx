@@ -31,9 +31,9 @@ export default function StopContent() {
       /> */}
       <motion.line
         x1="50"
-        y1="25"
-        x2="51"
-        y2="75"
+        y1="50"
+        x2="55"
+        y2="100"
         stroke="black"
         strokeWidth="1.5"
         animate={{ rotateX: [90, 0] }}
@@ -46,34 +46,26 @@ export default function StopContent() {
         }}
         style={{ originX: 1.0, originY: 1.0 }}
       />
-      {/* <motion.rect
-        x={
-          pos === Positions.Bottom
-            ? x - cardWidth / 2
-            : pos === Positions.Left
-            ? x + lineLength
-            : x - lineLength
-        }
-        y={pos === Positions.Bottom ? y + lineLength : y - cardHeight / 2}
-        width={cardWidth - 1}
-        height={cardHeight - 1}
-        rx="10"
-        ry="10"
-        className={"stroke-black stroke-2 fill-white"}
-        animate={{
-          strokeDasharray: [
-            `0 ${cardWidth * 2 + cardHeight * 2}`,
-            `${cardWidth * 2 + cardHeight * 2} 0`,
-          ],
-          fillOpacity: [0, 1],
-        }}
+      <motion.rect
+        x={20}
+        y={1}
+        width={60}
+        height={50}
+        rx="2"
+        ry="2"
+        stroke="black"
+        strokeWidth="1.5"
+        fill={"grey"}
+        animate={{ rotateX: [90, 0] }}
         transition={{
-          strokeDasharray: { duration: 0.5, ease: "easeInOut", delay: 1 },
-          fillOpacity: { duration: 0.5, ease: "easeInOut", delay: 1.5 },
+          duration: 0.25,
+          repeatDelay: 1,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop",
         }}
-      >
-      
-      </motion.rect> */}
+        style={{ originX: 1.0, originY: 1.0 }}
+      ></motion.rect>
     </svg>
   );
 }

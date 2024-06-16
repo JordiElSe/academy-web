@@ -12,9 +12,7 @@ enum Positions {
 interface StopProps {
   x: number;
   y: number;
-  baseHeight: number;
-  baseWidth: number;
-  baseDepth: number;
+  baseBottomY: number;
   position: Positions;
   onStopClick: () => void;
 }
@@ -22,44 +20,25 @@ interface StopProps {
 export default function Stop({
   x,
   y,
-  baseHeight,
-  baseWidth,
-  baseDepth,
+  baseBottomY,
   onStopClick,
   position,
 }: StopProps) {
   const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
-  const buttonHeight = baseHeight;
-  const buttonWidth = baseWidth * 0.58;
-  const buttonDepth = baseDepth / 2;
-  const lineLength =
-    position === Positions.Bottom
-      ? baseDepth * 2.5 * 1.25
-      : baseWidth * 2.5 * 1.25;
-  const cardWidth =
-    position === Positions.Bottom ? lineLength * 2.5 : lineLength;
-  const cardHeight =
-    position === Positions.Bottom ? lineLength * 1.75 : lineLength;
-  const svgWidth =
-    position === Positions.Bottom
-      ? cardWidth
-      : (baseWidth * 2.5) / 2 + lineLength + cardWidth;
-  const svgHeight =
-    position === Positions.Bottom
-      ? (baseDepth * 2.5) / 2 -
-        baseHeight -
-        buttonHeight * 0.3 +
-        lineLength +
-        cardHeight
-      : cardHeight;
+  const svgWidth = position === Positions.Bottom ? 400 : 100;
+  const svgHeight = position === Positions.Bottom ? 400 : 100;
 
-  const centerBaseEllipse = [
-    (baseWidth * 2.5) / 2,
-    (baseDepth * 2.5) / 2 - baseHeight,
-  ];
+  const baseWidth = 100;
+  const baseDepth = baseBottomY / 2.5;
+  const baseHeight = 15;
+  const buttonWidth = 50;
+  const buttonHeight = 10;
+  const buttonDepth = baseDepth / 2;
+
+  const centerBaseEllipse = [svgWidth / 2, baseBottomY - baseHeight];
   const centerButtonEllipse = [
-    (baseWidth * 2.5) / 2,
-    (baseDepth * 2.5) / 2 - buttonHeight - baseHeight,
+    svgWidth / 2,
+    baseBottomY - buttonHeight - baseHeight,
   ];
   const buttonTopLeft = [
     centerButtonEllipse[0] - buttonWidth / 2,
@@ -91,16 +70,10 @@ export default function Stop({
   };
 
   return (
-    <svg
-      x={x}
-      y={y}
-      width={svgWidth}
-      height={svgHeight}
-      viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-    >
+    <svg x={x} y={y} width={svgWidth} height={svgHeight} viewBox="0 0 400 400">
       <motion.ellipse
-        cx={centerBaseEllipse[0]}
-        cy={centerBaseEllipse[1] + baseHeight}
+        cx={svgWidth / 2}
+        cy={baseBottomY}
         rx={baseWidth / 2}
         ry={baseDepth / 2}
         fill="grey"
@@ -118,8 +91,8 @@ export default function Stop({
         }}
       />
       <motion.ellipse
-        cx={centerBaseEllipse[0]}
-        cy={centerBaseEllipse[1] + baseHeight}
+        cx={svgWidth / 2}
+        cy={baseBottomY}
         rx={baseWidth / 2}
         ry={baseDepth / 2}
         fill="grey"
@@ -138,8 +111,8 @@ export default function Stop({
         }}
       />
       <motion.ellipse
-        cx={centerBaseEllipse[0]}
-        cy={centerBaseEllipse[1] + baseHeight}
+        cx={svgWidth / 2}
+        cy={baseBottomY}
         rx={baseWidth / 2}
         ry={baseDepth / 2}
         fill="grey"
@@ -221,7 +194,7 @@ export default function Stop({
         onClick={handleClick}
         className="cursor-pointer"
       />
-      {buttonClickedHeight ? (
+      {/* {buttonClickedHeight ? (
         <StopContent
           x={centerButtonEllipse[0]}
           y={centerButtonEllipse[1] + buttonClickedHeight}
@@ -230,7 +203,7 @@ export default function Stop({
           cardWidth={cardWidth}
           cardHeight={cardHeight}
         />
-      ) : null}
+      ) : null} */}
     </svg>
   );
 }
