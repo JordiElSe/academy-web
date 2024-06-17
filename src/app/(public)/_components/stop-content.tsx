@@ -11,60 +11,58 @@ interface StopContentProps {
   x: number;
   y: number;
   pos: Positions;
-  lineLength: number;
-  cardWidth: number;
-  cardHeight: number;
 }
 
-export default function StopContent() {
+export default function StopContent({ x, y, pos }: StopContentProps) {
+  const radius = 3;
   return (
-    <svg width="300" height="300" viewBox={`0 0 100 100`}>
-      {/*  <motion.circle
-        cx={x}
-        cy={y}
-        r={radius}
-        className={"fill-black"}
-        animate={{
-          opacity: [0, 1],
-        }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-      /> */}
+    <svg
+      x={x}
+      y={y - radius}
+      width="400"
+      height={333 + radius}
+      viewBox={`0 0 400 ${333 + radius}`}
+    >
+      {
+        <motion.circle
+          cx="200"
+          cy={radius}
+          r={radius}
+          className={"fill-black"}
+          animate={{
+            opacity: [0, 1],
+          }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        />
+      }
       <motion.line
-        x1="50"
-        y1="50"
-        x2="55"
-        y2="100"
+        x1="200"
+        y1={radius}
+        x2="200"
+        y2="77"
         stroke="black"
-        strokeWidth="1.5"
-        animate={{ rotateX: [90, 0] }}
-        transition={{
-          duration: 0.25,
-          repeatDelay: 1,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "loop",
-        }}
-        style={{ originX: 1.0, originY: 1.0 }}
+        strokeWidth="2.5"
+        animate={{ strokeDasharray: [`0 ${77 - radius}`, `${77 - radius} 0`] }}
+        transition={{ duration: 0.4, ease: "easeInOut", delay: 0.5 }}
       />
       <motion.rect
-        x={20}
-        y={1}
-        width={60}
-        height={50}
-        rx="2"
-        ry="2"
+        x="0"
+        y="77"
+        width="400"
+        height="258"
+        rx="10"
+        ry="10"
         stroke="black"
-        strokeWidth="1.5"
-        fill={"grey"}
-        animate={{ rotateX: [90, 0] }}
-        transition={{
-          duration: 0.25,
-          repeatDelay: 1,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "loop",
+        strokeWidth="2"
+        fill="green"
+        animate={{
+          strokeDasharray: [`0 ${400 * 2 + 258 * 2}`, `${400 * 2 + 258 * 2} 0`],
+          fillOpacity: [0, 1],
         }}
-        style={{ originX: 1.0, originY: 1.0 }}
+        transition={{
+          strokeDasharray: { duration: 0.5, ease: "easeInOut", delay: 1 },
+          fillOpacity: { duration: 0.5, ease: "easeInOut", delay: 1.4 },
+        }}
       ></motion.rect>
     </svg>
   );

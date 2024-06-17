@@ -14,24 +14,44 @@ interface StopProps {
   y: number;
   baseBottomY: number;
   position: Positions;
-  onStopClick: () => void;
+  // onStopClick: () => void;
 }
 
 export default function Stop({
   x,
   y,
   baseBottomY,
-  onStopClick,
+  // onStopClick,
   position,
 }: StopProps) {
   const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
   const svgWidth = position === Positions.Bottom ? 400 : 100;
   const svgHeight = position === Positions.Bottom ? 400 : 100;
 
+  //If too small for small screen devices
+  /*   const [baseWidth, setBaseWidth] = useState(100);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) { // Tailwind's 'sm' breakpoint
+        setBaseWidth(150);
+      } else if (window.innerWidth < 768) { // Tailwind's 'md' breakpoint
+        setViewBoxSize(125);
+      } else {
+        setViewBoxSize(100);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Set initial size
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); */
+
   const baseWidth = 100;
   const baseDepth = baseBottomY / 2.5;
-  const baseHeight = 15;
-  const buttonWidth = 50;
+  const baseHeight = 10;
+  const buttonWidth = 55;
   const buttonHeight = 10;
   const buttonDepth = baseDepth / 2;
 
@@ -66,7 +86,7 @@ export default function Stop({
 
   const handleClick = () => {
     setButtonClickedHeight((prev) => (prev === 0 ? buttonHeight * 0.7 : 0));
-    onStopClick();
+    // onStopClick();
   };
 
   return (
@@ -194,16 +214,13 @@ export default function Stop({
         onClick={handleClick}
         className="cursor-pointer"
       />
-      {/* {buttonClickedHeight ? (
+      {buttonClickedHeight ? (
         <StopContent
-          x={centerButtonEllipse[0]}
+          x={0}
           y={centerButtonEllipse[1] + buttonClickedHeight}
           pos={position}
-          lineLength={lineLength}
-          cardWidth={cardWidth}
-          cardHeight={cardHeight}
         />
-      ) : null} */}
+      ) : null}
     </svg>
   );
 }

@@ -15,14 +15,14 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
   const { theme } = useTheme();
   const { scrollYProgress } = useScroll();
   const [gradientStops, setGradientStops] = useState("0%, 0%");
-  const [isStopClicked, setIsStopClicked] = useState(false);
+  // const [isStopClicked, setIsStopClicked] = useState(false);
   const [stops, setStops] = useState<React.ReactNode[]>([]);
   const pathRef = useRef<SVGPathElement>(null);
   const pathLengthRef = useRef(0);
 
-  const toggleIsStopClicked = useCallback(() => {
-    setIsStopClicked((prevState) => !prevState);
-  }, []);
+  // const toggleIsStopClicked = useCallback(() => {
+  //   setIsStopClicked((prevState) => !prevState);
+  // }, []);
 
   //Path + stops dimensions
   const strokeWidth = 5;
@@ -107,7 +107,7 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
               y={pos.y}
               baseBottomY={buttonTopMargin}
               position={pos.pos}
-              onStopClick={toggleIsStopClicked}
+              // onStopClick={toggleIsStopClicked}
             />
           );
         });
@@ -176,8 +176,8 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
         fill="none"
       />
       {stops}
-      {/* <svg x={187.5 - 100} y={325 - 125} width={700} height={250}>
-        <rect x={0} y={0} width={700} height={250} fill="red" />
+      {/* <svg x={375} y={181} width={375} height={258}>
+        <rect x={0} y={0} width={400} height={258} fill="red" />
       </svg> */}
     </svg>
   );
