@@ -15,16 +15,9 @@ interface StopProps {
   y: number;
   baseBottomY: number;
   position: Positions;
-  // onStopClick: () => void;
 }
 
-export default function Stop({
-  x,
-  y,
-  baseBottomY,
-  // onStopClick,
-  position,
-}: StopProps) {
+export default function Stop({ x, y, baseBottomY, position }: StopProps) {
   const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
   const svgWidth =
     position === Positions.BottomLeft || position === Positions.BottomRight
@@ -63,13 +56,21 @@ export default function Stop({
   const buttonDepth = baseDepth / 2;
 
   const centerBaseEllipse = [
-    (baseWidth / 2) * 2.5,
+    position === Positions.BottomLeft
+      ? 375 + 10
+      : position === Positions.Left
+      ? 552.5
+      : (baseWidth / 2) * 2.5,
     position === Positions.BottomLeft || position === Positions.BottomRight
       ? baseBottomY - baseHeight
       : svgHeight / 2 - baseHeight,
   ];
   const centerButtonEllipse = [
-    (baseWidth / 2) * 2.5,
+    position === Positions.BottomLeft
+      ? 375 + 10
+      : position === Positions.Left
+      ? 552.5
+      : (baseWidth / 2) * 2.5,
     position === Positions.BottomLeft || position === Positions.BottomRight
       ? baseBottomY - buttonHeight - baseHeight
       : svgHeight / 2 - baseHeight - buttonHeight,
@@ -100,7 +101,6 @@ export default function Stop({
 
   const handleClick = () => {
     setButtonClickedHeight((prev) => (prev === 0 ? buttonHeight * 0.7 : 0));
-    // onStopClick();
   };
 
   return (
@@ -112,7 +112,7 @@ export default function Stop({
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
     >
       <motion.ellipse
-        cx={(baseWidth / 2) * 2.5}
+        cx={centerBaseEllipse[0]}
         cy={
           position === Positions.BottomLeft ||
           position === Positions.BottomRight
@@ -136,7 +136,7 @@ export default function Stop({
         }}
       />
       <motion.ellipse
-        cx={(baseWidth / 2) * 2.5}
+        cx={centerBaseEllipse[0]}
         cy={
           position === Positions.BottomLeft ||
           position === Positions.BottomRight
@@ -161,7 +161,7 @@ export default function Stop({
         }}
       />
       <motion.ellipse
-        cx={(baseWidth / 2) * 2.5}
+        cx={centerBaseEllipse[0]}
         cy={
           position === Positions.BottomLeft ||
           position === Positions.BottomRight

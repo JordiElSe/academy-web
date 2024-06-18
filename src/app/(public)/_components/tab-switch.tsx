@@ -59,8 +59,7 @@ export default function TabSwitch() {
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {/* <StopContent /> */}
-            {pathWidth > 0 && <Path svgWidth={pathWidth} />}
+            {pathWidth > 0 && <Path />}
           </motion.div>
         </AnimatePresence>
       </main>

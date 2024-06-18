@@ -11,32 +11,17 @@ enum Positions {
   BottomRight,
 }
 
-const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
+const Path: React.FC = () => {
   const { theme } = useTheme();
   const { scrollYProgress } = useScroll();
   const [gradientStops, setGradientStops] = useState("0%, 0%");
-  // const [isStopClicked, setIsStopClicked] = useState(false);
   const [stops, setStops] = useState<React.ReactNode[]>([]);
   const pathRef = useRef<SVGPathElement>(null);
   const pathLengthRef = useRef(0);
 
-  // const toggleIsStopClicked = useCallback(() => {
-  //   setIsStopClicked((prevState) => !prevState);
-  // }, []);
-
-  //Path + stops dimensions
   const strokeWidth = 5;
   const buttonTopMargin = 50;
-  // const svgWidth = 1458.5;
-  /*   const pathHeight = 900;
-  const stopEffectDepth = 100;
-  const svgHeight = svgWidth * 0.68; //1000; */
-  const repetitions = 2;
-  // Stops dimensions
-  /*   const baseHeight = svgHeight * 0.013; //13;
-  const baseWidth = svgWidth * 0.07; //100
-  const baseDepth = baseHeight * 3;
-  const buttonDepth = baseDepth / 2; */
+  const repetitions = 5;
 
   let startPoint = [750, buttonTopMargin];
   let endPoint1 = [750, 1000 / 2 + buttonTopMargin / 2];
@@ -86,12 +71,12 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
             pos: Positions.Right,
           },
           {
-            x: 750 - 125,
+            x: 740 - 375,
             y: 1000 / 2 - buttonTopMargin / 2 + yOffset,
             pos: Positions.BottomLeft,
           },
           {
-            x: 1312.5 - 125,
+            x: 1312.5 - 375 - 177.5,
             y:
               buttonTopMargin +
               ((1000 - buttonTopMargin) * 3) / 4 -
@@ -110,7 +95,6 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
               y={pos.y}
               baseBottomY={buttonTopMargin}
               position={pos.pos}
-              // onStopClick={toggleIsStopClicked}
             />
           );
         });
@@ -181,18 +165,6 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
         fill="none"
       />
       {stops}
-      <svg x={365} y={50 + 475 / 2 - 260 / 2} width={375} height={260}>
-        <rect x={0} y={0} width={375} height={260} rx={5} ry={5} fill="white" />
-      </svg>
-      {/* <svg x={760} y={50 + 475 / 2 - 260 / 2} width={375} height={260}>
-        <rect x={0} y={0} width={375} height={260} rx={5} ry={5} fill="white" />
-      </svg>
-      <svg x={365} y={641} width={375} height={258}>
-        <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="red" />
-      </svg>
-      <svg x={760} y={641} width={375} height={258}>
-        <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="red" />
-      </svg> */}
     </svg>
   );
 };

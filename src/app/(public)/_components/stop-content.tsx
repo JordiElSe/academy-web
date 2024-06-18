@@ -18,8 +18,9 @@ export default function StopContent({ x, y, pos }: StopContentProps) {
   const radius = 3;
   const cardWidth = 375;
   const cardHeight = 260;
+
   return (
-    <svg /* x={x} y={y} */ width="100%" height="100%">
+    <svg width="100%" height="100%">
       {
         <motion.circle
           cx={x}
@@ -35,8 +36,20 @@ export default function StopContent({ x, y, pos }: StopContentProps) {
       <motion.line
         x1={x}
         y1={y}
-        x2={pos === Positions.BottomRight ? 510 - 375 / 2 : 2}
-        y2={pos === Positions.BottomRight ? 417.5 - 260 : 2}
+        x2={
+          pos === Positions.BottomRight
+            ? 510 - cardWidth / 2
+            : pos === Positions.BottomLeft
+            ? cardWidth / 2
+            : pos === Positions.Left
+            ? 375
+            : 302.5
+        }
+        y2={
+          pos === Positions.BottomRight || pos === Positions.BottomLeft
+            ? 417.5 - cardHeight
+            : y
+        }
         stroke="black"
         strokeWidth="2.5"
         animate={{ strokeDasharray: ["0 300", "300 0"] }}
@@ -44,14 +57,24 @@ export default function StopContent({ x, y, pos }: StopContentProps) {
       />
       <motion.rect
         style={{ boxSizing: "border-box" }}
-        x={pos === Positions.BottomRight ? 510 - 375 : 2}
-        y={pos === Positions.BottomRight ? 417.5 - 260 : 2}
-        width="375"
-        height="260"
+        x={
+          pos === Positions.BottomRight
+            ? 510 - cardWidth
+            : pos === Positions.BottomLeft || pos === Positions.Left
+            ? 1
+            : 302.5
+        }
+        y={
+          pos === Positions.BottomRight || pos === Positions.BottomLeft
+            ? 417.5 - cardHeight + 1
+            : 1
+        }
+        width={cardWidth - 2}
+        height={cardHeight - 2}
         rx="5"
         ry="5"
         stroke="black"
-        strokeWidth="1"
+        strokeWidth="2"
         fill="#afc2d2"
         animate={{
           strokeDasharray: [`0 ${375 * 2 + 260 * 2}`, `${375 * 2 + 260 * 2} 0`],
