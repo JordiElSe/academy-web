@@ -26,12 +26,12 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
 
   //Path + stops dimensions
   const strokeWidth = 5;
-  const buttonTopMargin = 80;
+  const buttonTopMargin = 50;
   // const svgWidth = 1458.5;
   /*   const pathHeight = 900;
   const stopEffectDepth = 100;
   const svgHeight = svgWidth * 0.68; //1000; */
-  const repetitions = 3;
+  const repetitions = 2;
   // Stops dimensions
   /*   const baseHeight = svgHeight * 0.013; //13;
   const baseWidth = svgWidth * 0.07; //100
@@ -76,26 +76,21 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
             pos: Positions.Bottom,
           },
 
-          /* {
-            x: 187.5 - 100,
-            y: 0,
-            pos: Positions.Left,
-          }, */
+          {
+            x: 187.5 - 125,
+            y: (1000 - buttonTopMargin) / 4 + yOffset,
+            pos: Positions.Right,
+          },
           {
             x: 550,
             y: 1000 / 2 - buttonTopMargin / 2 + yOffset,
             pos: Positions.Bottom,
           },
-          /* {
-            x:
-              pathRef.current.getPointAtLength(
-                (i * pathLengthRef.current) / repetitions +
-                  (pathLengthRef.current / repetitions / 4) * 3
-              ).x -
-              (baseWidth * 2.5) / 2,
-            y: (svgHeight * 3) / 4 + yOffset,
-            pos: Positions.Right,
-          }, */
+          {
+            x: 1312.5 - 125,
+            y: ((1000 - buttonTopMargin) * 3) / 4 + yOffset,
+            pos: Positions.Left,
+          },
         ];
 
         // Push Stop components to the stops array
@@ -132,7 +127,9 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
         height: "auto",
         padding: "40 0 80 0",
       }}
-      viewBox={`0 0 1500 ${100 + 900 * repetitions + strokeWidth}`}
+      viewBox={`0 0 1500 ${
+        buttonTopMargin + (1000 - buttonTopMargin) * repetitions + strokeWidth
+      }`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -176,9 +173,18 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
         fill="none"
       />
       {stops}
-      {/* <svg x={375} y={181} width={375} height={258}>
-        <rect x={0} y={0} width={400} height={258} fill="red" />
-      </svg> */}
+      <svg x={365} y={50 + 475 / 2 - 258 / 2} width={375} height={258}>
+        <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="white" />
+      </svg>
+      <svg x={760} y={50 + 475 / 2 - 258 / 2} width={375} height={258}>
+        <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="white" />
+      </svg>
+      <svg x={365} y={641} width={375} height={258}>
+        <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="red" />
+      </svg>
+      <svg x={760} y={641} width={375} height={258}>
+        <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="red" />
+      </svg>
     </svg>
   );
 };

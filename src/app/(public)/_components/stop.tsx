@@ -25,8 +25,8 @@ export default function Stop({
   position,
 }: StopProps) {
   const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
-  const svgWidth = position === Positions.Bottom ? 400 : 100;
-  const svgHeight = position === Positions.Bottom ? 400 : 100;
+  const svgWidth = position === Positions.Bottom ? 400 : 250;
+  const svgHeight = position === Positions.Bottom ? 400 : 250;
 
   //If too small for small screen devices
   /*   const [baseWidth, setBaseWidth] = useState(100);
@@ -49,7 +49,7 @@ export default function Stop({
   }, []); */
 
   const baseWidth = 100;
-  const baseDepth = baseBottomY / 2.5;
+  const baseDepth = (baseBottomY / 2.5) * 2;
   const baseHeight = 10;
   const buttonWidth = 55;
   const buttonHeight = 10;
@@ -90,7 +90,13 @@ export default function Stop({
   };
 
   return (
-    <svg x={x} y={y} width={svgWidth} height={svgHeight} viewBox="0 0 400 400">
+    <svg
+      x={x}
+      y={y}
+      width={svgWidth}
+      height={svgHeight}
+      viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+    >
       <motion.ellipse
         cx={svgWidth / 2}
         cy={baseBottomY}
