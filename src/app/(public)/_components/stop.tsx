@@ -6,60 +6,74 @@ import StopContent from "./stop-content";
 enum Positions {
   Left,
   Right,
-  Bottom,
+  BottomLeft,
+  BottomRight,
 }
 
 interface StopProps {
   x: number;
   y: number;
-  baseHeight: number;
-  baseWidth: number;
-  baseDepth: number;
+  baseBottomY: number;
   position: Positions;
-  onStopClick: () => void;
 }
 
-export default function Stop({
-  x,
-  y,
-  baseHeight,
-  baseWidth,
-  baseDepth,
-  onStopClick,
-  position,
-}: StopProps) {
+export default function Stop({ x, y, baseBottomY, position }: StopProps) {
   const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
-  const buttonHeight = baseHeight;
-  const buttonWidth = baseWidth * 0.58;
-  const buttonDepth = baseDepth / 2;
-  const lineLength =
-    position === Positions.Bottom
-      ? baseDepth * 2.5 * 1.25
-      : baseWidth * 2.5 * 1.25;
-  const cardWidth =
-    position === Positions.Bottom ? lineLength * 2.5 : lineLength;
-  const cardHeight =
-    position === Positions.Bottom ? lineLength * 1.75 : lineLength;
   const svgWidth =
-    position === Positions.Bottom
-      ? cardWidth
-      : (baseWidth * 2.5) / 2 + lineLength + cardWidth;
+    position === Positions.BottomLeft || position === Positions.BottomRight
+      ? 510
+      : 677.5;
   const svgHeight =
-    position === Positions.Bottom
-      ? (baseDepth * 2.5) / 2 -
-        baseHeight -
-        buttonHeight * 0.3 +
-        lineLength +
-        cardHeight
-      : cardHeight;
+    position === Positions.BottomLeft || position === Positions.BottomRight
+      ? 417.5
+      : 260;
+
+  //If too small for small screen devices
+  /*   const [baseWidth, setBaseWidth] = useState(100);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) { // Tailwind's 'sm' breakpoint
+        setBaseWidth(150);
+      } else if (window.innerWidth < 768) { // Tailwind's 'md' breakpoint
+        setViewBoxSize(125);
+      } else {
+        setViewBoxSize(100);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Set initial size
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); */
+
+  const baseWidth = 100;
+  const baseDepth = (baseBottomY / 2.5) * 2;
+  const baseHeight = 10;
+  const buttonWidth = 55;
+  const buttonHeight = 10;
+  const buttonDepth = baseDepth / 2;
 
   const centerBaseEllipse = [
-    (baseWidth * 2.5) / 2,
-    (baseDepth * 2.5) / 2 - baseHeight,
+    position === Positions.BottomLeft
+      ? 375 + 10
+      : position === Positions.Left
+      ? 552.5
+      : (baseWidth / 2) * 2.5,
+    position === Positions.BottomLeft || position === Positions.BottomRight
+      ? baseBottomY - baseHeight
+      : svgHeight / 2 - baseHeight,
   ];
   const centerButtonEllipse = [
-    (baseWidth * 2.5) / 2,
-    (baseDepth * 2.5) / 2 - buttonHeight - baseHeight,
+    position === Positions.BottomLeft
+      ? 375 + 10
+      : position === Positions.Left
+      ? 552.5
+      : (baseWidth / 2) * 2.5,
+    position === Positions.BottomLeft || position === Positions.BottomRight
+      ? baseBottomY - buttonHeight - baseHeight
+      : svgHeight / 2 - baseHeight - buttonHeight,
   ];
   const buttonTopLeft = [
     centerButtonEllipse[0] - buttonWidth / 2,
@@ -87,7 +101,6 @@ export default function Stop({
 
   const handleClick = () => {
     setButtonClickedHeight((prev) => (prev === 0 ? buttonHeight * 0.7 : 0));
-    onStopClick();
   };
 
   return (
@@ -100,7 +113,12 @@ export default function Stop({
     >
       <motion.ellipse
         cx={centerBaseEllipse[0]}
-        cy={centerBaseEllipse[1] + baseHeight}
+        cy={
+          position === Positions.BottomLeft ||
+          position === Positions.BottomRight
+            ? baseBottomY
+            : svgHeight / 2
+        }
         rx={baseWidth / 2}
         ry={baseDepth / 2}
         fill="grey"
@@ -119,7 +137,12 @@ export default function Stop({
       />
       <motion.ellipse
         cx={centerBaseEllipse[0]}
-        cy={centerBaseEllipse[1] + baseHeight}
+        cy={
+          position === Positions.BottomLeft ||
+          position === Positions.BottomRight
+            ? baseBottomY
+            : svgHeight / 2
+        }
         rx={baseWidth / 2}
         ry={baseDepth / 2}
         fill="grey"
@@ -139,7 +162,12 @@ export default function Stop({
       />
       <motion.ellipse
         cx={centerBaseEllipse[0]}
-        cy={centerBaseEllipse[1] + baseHeight}
+        cy={
+          position === Positions.BottomLeft ||
+          position === Positions.BottomRight
+            ? baseBottomY
+            : svgHeight / 2
+        }
         rx={baseWidth / 2}
         ry={baseDepth / 2}
         fill="grey"
@@ -224,11 +252,8 @@ export default function Stop({
       {buttonClickedHeight ? (
         <StopContent
           x={centerButtonEllipse[0]}
-          y={centerButtonEllipse[1] + buttonClickedHeight}
+          y={centerButtonEllipse[1] + 0.7 * buttonHeight}
           pos={position}
-          lineLength={lineLength}
-          cardWidth={cardWidth}
-          cardHeight={cardHeight}
         />
       ) : null}
     </svg>

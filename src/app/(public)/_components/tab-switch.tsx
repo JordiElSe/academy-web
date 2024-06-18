@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Path from "./path";
+import StopContent from "./stop-content";
 
 const tabs = [
   { label: "Roadmap A1-A2" },
@@ -26,7 +27,7 @@ export default function TabSwitch() {
 
   return (
     <div className="w-[90%] h-full rounded-2xl flex flex-col shadow overflow-auto">
-      <nav className="bg-gray-50 rounded-2xl border-b-[2px] border-gray-300 h-14">
+      <nav className="bg-gray-50 border-b-[2px] border-gray-300 h-14">
         <ul className="flex w-full h-full items-center">
           {tabs.map((item) => (
             <li
@@ -51,14 +52,14 @@ export default function TabSwitch() {
         <AnimatePresence mode="wait">
           <motion.div
             ref={pathRef}
-            className="relative w-full h-full px-4 py-4 xl:px-24 xl:py-6"
+            className="relative w-full h-full" /* px-4 py-4 xl:px-24 xl:py-6" */
             key={selectedTab ? selectedTab.label : "empty"}
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {pathWidth > 0 && <Path svgWidth={pathWidth} />}
+            {pathWidth > 0 && <Path />}
           </motion.div>
         </AnimatePresence>
       </main>

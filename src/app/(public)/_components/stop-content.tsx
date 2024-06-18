@@ -4,96 +4,87 @@ import { motion } from "framer-motion";
 enum Positions {
   Left,
   Right,
-  Bottom,
+  BottomLeft,
+  BottomRight,
 }
 
 interface StopContentProps {
   x: number;
   y: number;
   pos: Positions;
-  lineLength: number;
-  cardWidth: number;
-  cardHeight: number;
 }
 
-export default function StopContent({
-  x,
-  y,
-  pos,
-  lineLength,
-  cardWidth,
-  cardHeight,
-}: StopContentProps) {
-  const radius = 5;
-  const svgWidth =
-    pos === Positions.Bottom ? cardWidth : lineLength + cardWidth + radius;
-  const svgHeight =
-    pos === Positions.Bottom ? lineLength + cardHeight + radius : cardHeight;
+export default function StopContent({ x, y, pos }: StopContentProps) {
+  const radius = 3;
+  const cardWidth = 375;
+  const cardHeight = 260;
+
   return (
-    <svg
-      x="0"
-      y="0"
-      width="100%"
-      height="100%"
-      viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-    >
-      <motion.circle
-        cx={x}
-        cy={y}
-        r={radius}
-        className={"fill-black"}
-        animate={{
-          opacity: [0, 1],
-        }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-      />
+    <svg width="100%" height="100%">
+      {
+        <motion.circle
+          cx={x}
+          cy={y}
+          r={radius}
+          className={"fill-black"}
+          animate={{
+            opacity: [0, 1],
+          }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        />
+      }
       <motion.line
         x1={x}
         y1={y}
         x2={
-          pos === Positions.Left
-            ? x - lineLength
-            : pos === Positions.Right
-            ? x + lineLength
-            : x
+          pos === Positions.BottomRight
+            ? 510 - cardWidth / 2
+            : pos === Positions.BottomLeft
+            ? cardWidth / 2
+            : pos === Positions.Left
+            ? 375
+            : 302.5
         }
         y2={
-          pos === Positions.Left || pos === Positions.Right ? y : y + lineLength
+          pos === Positions.BottomRight || pos === Positions.BottomLeft
+            ? 417.5 - cardHeight
+            : y
         }
-        className={"stroke-black stroke-2 fill-none"}
-        animate={{ strokeDasharray: [`0 ${lineLength}`, `${lineLength} 0`] }}
-        transition={{ duration: 0.5, ease: "easeInOut", delay: 0.5 }}
+        stroke="black"
+        strokeWidth="2.5"
+        animate={{ strokeDasharray: ["0 300", "300 0"] }}
+        transition={{ duration: 0.4, ease: "easeInOut", delay: 0.5 }}
       />
       <motion.rect
+        style={{ boxSizing: "border-box" }}
         x={
-          pos === Positions.Bottom
-            ? x - cardWidth / 2
-            : pos === Positions.Left
-            ? x + lineLength
-            : x - lineLength
+          pos === Positions.BottomRight
+            ? 510 - cardWidth
+            : pos === Positions.BottomLeft || pos === Positions.Left
+            ? 1
+            : 302.5
         }
-        y={pos === Positions.Bottom ? y + lineLength : y - cardHeight / 2}
-        width={cardWidth - 1}
-        height={cardHeight - 1}
-        rx="10"
-        ry="10"
-        className={"stroke-black stroke-2 fill-white"}
+        y={
+          pos === Positions.BottomRight || pos === Positions.BottomLeft
+            ? 417.5 - cardHeight + 1
+            : 1
+        }
+        width={cardWidth - 2}
+        height={cardHeight - 2}
+        rx="5"
+        ry="5"
+        stroke="black"
+        strokeWidth="2"
+        fill="#afc2d2"
         animate={{
-          strokeDasharray: [
-            `0 ${cardWidth * 2 + cardHeight * 2}`,
-            `${cardWidth * 2 + cardHeight * 2} 0`,
-          ],
+          strokeDasharray: [`0 ${375 * 2 + 260 * 2}`, `${375 * 2 + 260 * 2} 0`],
           fillOpacity: [0, 1],
         }}
         transition={{
           strokeDasharray: { duration: 0.5, ease: "easeInOut", delay: 1 },
-          fillOpacity: { duration: 0.5, ease: "easeInOut", delay: 1.5 },
+          fillOpacity: { duration: 0.5, ease: "easeInOut", delay: 1.4 },
         }}
-      >
-        {/* <text  x="155" y="50"  className={"text-sm fill-black opacity-0"}>
-          Possessive pronouns
-        </text> */}
-      </motion.rect>
+      ></motion.rect>
     </svg>
   );
 }
