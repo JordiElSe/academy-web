@@ -6,7 +6,8 @@ import StopContent from "./stop-content";
 enum Positions {
   Left,
   Right,
-  Bottom,
+  BottomLeft,
+  BottomRight,
 }
 
 interface StopProps {
@@ -25,8 +26,14 @@ export default function Stop({
   position,
 }: StopProps) {
   const [buttonClickedHeight, setButtonClickedHeight] = useState(0);
-  const svgWidth = position === Positions.Bottom ? 400 : 250;
-  const svgHeight = position === Positions.Bottom ? 400 : 250;
+  const svgWidth =
+    position === Positions.BottomLeft || position === Positions.BottomRight
+      ? 510
+      : 677.5;
+  const svgHeight =
+    position === Positions.BottomLeft || position === Positions.BottomRight
+      ? 417.5
+      : 260;
 
   //If too small for small screen devices
   /*   const [baseWidth, setBaseWidth] = useState(100);
@@ -55,10 +62,17 @@ export default function Stop({
   const buttonHeight = 10;
   const buttonDepth = baseDepth / 2;
 
-  const centerBaseEllipse = [svgWidth / 2, baseBottomY - baseHeight];
+  const centerBaseEllipse = [
+    (baseWidth / 2) * 2.5,
+    position === Positions.BottomLeft || position === Positions.BottomRight
+      ? baseBottomY - baseHeight
+      : svgHeight / 2 - baseHeight,
+  ];
   const centerButtonEllipse = [
-    svgWidth / 2,
-    baseBottomY - buttonHeight - baseHeight,
+    (baseWidth / 2) * 2.5,
+    position === Positions.BottomLeft || position === Positions.BottomRight
+      ? baseBottomY - buttonHeight - baseHeight
+      : svgHeight / 2 - baseHeight - buttonHeight,
   ];
   const buttonTopLeft = [
     centerButtonEllipse[0] - buttonWidth / 2,
@@ -98,8 +112,13 @@ export default function Stop({
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
     >
       <motion.ellipse
-        cx={svgWidth / 2}
-        cy={baseBottomY}
+        cx={(baseWidth / 2) * 2.5}
+        cy={
+          position === Positions.BottomLeft ||
+          position === Positions.BottomRight
+            ? baseBottomY
+            : svgHeight / 2
+        }
         rx={baseWidth / 2}
         ry={baseDepth / 2}
         fill="grey"
@@ -117,8 +136,13 @@ export default function Stop({
         }}
       />
       <motion.ellipse
-        cx={svgWidth / 2}
-        cy={baseBottomY}
+        cx={(baseWidth / 2) * 2.5}
+        cy={
+          position === Positions.BottomLeft ||
+          position === Positions.BottomRight
+            ? baseBottomY
+            : svgHeight / 2
+        }
         rx={baseWidth / 2}
         ry={baseDepth / 2}
         fill="grey"
@@ -137,8 +161,13 @@ export default function Stop({
         }}
       />
       <motion.ellipse
-        cx={svgWidth / 2}
-        cy={baseBottomY}
+        cx={(baseWidth / 2) * 2.5}
+        cy={
+          position === Positions.BottomLeft ||
+          position === Positions.BottomRight
+            ? baseBottomY
+            : svgHeight / 2
+        }
         rx={baseWidth / 2}
         ry={baseDepth / 2}
         fill="grey"
@@ -222,8 +251,8 @@ export default function Stop({
       />
       {buttonClickedHeight ? (
         <StopContent
-          x={0}
-          y={centerButtonEllipse[1] + buttonClickedHeight}
+          x={centerButtonEllipse[0]}
+          y={centerButtonEllipse[1] + 0.7 * buttonHeight}
           pos={position}
         />
       ) : null}

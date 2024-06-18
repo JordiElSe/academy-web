@@ -3,12 +3,12 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { useTheme } from "next-themes";
 import Stop from "./stop";
-import StopContent from "./stop-content";
 
 enum Positions {
   Left,
   Right,
-  Bottom,
+  BottomLeft,
+  BottomRight,
 }
 
 const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
@@ -71,24 +71,32 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
         // Calculate positions for stops
         const stopPositions = [
           {
-            x: 550,
+            x: 750 - 125,
             y: 0 + yOffset,
-            pos: Positions.Bottom,
+            pos: Positions.BottomRight,
           },
 
           {
             x: 187.5 - 125,
-            y: (1000 - buttonTopMargin) / 4 + yOffset,
+            y:
+              buttonTopMargin +
+              (1000 - buttonTopMargin) / 4 -
+              260 / 2 +
+              yOffset,
             pos: Positions.Right,
           },
           {
-            x: 550,
+            x: 750 - 125,
             y: 1000 / 2 - buttonTopMargin / 2 + yOffset,
-            pos: Positions.Bottom,
+            pos: Positions.BottomLeft,
           },
           {
             x: 1312.5 - 125,
-            y: ((1000 - buttonTopMargin) * 3) / 4 + yOffset,
+            y:
+              buttonTopMargin +
+              ((1000 - buttonTopMargin) * 3) / 4 -
+              260 / 2 +
+              yOffset,
             pos: Positions.Left,
           },
         ];
@@ -173,18 +181,18 @@ const Path: React.FC<{ svgWidth: number }> = ({ svgWidth }) => {
         fill="none"
       />
       {stops}
-      <svg x={365} y={50 + 475 / 2 - 258 / 2} width={375} height={258}>
-        <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="white" />
+      <svg x={365} y={50 + 475 / 2 - 260 / 2} width={375} height={260}>
+        <rect x={0} y={0} width={375} height={260} rx={5} ry={5} fill="white" />
       </svg>
-      <svg x={760} y={50 + 475 / 2 - 258 / 2} width={375} height={258}>
-        <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="white" />
+      {/* <svg x={760} y={50 + 475 / 2 - 260 / 2} width={375} height={260}>
+        <rect x={0} y={0} width={375} height={260} rx={5} ry={5} fill="white" />
       </svg>
       <svg x={365} y={641} width={375} height={258}>
         <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="red" />
       </svg>
       <svg x={760} y={641} width={375} height={258}>
         <rect x={0} y={0} width={375} height={258} rx={5} ry={5} fill="red" />
-      </svg>
+      </svg> */}
     </svg>
   );
 };

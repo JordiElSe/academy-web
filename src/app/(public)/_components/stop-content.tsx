@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 enum Positions {
   Left,
   Right,
-  Bottom,
+  BottomLeft,
+  BottomRight,
 }
 
 interface StopContentProps {
@@ -15,18 +16,14 @@ interface StopContentProps {
 
 export default function StopContent({ x, y, pos }: StopContentProps) {
   const radius = 3;
+  const cardWidth = 375;
+  const cardHeight = 260;
   return (
-    <svg
-      x={x}
-      y={y - radius}
-      width="400"
-      height={333 + radius}
-      viewBox={`0 0 400 ${333 + radius}`}
-    >
+    <svg /* x={x} y={y} */ width="100%" height="100%">
       {
         <motion.circle
-          cx="200"
-          cy={radius}
+          cx={x}
+          cy={y}
           r={radius}
           className={"fill-black"}
           animate={{
@@ -36,27 +33,28 @@ export default function StopContent({ x, y, pos }: StopContentProps) {
         />
       }
       <motion.line
-        x1="200"
-        y1={radius}
-        x2="200"
-        y2="77"
+        x1={x}
+        y1={y}
+        x2={pos === Positions.BottomRight ? 510 - 375 / 2 : 2}
+        y2={pos === Positions.BottomRight ? 417.5 - 260 : 2}
         stroke="black"
         strokeWidth="2.5"
-        animate={{ strokeDasharray: [`0 ${77 - radius}`, `${77 - radius} 0`] }}
+        animate={{ strokeDasharray: ["0 300", "300 0"] }}
         transition={{ duration: 0.4, ease: "easeInOut", delay: 0.5 }}
       />
       <motion.rect
-        x="0"
-        y="77"
-        width="400"
-        height="258"
-        rx="10"
-        ry="10"
+        style={{ boxSizing: "border-box" }}
+        x={pos === Positions.BottomRight ? 510 - 375 : 2}
+        y={pos === Positions.BottomRight ? 417.5 - 260 : 2}
+        width="375"
+        height="260"
+        rx="5"
+        ry="5"
         stroke="black"
-        strokeWidth="2"
-        fill="green"
+        strokeWidth="1"
+        fill="#afc2d2"
         animate={{
-          strokeDasharray: [`0 ${400 * 2 + 258 * 2}`, `${400 * 2 + 258 * 2} 0`],
+          strokeDasharray: [`0 ${375 * 2 + 260 * 2}`, `${375 * 2 + 260 * 2} 0`],
           fillOpacity: [0, 1],
         }}
         transition={{
