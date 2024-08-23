@@ -115,7 +115,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex h-full w-full items-center lg:hidden ">
+      {/*   <div className="flex h-full w-full items-center lg:hidden ">
         <div className="flex justify-between bg-transparent items-center w-full rounded-md px-2.5 py-1.5 transition duration-200">
           <a
             className="font-normal flex space-x-2 items-center text-sm mr-4  text-black px-2 py-1  relative z-20"
@@ -150,7 +150,7 @@ const Navbar: React.FC = () => {
             <path d="M432 176H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16zM432 272H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16zM432 368H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16z"></path>
           </svg>
         </div>
-      </div>
+      </div> */}
     </motion.nav>
   );
 };
