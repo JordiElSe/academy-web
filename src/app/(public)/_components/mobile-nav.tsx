@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { UserButton } from "@components/auth/user-button";
 import ThemeSwitch from "@components/theme-switch";
-import { useTheme } from "next-themes";
+// import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 
 import { motion, useCycle } from "framer-motion";
@@ -72,7 +72,7 @@ const variants = {
 export default MobileNav; */
 
 const MobileNav = () => {
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   const pathname = usePathname();
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
@@ -118,7 +118,7 @@ const MobileNav = () => {
                   <Link
                     href={item.href}
                     onClick={() => toggleOpen()}
-                    className={`flex justify-center w-full text-2xl ${
+                    className={`flex justify-center w-full text-2xl text-black${
                       item.href === pathname ? "font-bold" : ""
                     }`}
                   >
@@ -127,7 +127,7 @@ const MobileNav = () => {
                 </MenuItem>
 
                 {!isLastItem && (
-                  <MenuItem className="my-3 h-px w-full bg-gray-300" />
+                  <MenuItem className="my-3 h-px w-full bg-gray-300 text-black" />
                 )}
               </div>
             );
@@ -143,7 +143,7 @@ const MobileNav = () => {
                   <Link
                     href={item.href}
                     onClick={() => toggleOpen()}
-                    className={`flex justify-center w-full text-2xl ${
+                    className={`flex justify-center w-full text-2xl text-black${
                       item.href === pathname ? "font-bold" : ""
                     }`}
                   >
@@ -171,25 +171,30 @@ const MenuToggle = ({ toggle }: any) => (
     onClick={toggle}
     className="pointer-events-auto absolute right-4 top-[14px] z-30"
   >
-    <svg width="23" height="23" viewBox="0 0 23 23">
+    <svg
+      width="23"
+      height="23"
+      viewBox="0 0 23 23"
+      className="text-black dark:text-white"
+    >
       <Path
         variants={{
-          closed: { d: "M 2 2.5 L 20 2.5" },
-          open: { d: "M 3 16.5 L 17 2.5" },
+          closed: { d: "M 2 2.5 L 20 2.5", stroke: "currentColor" },
+          open: { d: "M 3 16.5 L 17 2.5", stroke: "#000000" }, // Black stroke in open variant
         }}
       />
       <Path
         d="M 2 9.423 L 20 9.423"
         variants={{
-          closed: { opacity: 1 },
-          open: { opacity: 0 },
+          closed: { opacity: 1, stroke: "currentColor" },
+          open: { opacity: 0, stroke: "#000000" }, // Black stroke in open variant
         }}
         transition={{ duration: 0.1 }}
       />
       <Path
         variants={{
-          closed: { d: "M 2 16.346 L 20 16.346" },
-          open: { d: "M 3 2.5 L 17 16.346" },
+          closed: { d: "M 2 16.346 L 20 16.346", stroke: "currentColor" },
+          open: { d: "M 3 2.5 L 17 16.346", stroke: "#000000" }, // Black stroke in open variant
         }}
       />
     </svg>
