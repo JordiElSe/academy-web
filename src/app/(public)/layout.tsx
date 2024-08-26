@@ -8,14 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Navbar />
       <MobileNav />
       <main className="relative overflow-hidden">
-        {/* min-h-screen w-full bg-slate-300 dark:bg-slate-900 */}
-        <div /* className="hidden sm:flex flex-col items-center " */>
-          {children}
-        </div>
-        {/* <div className="sm:hidden flex flex-col items-center">
-          
-          {children}
-        </div> */}
+        <div>{children}</div>
       </main>
     </>
   );

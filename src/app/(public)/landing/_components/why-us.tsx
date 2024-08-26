@@ -2,22 +2,38 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { BentoGrid, BentoGridItem } from "@components/ui/bento-grid";
+import { LampContainer } from "@components/ui/lamp";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function WhyUs() {
   return (
-    <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem]">
-      {items.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          className={cn("[&>p:text-lg]", item.className)}
-        />
-      ))}
-    </BentoGrid>
+    <LampContainer className="bg-zinc-900">
+      <div
+        className="max-w-3xl mx-auto space-y-8 text-center pt-20"
+        data-svelte-h="svelte-50g1yy"
+      >
+        <div className="space-y-3">
+          <p className="font-semibold text-primary">Why Us</p>{" "}
+          <h2>For beginners and experts</h2>
+        </div>{" "}
+        <p className="text-gray-600 text-xl/[1.875rem]">
+          Learn smart contract development through step-by-step tutorials and
+          projects taught by the industry’s leading experts.
+        </p>
+      </div>
+      <BentoGrid className="py-25">
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            className={cn("[&>p:text-lg]", item.className)}
+          />
+        ))}
+      </BentoGrid>
+    </LampContainer>
   );
 }
 
