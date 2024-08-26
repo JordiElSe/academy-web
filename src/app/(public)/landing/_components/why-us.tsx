@@ -10,19 +10,19 @@ export default function WhyUs() {
   return (
     <LampContainer className="bg-zinc-900">
       <div
-        className="max-w-3xl mx-auto space-y-8 text-center pt-20"
+        className="max-w-3xl mx-auto space-y-8 text-center pt-16"
         data-svelte-h="svelte-50g1yy"
       >
         <div className="space-y-3">
           <p className="font-semibold text-primary">Why Us</p>{" "}
-          <h2>For beginners and experts</h2>
+          <h2 className="">For all levels</h2>
         </div>{" "}
-        <p className="text-gray-600 text-xl/[1.875rem]">
-          Learn smart contract development through step-by-step tutorials and
-          projects taught by the industry’s leading experts.
+        <p className="text-gray-400 text-xl/[1.875rem]">
+          Learn the catalan language through step-by-step lessons and
+          complementary exercises taught by native speakers.
         </p>
       </div>
-      <BentoGrid className="py-25">
+      <BentoGrid className="pt-16">
         {items.map((item, i) => (
           <BentoGridItem
             key={i}
