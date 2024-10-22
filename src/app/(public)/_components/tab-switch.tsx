@@ -59,7 +59,7 @@ export default function TabSwitch() {
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {pathWidth > 0 && <Path />}
+            {pathWidth > 0 && <Path repetitions={5} />}
           </motion.div>
         </AnimatePresence>
       </main>

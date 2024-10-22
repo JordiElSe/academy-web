@@ -5,6 +5,7 @@ import { BentoGrid, BentoGridItem } from "@components/ui/bento-grid";
 import { LampContainer } from "@components/ui/lamp";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { LocatiionDrawing } from "./stroke-offset-animation";
 
 export default function WhyUs() {
   return (
@@ -322,7 +323,7 @@ const items = [
         language with confidence.
       </span>
     ),
-    header: <SkeletonTwo />,
+    header: <LocatiionDrawing />,
     className: "md:col-span-1",
   },
   {

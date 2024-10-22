@@ -49,26 +49,37 @@ export default function OurMaterials() {
     <div>
       <section className="mb-12">
         <h1 className="text-3xl font-bold text-center py-12">Our Materials</h1>
-        <div className="flex flex-row items-center justify-center gap-8 w-[50%] mx-auto">
-          <BackgroundGradient
-            className="rounded-[22px] p-4 sm:p-12 bg-white dark:bg-zinc-900"
-            containerClassName=""
-          >
-            <p className="text-6xl text-center font-bold">60%</p>
-            <p className="text-xl text-center pt-4">audio content</p>
-          </BackgroundGradient>
-          <BackgroundGradient
-            className="rounded-[22px] p-4 sm:p-12 bg-white dark:bg-zinc-900"
-            containerClassName=""
-          >
-            <p className="text-6xl text-center font-bold">40%</p>
-            <p className="text-xl text-center pt-4">audio content</p>
-          </BackgroundGradient>
+        <div className="flex flex-row items-start justify-center gap-12 w-full h-full">
+          <div className="flex flex-col">
+            <BackgroundGradient
+              className="rounded-[22px] p-4 sm:p-12 bg-white dark:bg-zinc-900"
+              containerClassName=""
+            >
+              <p className="text-6xl text-center font-bold">60%</p>
+              {/* <p className="text-lg text-center pt-4">audio content</p> */}
+            </BackgroundGradient>
+            <p className="text-lg text-center pt-4">Audio Content</p>
+          </div>
+          <div className="flex flex-col">
+            <BackgroundGradient
+              className="rounded-[22px] p-4 sm:p-12 bg-white dark:bg-zinc-900"
+              containerClassName=""
+            >
+              <p className="text-6xl text-center font-bold">40%</p>
+              {/* <p className="text-lg text-center pt-4">
+              complimentary material to the podcast
+            </p> */}
+            </BackgroundGradient>
+            <p className="text-lg text-center pt-4">
+              Complimentary Material <br />
+              To The Podcast
+            </p>
+          </div>
         </div>
       </section>
       <section>
         <div className="">
-          <StickyScroll content={content} />
+          <StickyScroll contentClassName="" content={content} />
         </div>
       </section>
     </div>

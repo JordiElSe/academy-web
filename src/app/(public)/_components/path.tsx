@@ -11,7 +11,11 @@ enum Positions {
   BottomRight,
 }
 
-const Path: React.FC = () => {
+type PathProps = {
+  repetitions: number;
+};
+
+const Path: React.FC<PathProps> = ({ repetitions }) => {
   const { theme } = useTheme();
   const { scrollYProgress } = useScroll();
   const [gradientStops, setGradientStops] = useState("0%, 0%");
@@ -21,7 +25,6 @@ const Path: React.FC = () => {
 
   const strokeWidth = 5;
   const buttonTopMargin = 50;
-  const repetitions = 5;
 
   let startPoint = [750, buttonTopMargin];
   let endPoint1 = [750, 1000 / 2 + buttonTopMargin / 2];
