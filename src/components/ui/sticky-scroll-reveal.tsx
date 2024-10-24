@@ -96,13 +96,13 @@ export const StickyScroll = ({
               </motion.p>
             </div>
           ))}
-          <div className="h-40" />
+          {/* <div className="h-40" /> */}
         </div>
       </div>
       <div
         style={{ background: backgroundGradient }}
         className={cn(
-          "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-[calc(50vh-7.5rem)]",
+          "hidden lg:block mb-20 h-60 w-80 rounded-md bg-white sticky top-[calc(50vh-7.5rem)]",
           contentClassName
         )}
       >
