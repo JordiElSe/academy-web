@@ -1,5 +1,6 @@
 import { BackgroundGradient } from "@components/ui/background-gradient";
 import { StickyScroll } from "@components/ui/sticky-scroll-reveal";
+import Image from "next/image";
 
 const content = [
   {
@@ -77,10 +78,149 @@ export default function OurMaterials() {
           </div>
         </div>
       </section>
-      <section>
+      <section className="bg-neutral-900 w-full relative h-full">
         <div className="">
           <StickyScroll contentClassName="" content={content} />
         </div>
+        {/* <div className="hidden lg:flex h-full  flex-col max-w-7xl mx-auto justify-between relative   p-10 ">
+          <div className="my-40  relative grid grid-cols-3 gap-8">
+            <div className="w-full">
+              <div
+                style={{
+                  opacity: 0,
+                  transform: "translateY(250px) translateZ(0px)",
+                }}
+              >
+                <h2 className="mt-2 font-bold text-2xl lg:text-4xl inline-block bg-clip-text text-left text-transparent bg-gradient-to-b from-white  to-white">
+                  Email Automation
+                </h2>
+                <p className="text-lg text-neutral-500 font-bold max-w-sm mt-2">
+                  With our best in className email automation, you can automate
+                  your entire emailing process.
+                </p>
+              </div>
+            </div>
+            <div
+              className="h-full w-full rounded-md  self-start col-span-2"
+              style={{
+                opacity: 0,
+                transform: "translateY(-200px) translateZ(0px)",
+              }}
+            >
+              <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg relative shadow-2xl">
+                <Image
+                  alt="dashboard"
+                  loading="lazy"
+                  width="1000"
+                  height="1000"
+                  decoding="async"
+                  data-nimg="1"
+                  className="transition duration-300 blur-0 w-full rounded-lg shadow-xl shadow-brand/[0.2]"
+                  style={{ color: "transparent" }}
+                  src="/assets/dashboard.png"
+                />
+                <div className="absolute bottom-0 w-full h-px inset-x-0 bg-gradient-to-r from-transparent via-secondary to-transparent"></div>
+                <div className="absolute bottom-0 w-40 mx-auto h-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
+              </div>
+            </div>
+          </div>
+          <div className="my-40  relative grid grid-cols-3 gap-8">
+          <div className="w-full">
+            <div
+              className=""
+              style={{
+                opacity: 0,
+                transform: "translateY(250px) translateZ(0px)",
+              }}
+            >
+              <h2 className="mt-2 font-bold text-2xl lg:text-4xl inline-block bg-clip-text text-left text-transparent bg-gradient-to-b from-white  to-white">
+                Cross Platform Marketing
+              </h2>
+              <p className="text-lg text-neutral-500 font-bold max-w-sm mt-2">
+                With our cross platform marketing, you can reach your audience
+                on all the platforms they use.
+              </p>
+            </div>
+          </div>
+          <div
+            className="h-full w-full rounded-md  self-start col-span-2"
+            style={{
+              opacity: 1,
+              transform: "translateY(-200px) translateZ(0px)",
+            }}
+          >
+            <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg relative shadow-2xl">
+              <img alt="dashboard" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" className="transition duration-300 blur-0 w-full rounded-lg shadow-xl shadow-brand/[0.2]" style={{color:'transparent'}} srcSet="/_next/image?url=%2Fsecond-backup.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fsecond-backup.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fsecond-backup.png&amp;w=2048&amp;q=75">
+              <div className="absolute bottom-0 w-full h-px inset-x-0 bg-gradient-to-r from-transparent via-secondary to-transparent"></div>
+              <div className="absolute bottom-0 w-40 mx-auto h-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+        <div className="my-40  relative grid grid-cols-3 gap-8">
+          <div className="w-full">
+            <div
+              className=""
+              style={{
+                opacity: 0,
+                transform: "translateY(250px) translateZ(0px)",
+              }}
+            >
+              <h2 className="mt-2 font-bold text-2xl lg:text-4xl inline-block bg-clip-text text-left text-transparent bg-gradient-to-b from-white  to-white">
+                Managed CRM
+              </h2>
+              <p className="text-lg text-neutral-500 font-bold max-w-sm mt-2">
+                With our managed CRM, you can manage your leads and contacts in
+                one place.
+              </p>
+            </div>
+          </div>
+          <div
+            className="h-full w-full rounded-md  self-start col-span-2"
+            style={{
+              opacity: 1,
+              transform: "translateY(-200px) translateZ(0px)",
+            }}
+          >
+            <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg relative shadow-2xl">
+              <img alt="dashboard" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" className="transition duration-300 blur-0 w-full rounded-lg shadow-xl shadow-brand/[0.2]" style={{color:'transparent'}} srcSet="/_next/image?url=%2Ffourth-backup.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Ffourth-backup.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Ffourth-backup.png&amp;w=2048&amp;q=75">
+              <div className="absolute bottom-0 w-full h-px inset-x-0 bg-gradient-to-r from-transparent via-secondary to-transparent"></div>
+              <div className="absolute bottom-0 w-40 mx-auto h-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+        <div className="my-40  relative grid grid-cols-3 gap-8">
+          <div className="w-full">
+            <div
+              className=""
+              style={{
+                opacity: 0,
+                transform: "translateY(250px) translateZ(0px)",
+              }}
+            >
+              <h2 className="mt-2 font-bold text-2xl lg:text-4xl inline-block bg-clip-text text-left text-transparent bg-gradient-to-b from-white  to-white">
+                Apps Automation
+              </h2>
+              <p className="text-lg text-neutral-500 font-bold max-w-sm mt-2">
+                We have cloned zapier and built our very own apps automation
+                platform.
+              </p>
+            </div>
+          </div>
+          <div
+            className="h-full w-full rounded-md  self-start col-span-2"
+            style={{
+              opacity: 1,
+              transform: "translateY(-200px) translateZ(0px)",
+            }}
+          >
+            <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg relative shadow-2xl">
+              <img alt="dashboard" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" className="transition duration-300 blur-0 w-full rounded-lg shadow-xl shadow-brand/[0.2]" style={{color:'transparent'}} srcSet="/_next/image?url=%2Fthird.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fthird.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fthird.png&amp;w=2048&amp;q=75">
+              <div className="absolute bottom-0 w-full h-px inset-x-0 bg-gradient-to-r from-transparent via-secondary to-transparent"></div>
+              <div className="absolute bottom-0 w-40 mx-auto h-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+        </div> */}
       </section>
     </div>
   );

@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 
-export const LocatiionDrawing = () => (
+export const LocationDrawing = () => (
   <svg
     viewBox="0 0 640 640"
-    shape-rendering="geometricPrecision"
-    text-rendering="geometricPrecision"
+    shapeRendering="geometricPrecision"
+    textRendering="geometricPrecision"
   >
     <defs>
       <linearGradient
@@ -17,8 +17,8 @@ export const LocatiionDrawing = () => (
         gradientUnits="objectBoundingBox"
         gradientTransform="translate(0 0)"
       >
-        <stop offset="0%" stop-color="rgba(255,255,255,0)" />
-        <stop offset="100%" stop-color="#010022" />
+        <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+        <stop offset="100%" stopColor="#010022" />
       </linearGradient>
     </defs>
     <g transform="translate(120 100.925011)">

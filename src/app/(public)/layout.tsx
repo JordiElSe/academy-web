@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <Navbar />
       <MobileNav />
-      <main className="relative overflow-hidden">
+      <main className="relative">
         <div>{children}</div>
       </main>
     </>
