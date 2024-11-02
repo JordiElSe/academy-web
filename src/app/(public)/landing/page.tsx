@@ -8,7 +8,7 @@ import OurRoadmaps from "./_components/our-roadmaps";
 import GettingStarted from "./_components/getting-started";
 import OurLevels from "./_components/our-levels";
 import Testimonials from "./_components/testimonials";
-import FAQ from "./_components/faq";
+import FAQS from "./_components/faqs";
 
 export default function LandingPage() {
   return (
@@ -20,7 +20,7 @@ export default function LandingPage() {
       <OurRoadmaps />
       <GettingStarted />
       <Testimonials />
-      <FAQ />
+      <FAQS />
     </div>
   );
 }

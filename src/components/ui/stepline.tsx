@@ -3,12 +3,12 @@ import { throttle } from "lodash";
 import { useScroll, useTransform, motion } from "framer-motion";
 import React, { useEffect, useRef, useState, useMemo } from "react";
 
-interface TimelineEntry {
+interface SteplineEntry {
   title: string;
   content: React.ReactNode;
 }
 
-export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
+export const Stepline = ({ data }: { data: SteplineEntry[] }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const circleRefs = useRef<HTMLDivElement[]>([]);
@@ -19,16 +19,9 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     Array(data.length).fill(false)
   );
 
-  //   useEffect(() => {
-  //     if (ref.current) {
-  //       const rect = ref.current.getBoundingClientRect();
-  //       setHeight(rect.height - 90);
-  //     }
-  //   }, [ref]);
-
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 10%", "end 50%"],
+    offset: ["start 40%", "end 75%"],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
@@ -37,37 +30,16 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   // Set the bar height based on the last circle's position
   useEffect(() => {
     if (ref.current && lastCircleRef.current) {
-      const timelineRect = ref.current.getBoundingClientRect();
+      const steplineRect = ref.current.getBoundingClientRect();
       const lastCircleRect = lastCircleRef.current.getBoundingClientRect();
 
-      // Calculate the height from the top of the timeline to the bottom of the last circle
-      setHeight(lastCircleRect.top + lastCircleRect.height - timelineRect.top);
+      // Calculate the height based on the relative position within the container
+      const relativeTop = lastCircleRect.top - steplineRect.top;
+
+      // Use the greater of the relative position or container height
+      setHeight(relativeTop + lastCircleRect.height);
     }
-  }, [data.length]); // Re-run this effect if the data length changes
-
-  //   useEffect(() => {
-  //     const handleScroll = () => {
-  //       const value = scrollYProgress.get();
-  //       const newActiveCircles = [...activeCircles];
-
-  //       circleRefs.current.forEach((circleRef, index) => {
-  //         if (circleRef && ref.current) {
-  //           const circleRect = circleRef.getBoundingClientRect();
-  //           const containerRect = ref.current.getBoundingClientRect();
-
-  //           // Determine if the height of motion.div (height * scroll progress) reached this circle
-  //           const reached = value * height >= circleRect.top - containerRect.top;
-
-  //           newActiveCircles[index] = reached;
-  //         }
-  //       });
-
-  //       setActiveCircles(newActiveCircles);
-  //     };
-
-  //     // Run handleScroll whenever scrollYProgress changes
-  //     handleScroll();
-  //   }, [height, scrollYProgress, activeCircles]);
+  }, [data.length]);
 
   const handleScroll = useMemo(
     () =>
@@ -107,10 +79,10 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   return (
     <div
-      className="w-full bg-white dark:bg-neutral-950 font-sans md:px-10"
+      className="flex w-full bg-white dark:bg-neutral-950 font-sans md:px-10"
       ref={containerRef}
     >
-      <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
+      <div className="w-1/2 max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
         <h2 className="text-lg md:text-4xl mb-4 text-black dark:text-white max-w-4xl">
           Getting Started!
         </h2>
@@ -120,7 +92,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         </p>
       </div>
 
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+      <div ref={ref} className="w-1/2 relative max-w-7xl mx-auto pb-20">
         {data.map((item, index) => (
           <div
             key={index}
@@ -144,13 +116,16 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
                   }`}
                 />
               </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500 dark:text-neutral-500 ">
-                {item.title}
-              </h3>
+              <div className="hidden md:block relative w-full md:pl-20 md:text-2xl">
+                <h3 className="text-xl font-bold text-neutral-500 dark:text-neutral-500">
+                  {item.title}
+                </h3>
+                {item.content}
+              </div>
             </div>
 
-            <div className="relative pl-20 pr-4 md:pl-4 w-full">
-              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500">
+            <div className="md:hidden block relative pl-20 pr-4 md:pl-4 w-full">
+              <h3 className=" text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500">
                 {item.title}
               </h3>
               {item.content}{" "}
@@ -161,7 +136,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           style={{
             height: height + "px",
           }}
-          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 dark:via-neutral-700 to-transparent to-[99%]  [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
+          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 dark:via-neutral-700 to-black to-[99%]  [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_100%)] "
         >
           <motion.div
             style={{
