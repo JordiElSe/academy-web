@@ -9,7 +9,7 @@ import { LocationDrawing } from "./stroke-offset-animation";
 
 export default function WhyUs() {
   return (
-    <LampContainer className="bg-zinc-900">
+    <LampContainer className="">
       <div
         className="max-w-3xl mx-auto space-y-8 text-center pt-16"
         data-svelte-h="svelte-50g1yy"
