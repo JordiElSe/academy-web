@@ -15,9 +15,9 @@ export default function WhyUs() {
         data-svelte-h="svelte-50g1yy"
       >
         <div className="space-y-3">
-          <p className="font-semibold text-primary">Why Us</p>{" "}
-          <h2 className="">For all levels</h2>
-        </div>{" "}
+          <p className="font-semibold text-primary">For all levels</p>{" "}
+          <h2 className="">Why Us</h2>
+        </div>
         <p className="text-gray-400 text-xl/[1.875rem]">
           Learn the catalan language through step-by-step lessons and
           complementary exercises taught by native speakers.

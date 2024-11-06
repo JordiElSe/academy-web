@@ -1,6 +1,5 @@
 import { BackgroundGradient } from "@components/ui/background-gradient";
 import { StickyScroll } from "@components/ui/sticky-scroll-reveal";
-import Image from "next/image";
 
 const content = [
   {
@@ -49,7 +48,11 @@ export default function OurMaterials() {
   return (
     <div>
       <section className="mb-12">
-        <h1 className="text-3xl font-bold text-center py-12">Our Materials</h1>
+        <div className="text-center space-y-3 py-12">
+          <p className="font-semibold text-primary">Everything you need</p>{" "}
+          <h2 className="">Our Materials</h2>
+        </div>
+        {/* <h1 className="text-3xl font-bold text-center py-12">Our Materials</h1> */}
         <div className="flex flex-row items-start justify-center gap-12 w-full h-full">
           <div className="flex flex-col">
             <BackgroundGradient

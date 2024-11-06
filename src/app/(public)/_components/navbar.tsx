@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
       initial={{ opacity: 0.0, y: -20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{
-        // delay: 5,
+        // delay: -5,
         duration: 0.7,
         ease: "easeInOut",
       }}
@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
               className="font-normal flex space-x-2 items-center text-sm mr-4  text-black px-2 py-1  relative z-20"
               href="/"
             >
-              <svg
+              {/* <svg
                 width="35"
                 height="35"
                 viewBox="0 0 35 35"
@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
                   d="M11.0389 19.8912L11.0392 28.5579C12.6769 28.5579 14.0028 27.2273 13.9972 25.5897L13.9712 18.071L13.9899 13.8938C13.9996 11.7406 15.753 10.003 17.9061 10.0126C20.0593 10.0223 21.797 11.7756 21.7873 13.9288L21.7686 18.106L21.7686 18.7764C21.7686 19.3921 22.2677 19.8912 22.8833 19.8911C23.499 19.8911 23.998 19.392 23.998 18.7764L23.998 13.5232C23.998 9.95254 21.1035 7.05796 17.5328 7.05796C13.9735 7.05796 11.0836 9.93487 11.0677 13.4942L11.0389 19.8912Z"
                   fill="#111B21"
                 ></path>
-              </svg>
+              </svg> */}
               <span className="text-black dark:text-white font-bold">
                 Sounds of Catalan
               </span>
@@ -115,100 +115,8 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-      {/*   <div className="flex h-full w-full items-center lg:hidden ">
-        <div className="flex justify-between bg-transparent items-center w-full rounded-md px-2.5 py-1.5 transition duration-200">
-          <a
-            className="font-normal flex space-x-2 items-center text-sm mr-4  text-black px-2 py-1  relative z-20"
-            href="/"
-          >
-            <svg
-              width="35"
-              height="35"
-              viewBox="0 0 35 35"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-            >
-              <circle cx="17.5" cy="17.5" r="17.5" fill="white"></circle>
-              <path
-                d="M11.0389 19.8912L11.0392 28.5579C12.6769 28.5579 14.0028 27.2273 13.9972 25.5897L13.9712 18.071L13.9899 13.8938C13.9996 11.7406 15.753 10.003 17.9061 10.0126C20.0593 10.0223 21.797 11.7756 21.7873 13.9288L21.7686 18.106L21.7686 18.7764C21.7686 19.3921 22.2677 19.8912 22.8833 19.8911C23.499 19.8911 23.998 19.392 23.998 18.7764L23.998 13.5232C23.998 9.95254 21.1035 7.05796 17.5328 7.05796C13.9735 7.05796 11.0836 9.93487 11.0677 13.4942L11.0389 19.8912Z"
-                fill="#111B21"
-              ></path>
-            </svg>
-            <span className="text-white font-bold">Proactiv</span>
-          </a>
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 512 512"
-            className="text-white h-6 w-6"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M432 176H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16zM432 272H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16zM432 368H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16z"></path>
-          </svg>
-        </div>
-      </div> */}
     </motion.nav>
   );
 };
 
 export default Navbar;
-
-/* const Navbar: React.FC = () => {
-  const { theme } = useTheme();
-
-  return (
-    <nav
-      className={
-        "bg-[#cbd5e1a1] dark:bg-[#3b3b3ba1] shadow-md h-20 w-full sticky top-0 left-0 z-10"
-      }
-    >
-      <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
-        <Button asChild variant="navbar">
-          <Link href="/landing">Logo</Link>
-        </Button>
-        <div>
-          <ul className="flex">
-            {navLinks.map((navLink) => (
-              <li
-                key={navLink.label}
-                className="ml-10"
-              >
-                <Button asChild variant="navbar">
-                  <Link href={navLink.href}>{navLink.label}</Link>
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <ul className="flex">
-            <li key="Login" className="ml-10">
-              <LoginButton mode="modal" asChild>
-                <Button variant="navbar" size="lg">
-                  Sign In
-                </Button>
-              </LoginButton>
-            </li>
-            <li key="Signup" className="ml-10">
-              <RegisterButton mode="modal" asChild>
-                <Button variant="navbar" size="lg">
-                  Sign Up
-                </Button>
-              </RegisterButton>
-            </li>
-            <li className="ml-10 transform transition duration-350 hover:scale-115 text-xl cursor-pointer flex justify-center items-center">
-              <ThemeSwitch />
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-};
-
-export default Navbar; */
