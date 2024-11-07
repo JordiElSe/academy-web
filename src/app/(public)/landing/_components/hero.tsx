@@ -75,8 +75,8 @@ export default function Hero() {
       <Image
         src="/assets/dashboard.png"
         alt="hero"
-        height={720}
-        width={1400}
+        height={620}
+        width={1200}
         className="mx-auto rounded-2xl object-cover h-full object-left-top"
         draggable={false}
       />

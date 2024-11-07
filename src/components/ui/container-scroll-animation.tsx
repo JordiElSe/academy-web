@@ -85,7 +85,7 @@ export const Card = ({
         boxShadow:
           "box-shadow: rgba(0, 0, 0, 0.3) 0px 0px, rgba(0, 0, 0, 0.29) 0px 9px 20px, rgba(0, 0, 0, 0.26) 0px 37px 37px, rgba(0, 0, 0, 0.15) 0px 84px 50px, rgba(0, 0, 0, 0.04) 0px 149px 60px, rgba(0, 0, 0, 0.01) 0px 233px 65px",
       }}
-      className="max-w-6xl z-40 group -mt-6 mx-auto isolate group h-[20rem] md:h-[50rem] w-full border-4 border-neutral-900 p-2 md:p-2 bg-[rgb(8,9,10)] rounded-[30px] shadow-2xl relative"
+      className="max-w-6xl z-40 group -mt-6 mx-auto isolate group h-[20rem] md:h-[40rem] w-[75%] border-4 border-neutral-900 p-2 md:p-2 bg-[rgb(8,9,10)] dark:bg-slate-500 rounded-[30px] shadow-2xl relative"
     >
       {/* <span
         class="absolute z-[40] h-[0.1rem] w-[0.1rem] rounded-[9999px] bg-blue-700 shadow-[0_0_0_1px_#ffffff10] rotate-[180deg] styles_meteor__lktYZ -top-1 block"
@@ -96,7 +96,7 @@ export const Card = ({
           "--meteor-width": "143px",
         }}
       ></span> */}
-      <div className="  h-full w-full  overflow-hidden rounded-2xl bg-transparent md:rounded-2xl md:p-4 ">
+      <div className="  h-full w-full  overflow-hidden rounded-2xl bg-transparent md:rounded-2xl md:p-2">
         {children}
       </div>
     </motion.div>

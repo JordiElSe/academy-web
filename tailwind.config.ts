@@ -47,6 +47,7 @@ const config = {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
+        "bg-50": "hsl(var(--bg-50))",
         "bg-100": "hsl(var(--bg-100))",
         "bg-200": "hsl(var(--bg-200))",
         "bg-300": "hsl(var(--bg-300))",
