@@ -52,9 +52,9 @@ export default function OurLevels() {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <div className="flex flex-col md:flex-row justify-center gap-20 items-center p-6 w-full mt-8">
+    <div className="flex flex-col md:flex-row justify-center gap-20 items-center p-6 w-full md:mt-4 lg:mt-8">
       {/* Left Column - Levels */}
-      <div ref={ref} className="flex flex-col space-y-4">
+      <div ref={ref} className="flex flex-col space-y-4 order-2 md:order-1">
         {levels.map((level, index) => (
           <motion.div
             key={level.id}
@@ -74,9 +74,11 @@ export default function OurLevels() {
       </div>
 
       {/* Right Column - Title and Description */}
-      <div className="mt-8 md:mt-0 md:max-w-xl text-left">
-        <h2 className="mb-10">Understand Our Levels</h2>
-        <p className="text-lg">
+      <div className="mt-8 md:mt-0 md:max-w-xl text-left order-1 md:order-2">
+        <h2 className="mb-10 text-center md:text-left">
+          Understand Our Levels
+        </h2>
+        <p className="text-base lg:text-lg">
           In <strong>Libra</strong>, we make sure your learning process follows
           a logical path to build a solid language base! <br />
           <br />

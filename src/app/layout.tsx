@@ -22,7 +22,7 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
-        <body className={`${inter.className} h-full w-full antialiased`}>
+        <body className={`${inter.className} w-full h-full antialiased`}>
           <Providers>{children}</Providers>
         </body>
       </html>

@@ -17,10 +17,10 @@ export default function LandingPage() {
       <WhyUs />
       <OurLevels />
       <OurMaterials />
-      <OurRoadmaps />
+      {/* <OurRoadmaps />
       <GettingStarted />
       <Testimonials />
-      <FAQS />
+      <FAQS /> */}
     </div>
   );
 }

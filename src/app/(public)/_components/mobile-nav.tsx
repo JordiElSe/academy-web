@@ -94,7 +94,7 @@ const MobileNav = () => {
       />
       <motion.div
         variants={variants}
-        className="absolute flex flex-col justify-between w-full px-10 py-16 h-screen overflow-y-auto"
+        className="absolute flex flex-col justify-between w-full h-screen overflow-y-auto"
       >
         <motion.ul variants={variants} className="grid gap-3">
           <MenuItem className="mx-auto">

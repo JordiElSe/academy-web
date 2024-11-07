@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <Navbar />
       <MobileNav />
-      <main className="relative">
+      <main className="w-full">
         <div>{children}</div>
       </main>
     </>

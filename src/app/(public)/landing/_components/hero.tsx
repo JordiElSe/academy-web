@@ -20,8 +20,8 @@ export default function Hero() {
     //   >
     <ContainerScroll
       titleComponent={
-        <div className="max-w-7xl mt-28 mx-auto px-4 flex flex-col items-center justify-center">
-          <h1 className="tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-neutral-400 dark:from-neutral-600 via-black dark:via-white to-black dark:to-white text-4xl md:text-4xl lg:text-8xl font-medium max-w-6xl mx-auto text-center mt-6 relative z-10 py-6">
+        <div className="max-w-7xl mt-12 md:mt-28 mx-auto px-4 flex flex-col items-center justify-center">
+          <h1 className="tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-neutral-400 dark:from-neutral-600 via-black dark:via-white to-black dark:to-white text-5xl lg:text-8xl font-medium max-w-6xl mx-auto text-center mt-6 relative z-10 py-6">
             <span
               data-brr="1"
               style={{
@@ -34,7 +34,7 @@ export default function Hero() {
               Master Catalan with Ease and Flexibility
             </span>
           </h1>
-          <h2 className="my-4 font-normal text-center mt-2 md:mt-6 text-base md:text-xl text-neutral-800 dark:text-neutral-200 max-w-3xl mx-auto relative z-10">
+          <h2 className="my-4 font-normal text-center mt-2 md:mt-6 text-lg md:text-xl text-neutral-800 dark:text-neutral-200 max-w-3xl mx-auto relative z-10">
             <span
               style={{
                 display: "inline-block",
@@ -49,7 +49,7 @@ export default function Hero() {
           </h2>
           <div className="flex items-center gap-4 justify-center my-10 relative z-10">
             <button className="group hover:-translate-y-0.5 active:scale-[0.98] bg-secondary relative z-10 hover:bg-secondary/90 border border-secondary text-black text-sm md:text-sm transition font-medium duration-200 rounded-md px-4 py-2 justify-center shadow-[0px_-1px_0px_0px_#FFFFFF60_inset,_0px_1px_0px_0px_#FFFFFF60_inset] flex space-x-2 items-center group">
-              <span>Book a demo</span>{" "}
+              <span className="text-lg">Book a demo</span>{" "}
               <svg
                 stroke="currentColor"
                 fill="currentColor"
