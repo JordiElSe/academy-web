@@ -32,7 +32,7 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-bg-500 w-full rounded-md z-0",
+        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden w-full rounded-md z-0",
         className
       )}
     >
@@ -69,7 +69,7 @@ export const LampContainer = ({
           <div className="absolute  w-40 h-[100%] right-0  bottom-0 z-20 [mask-image:linear-gradient(to_left,white,transparent)]" />
           <div className="absolute  w-[100%] right-0 h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
         </motion.div>
-        <div className="absolute top-0 h-48 w-full translate-y-12 scale-x-150 bg-bg-500 blur-2xl"></div>
+        <div className="absolute top-0 h-48 w-full translate-y-12 scale-x-150 bg-background blur-2xl"></div>
         <div className="absolute top-0 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md"></div>
         <div className="absolute inset-auto top-0 z-50 h-36 w-[45%] -translate-y-1/2 rounded-full bg-bg-300 opacity-50 blur-3xl"></div>
         <motion.div
@@ -80,7 +80,7 @@ export const LampContainer = ({
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="absolute inset-auto z-30 top-0 h-36 w-[25%] -translate-y-[6rem] rounded-full bg-bg-200 blur-2xl"
+          className="absolute inset-auto z-30 top-0 h-36 w-[25%] -translate-y-[6rem] rounded-full bg-bg-300 dark:bg-bg-200 blur-2xl"
         ></motion.div>
         <motion.div
           initial={{ width: "4%" }}
@@ -90,10 +90,10 @@ export const LampContainer = ({
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="absolute inset-auto z-50 top-0 h-0.5 w-[35%] bg-bg-200"
+          className="absolute inset-auto z-50 top-0 h-0.5 w-[35%] bg-bg-300 dark:bg-bg-200"
         ></motion.div>
 
-        <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-bg-500"></div>
+        <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-background"></div>
       </div>
 
       <div className="relative z-50 flex flex-col items-center px-5">

@@ -13,37 +13,37 @@ const levels: Level[] = [
     id: "A1",
     title: "A1: Beginner",
     width: "w-36",
-    color: "bg-bg-50",
+    color: "bg-bg-200 dark:bg-bg-50",
   },
   {
     id: "A2",
     title: "A2: Elementary",
     width: "w-44",
-    color: "bg-bg-50",
+    color: "bg-bg-200 dark:bg-bg-50",
   },
   {
     id: "B1",
     title: "B1: Intermediate",
     width: "w-52",
-    color: "bg-bg-200",
+    color: "bg-bg-400 dark:bg-bg-200",
   },
   {
     id: "B2",
     title: "B2: Upper-Intermediate",
     width: "w-60",
-    color: "bg-bg-200",
+    color: "bg-bg-400 dark:bg-bg-200",
   },
   {
     id: "C1",
     title: "C1: Advanced",
     width: "w-72",
-    color: "bg-bg-400",
+    color: "bg-bg-500 dark:bg-bg-400",
   },
   {
     id: "C2",
     title: "C2: Proficient",
     width: "w-80",
-    color: "bg-bg-400",
+    color: "bg-bg-500 dark:bg-bg-400",
   },
 ];
 
@@ -66,7 +66,7 @@ export default function OurLevels() {
               stiffness: 100, // Adjust this for more/less force
               damping: 10, // Adjust this for smoother stop
             }}
-            className={`text-white p-4 rounded-lg font-medium ${level.width} ${level.color}`}
+            className={`text-black dark:text-white p-4 rounded-lg font-medium ${level.width} ${level.color}`}
           >
             {level.title}
           </motion.div>
