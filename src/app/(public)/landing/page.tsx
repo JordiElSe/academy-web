@@ -18,8 +18,8 @@ export default function LandingPage() {
       <OurLevels />
       <OurMaterials />
       <OurCourses />
-      {/* <GettingStarted />
-      <Testimonials />
+      <GettingStarted />
+      {/* <Testimonials />
       <FAQS /> */}
     </div>
   );
