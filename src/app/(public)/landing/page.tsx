@@ -4,7 +4,7 @@ import React from "react";
 import Hero from "./_components/hero";
 import WhyUs from "./_components/why-us";
 import OurMaterials from "./_components/our-materials";
-import OurRoadmaps from "./_components/our-roadmaps";
+import OurCourses from "./_components/our-courses";
 import GettingStarted from "./_components/getting-started";
 import OurLevels from "./_components/our-levels";
 import Testimonials from "./_components/testimonials";
@@ -17,8 +17,8 @@ export default function LandingPage() {
       <WhyUs />
       <OurLevels />
       <OurMaterials />
-      {/* <OurRoadmaps />
-      <GettingStarted />
+      <OurCourses />
+      {/* <GettingStarted />
       <Testimonials />
       <FAQS /> */}
     </div>
