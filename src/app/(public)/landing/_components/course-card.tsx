@@ -16,42 +16,44 @@ interface Course {
 
 export default function CourseCard({ course }: { course: Course }) {
   return (
-    <div className="relative bg-gradient-to-b dark:from-neutral-800 from-neutral-200 dark:to-neutral-900 to-neutral-100 p-6 rounded-3xl overflow-hidden w-full md:w-[480px] h-[400px]">
-      <Grid size={20} />
-      <div className="relative z-20 space-y-4 h-full flex flex-col">
+    <div className="relative bg-gradient-to-b dark:from-neutral-800 from-neutral-200 dark:to-neutral-900 to-neutral-100 p-4 sm:p-6 rounded-3xl overflow-hidden w-[calc(100%-2rem)] mx-4 sm:w-full md:w-[480px] min-h-[430px]">
+      <Grid size={24} />
+      <div className="relative z-20 space-y-3 sm:space-y-4 h-full flex flex-col">
         <div className="pb-2 border-b-[2px] border-neutral-400 dark:border-neutral-700">
-          <p className="text-2xl font-bold text-neutral-800 dark:text-white text-center">
+          <p className="text-xl sm:text-2xl font-bold text-neutral-800 dark:text-white text-center">
             {course.title}
           </p>
         </div>
-        <p className="text-neutral-600 dark:text-neutral-400 text-base font-normal flex-grow">
+        <p className="text-neutral-600 dark:text-neutral-400 text-base sm:text-lg font-normal flex-grow">
           {course.description}
         </p>
-        <div className="grid grid-cols-2 gap-3 pt-4 text-sm">
-          <div className="text-neutral-600 dark:text-neutral-400 flex items-center gap-1">
-            <IoMdTime className="text-lg" /> {course.hours} hours
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-2 sm:pt-4 text-sm sm:text-lg">
+          <div className="text-neutral-600 dark:text-neutral-400 flex items-center gap-1 text-base md:text-lg">
+            <IoMdTime className="text-xl md:text-2xl" /> {course.hours} hours
           </div>
-          <div className="text-neutral-600 dark:text-neutral-400 flex items-center gap-1">
-            <MdOutlinePodcasts className="text-lg" /> {course.podcasts} podcasts
+          <div className="text-neutral-600 dark:text-neutral-400 flex items-center gap-1 text-base md:text-lg">
+            <MdOutlinePodcasts className="text-xl md:text-2xl" />{" "}
+            {course.podcasts} podcasts
           </div>
-          <div className="text-neutral-600 dark:text-neutral-400 flex items-center gap-1">
-            <HiMiniPencilSquare className="text-lg" /> {course.exercises}{" "}
-            exercises
+          <div className="text-neutral-600 dark:text-neutral-400 flex items-center gap-1 text-base md:text-lg">
+            <HiMiniPencilSquare className="text-xl md:text-2xl" />{" "}
+            {course.exercises} exercises
           </div>
-          <div className="text-neutral-600 dark:text-neutral-400 flex items-center gap-1">
-            <MdOutlineQuiz className="text-lg" /> {course.tests} tests
+          <div className="text-neutral-600 dark:text-neutral-400 flex items-center gap-1 text-base md:text-lg">
+            <MdOutlineQuiz className="text-xl md:text-2xl" /> {course.tests}{" "}
+            tests
           </div>
         </div>
-        <div className="flex gap-4 mt-auto">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-auto">
           <Link
             href="/courses/syllabus"
-            className="block w-full py-2 px-4 text-center text-black dark:text-white border border-black dark:border-slate-50 hover:bg-gray-300 hover:dark:bg-gray-900 rounded-lg transition-colors"
+            className="block w-full py-2 px-2 sm:px-4 text-center text-sm sm:text-base text-black dark:text-white border border-black dark:border-slate-50 hover:bg-gray-300 hover:dark:bg-gray-900 rounded-lg transition-colors"
           >
             Explore Syllabus
           </Link>
           <Link
             href="/courses/start"
-            className="block w-full py-2 px-4 text-center text-white bg-primary border border-primary hover:bg-primary/80 rounded-lg transition-colors"
+            className="block w-full py-2 px-2 sm:px-4 text-center text-sm sm:text-base text-white bg-primary border border-primary hover:bg-primary/80 rounded-lg transition-colors"
           >
             Get Started
           </Link>
