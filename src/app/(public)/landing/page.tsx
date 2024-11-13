@@ -19,8 +19,8 @@ export default function LandingPage() {
       <OurMaterials />
       <OurCourses />
       <GettingStarted />
-      {/* <Testimonials />
-      <FAQS /> */}
+      <Testimonials />
+      {/* <FAQS /> */}
     </div>
   );
 }
