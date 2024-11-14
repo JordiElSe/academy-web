@@ -2,20 +2,22 @@ import Image from "next/image";
 
 export default function Testimonials() {
   return (
-    <div className="w-full">
-      <div className="flex flex-col gap-5 items-center text-center">
-        <h2 className="ud-section-title">Student testimonials</h2>
-        <p className="text-lg">
+    <div className="w-full px-6 py-8 md:py-12">
+      <div className="flex flex-col gap-4 md:gap-5 items-center text-center">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl">
+          Student testimonials
+        </h2>
+        <p className="text-base md:text-lg max-w-2xl">
           We've helped lots of people achieve their language goals, but don't
           just take our word for it.
         </p>
       </div>
-      <div className="flex items-center justify-center gap-8 mt-20">
-        <div className="flex flex-col gap-8 items-center">
-          <div className="flex flex-col gap-6 p-8 rounded-xl bg-slate-200 dark:bg-slate-700 max-w-96">
+      <div className="flex flex-wrap md:flex-wrap lg:flex-nowrap items-center justify-center gap-6 md:gap-8 mt-8 md:mt-12 lg:mt-20">
+        <div className="flex flex-col gap-6 md:gap-8 items-center w-full md:w-[calc(50%-1rem)] lg:w-full max-w-md lg:max-w-96">
+          <div className="flex flex-col gap-6 p-6 md:p-8 rounded-xl bg-slate-200 dark:bg-slate-700 w-full">
             <p className="">
-              If there's one resource that Web3 developers point to, it’s
-              Cyfrin’s ultimate tutorials. They’re standout resources that have
+              If there's one resource that Web3 developers point to, it's
+              Cyfrin's ultimate tutorials. They're standout resources that have
               empowered countless developers to learn blockchains, learn
               Solidity, and dive deep into Web3 development.
             </p>
@@ -32,7 +34,7 @@ export default function Testimonials() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-6 p-8 rounded-xl bg-slate-200 dark:bg-slate-700 max-w-96">
+          <div className="flex flex-col gap-6 p-6 md:p-8 rounded-xl bg-slate-200 dark:bg-slate-700 w-full">
             <p className="">
               The Cyfrin courses were a game-changer for me. They provided a
               well-structured and comprehensive introduction to web3 and
@@ -54,10 +56,10 @@ export default function Testimonials() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-8 items-center pt-8">
+        <div className="flex flex-col gap-6 md:gap-8 items-center w-full md:w-[calc(50%-1rem)] lg:w-full max-w-md lg:max-w-96 lg:pt-8">
           <div className="flex flex-col gap-6 p-8 rounded-xl bg-slate-200 dark:bg-slate-700 max-w-96">
             <p className="">
-              I took Cyfrin course and I’ve been working as a solutions
+              I took Cyfrin course and I've been working as a solutions
               developer at OpenZeppelin for the last few months. It was by far
               the most comprehensive resource and the one that really teached me
               the fundamentals and made me want to switch from web2 to web3.
@@ -77,9 +79,9 @@ export default function Testimonials() {
           </div>
           <div className="flex flex-col gap-6 p-8 rounded-xl bg-slate-200 dark:bg-slate-700 max-w-96">
             <p className="">
-              I took Cyfrin’s courses, and I took them seriously. At least one
-              hour every day, documented the progress, didn’t skip any second.
-              Haven’t found a better web3 course since. Now I’m full-time in
+              I took Cyfrin's courses, and I took them seriously. At least one
+              hour every day, documented the progress, didn't skip any second.
+              Haven't found a better web3 course since. Now I'm full-time in
               web3, working as Senior Developer Advocate at Ceramic Network.
             </p>
             <div className="">
@@ -96,7 +98,7 @@ export default function Testimonials() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-8 items-center">
+        <div className="flex flex-col md:flex-row lg:flex-col gap-6 md:gap-8 items-center w-full lg:max-w-96">
           <div className="flex flex-col gap-6 p-8 rounded-xl bg-slate-200 dark:bg-slate-700 max-w-96">
             <p className="">
               Cyfrin Updraft videos on smart contract development have been
