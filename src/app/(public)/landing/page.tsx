@@ -20,7 +20,7 @@ export default function LandingPage() {
       <OurCourses />
       <GettingStarted />
       <Testimonials />
-      {/* <FAQS /> */}
+      <FAQS />
     </div>
   );
 }
