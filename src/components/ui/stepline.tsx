@@ -34,7 +34,8 @@ export const Stepline = ({ data }: { data: SteplineEntry[] }) => {
       const lastCircleRect = lastCircleRef.current.getBoundingClientRect();
 
       // Calculate the height based on the relative position within the container
-      const relativeTop = lastCircleRect.bottom - steplineRect.top;
+      // Add 4rem (64px) to account for the top-16 offset of the bar
+      const relativeTop = lastCircleRect.top - steplineRect.top - 64;
 
       // Use the greater of the relative position or container height
       setHeight(relativeTop + lastCircleRect.height);
@@ -53,8 +54,9 @@ export const Stepline = ({ data }: { data: SteplineEntry[] }) => {
             const circleRect = circleRef.getBoundingClientRect();
             const containerRect = ref.current.getBoundingClientRect();
 
+            // Add 64px to account for the top-16 offset of the bar
             const reached =
-              scrollValue * height >= circleRect.top - containerRect.top - 50;
+              scrollValue * height >= circleRect.top - containerRect.top - 64;
 
             if (reached !== activeCirclesRef.current[index]) {
               newActiveCircles[index] = reached;
