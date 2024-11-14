@@ -3,12 +3,32 @@ import { throttle } from "lodash";
 import { useScroll, useTransform, motion } from "framer-motion";
 import React, { useEffect, useRef, useState, useMemo } from "react";
 
+// Add custom hook for media query
+const useMediaQuery = (query: string) => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    window.addEventListener("resize", listener);
+    return () => window.removeEventListener("resize", listener);
+  }, [matches, query]);
+
+  return matches;
+};
+
 interface SteplineEntry {
   title: string;
   content: React.ReactNode;
 }
 
 export const Stepline = ({ data }: { data: SteplineEntry[] }) => {
+  const isMdScreen = useMediaQuery("(min-width: 768px)");
+  const topOffset = isMdScreen ? 64 : 0; // 64px (4rem) for md screens, 0 for smaller screens
+
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const circleRefs = useRef<HTMLDivElement[]>([]);
@@ -35,12 +55,12 @@ export const Stepline = ({ data }: { data: SteplineEntry[] }) => {
 
       // Calculate the height based on the relative position within the container
       // Add 4rem (64px) to account for the top-16 offset of the bar
-      const relativeTop = lastCircleRect.top - steplineRect.top - 64;
+      const relativeTop = lastCircleRect.top - steplineRect.top - topOffset;
 
       // Use the greater of the relative position or container height
       setHeight(relativeTop + lastCircleRect.height);
     }
-  }, [data.length]);
+  }, [data.length, topOffset]);
 
   const handleScroll = useMemo(
     () =>
@@ -56,7 +76,8 @@ export const Stepline = ({ data }: { data: SteplineEntry[] }) => {
 
             // Add 64px to account for the top-16 offset of the bar
             const reached =
-              scrollValue * height >= circleRect.top - containerRect.top - 64;
+              scrollValue * height >=
+              circleRect.top - containerRect.top - topOffset;
 
             if (reached !== activeCirclesRef.current[index]) {
               newActiveCircles[index] = reached;
@@ -70,7 +91,7 @@ export const Stepline = ({ data }: { data: SteplineEntry[] }) => {
           setActiveCircles(newActiveCircles);
         }
       }, 100), // Adjust throttle timing as needed
-    [height, scrollYProgress]
+    [height, scrollYProgress, topOffset]
   );
 
   useEffect(() => {
@@ -171,14 +192,14 @@ export const Stepline = ({ data }: { data: SteplineEntry[] }) => {
           style={{
             height: height + "px",
           }}
-          className="absolute md:left-8 left-8 top-16 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 dark:via-neutral-700 to-white dark:to-black to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_100%)] "
+          className="absolute md:left-8 left-8 top-0 md:top-16 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 dark:via-neutral-700 to-white dark:to-black to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_100%)] "
         >
           <motion.div
             style={{
               height: heightTransform,
               opacity: opacityTransform,
             }}
-            className="absolute inset-x-0 top-0  w-[2px] bg-gradient-to-t from-neutral-700 via-neutral-900 dark:from-neutral-200 dark:via-neutral-400 to-transparent from-[0%] via-[10%] rounded-full"
+            className="absolute inset-x-0 top-0  w-[2px] bg-neutral-900 dark:bg-neutral-400 md:bg-gradient-to-t md:from-neutral-700 md:via-neutral-900 dark:md:from-neutral-200  dark:md:via-neutral-400 md:to-transparent md:from-[0%] md:via-[5%] rounded-full"
           />
         </div>
       </div>
