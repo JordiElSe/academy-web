@@ -9,6 +9,7 @@ import GettingStarted from "./_components/getting-started";
 import OurLevels from "./_components/our-levels";
 import Testimonials from "./_components/testimonials";
 import FAQS from "./_components/faqs";
+import Footer from "./_components/footer";
 
 export default function LandingPage() {
   return (
@@ -21,6 +22,7 @@ export default function LandingPage() {
       <GettingStarted />
       <Testimonials />
       <FAQS />
+      <Footer />
     </div>
   );
 }
